@@ -6,7 +6,7 @@ var main = function (input) {
   var myOutputValue = "You lose!";
   if (input == botOutput) {
     myOutputValue = 'We draw!';
-  } else if (input == "scissors" && myOutputValue == "paper" || input == "paper" && myOutputValue == "stone" || input == "stone" && myOutputValue == "scissors") {
+  } else if (input == "scissors" && botOutput == "paper" || input == "paper" && botOutput == "stone" || input == "stone" && botOutput == "scissors") {
     myOutputValue = "You win";
   }
   console.log(myOutputValue)
