@@ -3,7 +3,13 @@
 // eslint-disable-next-line no-unused-vars
 var main = function (input) {
   var botOutput = decideOutput();
-  var myOutputValue = "You won!"
+  var myOutputValue = "You lose!";
+  if (input == botOutput) {
+    myOutputValue = 'We draw!';
+  } else if (input == "scissors" && myOutputValue == "paper" || input == "paper" && myOutputValue == "stone" || input == "stone" && myOutputValue == "scissors") {
+    myOutputValue = "You win";
+  }
+  console.log(myOutputValue)
   return myOutputValue;
 };
 
@@ -21,7 +27,7 @@ var decideOutput = function () {
     botOutput = "scissors";
   } else if (randomDicenumber == 2) {
     botOutput = "paper";
-  } else if (randomDicenumber == 3) {
+  } else if (randomDicenumber == 0) {
     botOutput = "stone";
   }
   console.log(botOutput)
