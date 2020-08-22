@@ -5,3 +5,10 @@ var main = function (input) {
   var myOutputValue = 'hello world';
   return myOutputValue;
 };
+
+var diceRoll = function () {
+  var randomFloat = Math.random() * 3;
+  var resultInteger = Math.floor(randomFloat);
+  console.log(resultInteger)
+  return resultInteger;
+};
