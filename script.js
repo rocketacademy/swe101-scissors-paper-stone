@@ -24,17 +24,17 @@ var main = function (input) {
     nameWeapon = 'stone'
   };
 
-  var myOutputValue = 'You lose. Try again.';
+  var myOutputValue = 'ha! nice try! ' + input + ' is not a valid weapon. >:(';
 
   //DRAW
   if (input == 'scissors' && nameWeapon == 'scissors') {
-    myOutputValue = 'Draw! Both of you selected ' + nameWeapon + '.';
+    myOutputValue = 'draw! the both of us selected ' + nameWeapon + ' :)';
   }
   if (input == 'paper' && nameWeapon == 'paper') {
-    myOutputValue = ' Draw! Both of you selected paper ' + nameWeapon + '.';
+    myOutputValue = ' Draw! Both of you selected paper ' + nameWeapon + ' :)';
   }
   if (input == 'stone' && nameWeapon == 'stone') {
-    myOutputValue = 'Draw! Both of you selected stone ' + nameWeapon + '.';
+    myOutputValue = 'draw! the both of us selected ' + nameWeapon + ' :)';
   }
 
   //WIN
@@ -47,6 +47,7 @@ var main = function (input) {
   if (input == 'stone' && nameWeapon == 'scissors') {
     myOutputValue = 'hooray! ' + input + ' clobbers ' + nameWeapon + '. you win!';
   }
+
   //LOSE
   if (nameWeapon == 'scissors' && input == 'paper') {
     myOutputValue = 'sorry! ' + nameWeapon + ' shreds ' + input + '. you lose :(';
