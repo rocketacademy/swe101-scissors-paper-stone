@@ -19,7 +19,7 @@ var getProgramChoice = function () {
 // If User wins, output wins. If user lose, output lose. If user draw, output draw.
 // Output win-loss-draw record.
 var main = function (input) {
-  var result = 'please input 1 of the following options: scissors, paper, stone.';
+  var result = 'You have entered an invalid option. Please input 1 of the following options: scissors, paper, stone.';
   var programChoice = getProgramChoice();
   var myOutputValue;
   if (input == programChoice) {
