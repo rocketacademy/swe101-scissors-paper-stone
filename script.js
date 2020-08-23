@@ -23,19 +23,19 @@ var main = function (input) {
   var programChoice = getProgramChoice();
   var myOutputValue;
   if (input == programChoice) {
-    result = 'You draw.';
+    result = 'you draw.';
     timesDrew += 1; // Add 1 to the total number of times Drew
   }
   if ((input == 'scissors' && programChoice == 'paper')
     || (input == 'paper' && programChoice == 'stone')
     || (input == 'stone' && programChoice == 'scissors')) {
-    result = 'You won!';
+    result = 'you won!';
     timesUserWon += 1; // Add 1 to the total number of times player won.
   }
   if ((input == 'scissors' && programChoice == 'stone')
     || (input == 'paper' && programChoice == 'scissors')
     || (input == 'stone' && programChoice == 'paper')) {
-    result = 'You lose~';
+    result = 'you lose~';
     timesProgramWon += 1; // Add 1 to the total number of times Program won.
   }
   myOutputValue = result + ' You chose ' + input + ' and computer chose ' + programChoice
