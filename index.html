@@ -45,24 +45,32 @@
     <button id="my-button">submit</button>
     <p>output:</p>
     <div id="output">
-      <p id="instruction">Please input scissors, paper, stone to play.</p>
+      <p id="user-name">Please enter your name.</p>
     </div>
   </div>
   <script src="script.js"></script>
   <script>
     var button = document.querySelector('#my-button');
+    var enteredUserName = false;
+    var userName;
 
     button.addEventListener('click', function () {
-
       var input = document.querySelector('#my-input');
-
-      var result = main(input.value);
-
       var output = document.querySelector('#output');
 
-      output.innerHTML = result;
+      if (enteredUserName == false) {
+        enteredUserName = true;
+        console.log(enteredUserName);
+        userName = input.value;
+        output.innerHTML = userName + ' has logged in. Please enter scissors, paper or stone to play.';
+        input.value = "";
+      } else {
+        var result = main(input.value);
 
-      input.value = "";
+        output.innerHTML = userName + ', ' + result;
+
+        input.value = "";
+      }
     });
 
   </script>
