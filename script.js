@@ -1,3 +1,5 @@
+/* eslint-disable brace-style */
+/* eslint-disable no-trailing-spaces */
 // Disable ESLint rule no-unused-vars on next line because this code
 // is a learning tool and not a full-fledged node app.
 // eslint-disable-next-line no-unused-vars
@@ -40,7 +42,6 @@ var getGameResult = function (userGuess) {
   // get the random draw and mapping between the random number and values are:
   // 1 ==> scissors, 2 ==> paper and 3 ==> stone
   var randomDraw = getRandomNumber(3);
-  // eslint-disable-next-line no-trailing-spaces
   
   // If the user input and program output is same, the result is a "draw".
   if (((userGuess == varScissors) && (randomDraw == 1))
@@ -101,6 +102,6 @@ var main = function (userInput) {
   }
   // Function that gets the game result after analysing the user input and program draw
   var varResult = getGameResult(userInput);
-  varResult += '<br />' + findWinLossRecord();
+  varResult += '<br />' + findWinLossRecord(); // find the percentage of win and lose
   return varResult;
 };
