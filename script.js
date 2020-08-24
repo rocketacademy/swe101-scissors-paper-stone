@@ -41,6 +41,14 @@ var main = function (input) {
     myOutputValue = 'You won!';
   }
   // lose conditions
-
+  if (userChoice == 'scissors' && computerChoice == 'stone') {
+    myOutputValue = 'You lost!';
+  }
+  if (userChoice == 'paper' && computerChoice == 'scissors') {
+    myOutputValue = 'You lost!';
+  }
+  if (userChoice == 'stone' && computerChoice == 'paper') {
+    myOutputValue = 'You lost!';
+  }
   return myOutputValue;
 };
