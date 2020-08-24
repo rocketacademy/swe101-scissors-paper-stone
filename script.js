@@ -8,6 +8,8 @@ var countUserWon = 0;
 var countProgramWon = 0;
 // Tracks the number of times the game was a draw.
 var countDraw = 0;
+// Variable to store the name of the user
+var strUserName = '';
 
 // This function randomly chooses a value between 1 and the maximum value specified (both including)
 var getRandomNumber = function (max) {
@@ -34,8 +36,8 @@ var getGameResult = function (userGuess) {
   var varPaper = 'paper';
   var varStone = 'stone';
   var varDraw = ' Game is a Draw. ';
-  var varUser = 'User wins the game. ';
-  var varProgram = 'Program wins the game. ';
+  var varUser = strUserName + ' wins the game. ';
+  var varProgram = strUserName + ' lost. Program wins the game. ';
 
   var varGameResult = varDraw;
 
@@ -65,7 +67,7 @@ var getGameResult = function (userGuess) {
     varGameResult = varProgram;
     countProgramWon += 1;
   } else {
-    varGameResult = 'Inavlid Input. Please input one of the following options: "scissors", "paper" or "stone". ';
+    varGameResult = 'Inavlid Input. <br/>Please input one of the following options: "scissors", "paper" or "stone". <br />';
   }
   return varGameResult;
 };
@@ -76,16 +78,20 @@ var findWinLossRecord = function () {
   var numTotalGames = countDraw + countUserWon + countProgramWon;
   var userWinPercentage = calculatePercentage(numTotalGames, countUserWon);
   var programWinPercentage = calculatePercentage(numTotalGames, countProgramWon);
-  var returnResult = '\nTotal number of games played: ' + numTotalGames;
-  returnResult += '\nNumber of draws: ' + countDraw;
-  returnResult += '\nUser won: ' + userWinPercentage + '%';
-  returnResult += '\nProgram won: ' + programWinPercentage + '%';
+  var returnResult = '<br/>Total number of games played: ' + numTotalGames;
+  returnResult += '<br/>Number of draws: ' + countDraw;
+  returnResult += '<br/>' + strUserName + ' won: ' + userWinPercentage + '%';
+  returnResult += '<br/>Program won: ' + programWinPercentage + '%';
   return returnResult;
 };
 
-var main = function (userGuess) {
+var main = function (userInput) {
+  if (strUserName.length == 0) {
+    strUserName = userInput;
+    return ('Welcome ' + strUserName + '!! Start playing the game by entering one of the options: "scissors", "paper" or "stone". ');
+  }
   // Function that gets the game result after analysing the user input and program draw
-  var varResult = getGameResult(userGuess);
-  varResult += '\n' + findWinLossRecord();
+  var varResult = getGameResult(userInput);
+  varResult += '<br />' + findWinLossRecord();
   return varResult;
 };
