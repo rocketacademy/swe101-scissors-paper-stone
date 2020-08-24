@@ -1,7 +1,7 @@
 // Disable ESLint rule no-unused-vars on next line because this code
 // is a learning tool and not a full-fledged node app.
 // eslint-disable-next-line no-unused-vars
-// scissors paper stone game: user (input) vs. computer (random selector) -> define rules.
+// scissors paper stone game: user (input) vs. computer (random selector) -> define rules. DONE
 // win-loss record: game state, track and output wins and losses -> output win percentage
 // user name: first input = store username -> default page (HTML), instructions to input username
 // -> after username input, initialize game, display message to start "input Scissors..."
@@ -25,40 +25,62 @@ var computerSPS = function () {
   }
 };
 
+// game state tracker
+var userWins = 0;
+var userLosses = 0;
+var gamesPlayed = 0;
+var winPercent = 0;
+
 var main = function (input) {
   // defining the variables
   var userChoice = input;
   var computerChoice = computerSPS();
+  gamesPlayed = gamesPlayed + 1;
   var myOutputValue = 'xxx';
   // win conditions
   if (userChoice == 'scissors' && computerChoice == 'paper') {
-    myOutputValue = 'You chose ' + userChoice + '. You won!';
+    userWins = userWins + 1;
+    winPercent = (userWins / gamesPlayed) * 100;
+    myOutputValue = 'You chose ' + userChoice + '. You won! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
   }
   if (userChoice == 'paper' && computerChoice == 'stone') {
-    myOutputValue = 'You chose ' + userChoice + '. You won!';
+    userWins = userWins + 1;
+    winPercent = (userWins / gamesPlayed) * 100;
+    myOutputValue = 'You chose ' + userChoice + '. You won! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
   }
   if (userChoice == 'stone' && computerChoice == 'scissors') {
-    myOutputValue = 'You chose ' + userChoice + '. You won!';
+    userWins = userWins + 1;
+    winPercent = (userWins / gamesPlayed) * 100;
+    myOutputValue = 'You chose ' + userChoice + '. You won! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
   }
   // lose conditions
   if (userChoice == 'scissors' && computerChoice == 'stone') {
-    myOutputValue = 'You chose ' + userChoice + '. You lost!';
+    userLosses = userLosses + 1;
+    winPercent = (userWins / gamesPlayed) * 100;
+    myOutputValue = 'You chose ' + userChoice + '. You lost! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
   }
   if (userChoice == 'paper' && computerChoice == 'scissors') {
-    myOutputValue = 'You chose ' + userChoice + '. You lost!';
+    userLosses = userLosses + 1;
+    winPercent = (userWins / gamesPlayed) * 100;
+    myOutputValue = 'You chose ' + userChoice + '. You lost! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
   }
   if (userChoice == 'stone' && computerChoice == 'paper') {
-    myOutputValue = 'You chose ' + userChoice + '. You lost!';
+    userLosses = userLosses + 1;
+    winPercent = (userWins / gamesPlayed) * 100;
+    myOutputValue = 'You chose ' + userChoice + '. You lost! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
   }
   // draw conditions
   if (userChoice == 'scissors' && computerChoice == 'scissors') {
-    myOutputValue = 'You chose ' + userChoice + '. You tied!';
+    winPercent = (userWins / gamesPlayed) * 100;
+    myOutputValue = 'You chose ' + userChoice + '. You tied! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
   }
   if (userChoice == 'paper' && computerChoice == 'paper') {
-    myOutputValue = 'You chose ' + userChoice + '. You tied!';
+    winPercent = (userWins / gamesPlayed) * 100;
+    myOutputValue = 'You chose ' + userChoice + '. You tied! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
   }
   if (userChoice == 'stone' && computerChoice == 'stone') {
-    myOutputValue = 'You chose ' + userChoice + '. You tied!';
+    winPercent = (userWins / gamesPlayed) * 100;
+    myOutputValue = 'You chose ' + userChoice + '. You tied! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
   }
   return myOutputValue;
 };
