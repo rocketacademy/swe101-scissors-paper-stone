@@ -65,7 +65,7 @@ var getGameResult = function (userGuess) {
     varGameResult = varProgram;
     countProgramWon += 1;
   } else {
-    varGameResult = 'Failed to validate the game result. Not a valid game. ';
+    varGameResult = 'Inavlid Input. Please input one of the following options: "scissors", "paper" or "stone". ';
   }
   return varGameResult;
 };
@@ -87,6 +87,5 @@ var main = function (userGuess) {
   // Function that gets the game result after analysing the user input and program draw
   var varResult = getGameResult(userGuess);
   varResult += '\n' + findWinLossRecord();
-
   return varResult;
 };
