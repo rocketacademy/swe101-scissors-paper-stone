@@ -24,7 +24,23 @@ var computerSPS = function () {
     return 'stone';
   }
 };
+
 var main = function (input) {
-  var myOutputValue = computerSPS();
+  // defining the variables
+  var userChoice = input;
+  var computerChoice = computerSPS();
+  var myOutputValue = 'xxx';
+  // win conditions
+  if (userChoice == 'scissors' && computerChoice == 'paper') {
+    myOutputValue = 'You won!';
+  }
+  if (userChoice == 'paper' && computerChoice == 'stone') {
+    myOutputValue = 'You won!';
+  }
+  if (userChoice == 'stone' && computerChoice == 'scissors') {
+    myOutputValue = 'You won!';
+  }
+  // lose conditions
+
   return myOutputValue;
 };
