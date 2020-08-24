@@ -50,5 +50,15 @@ var main = function (input) {
   if (userChoice == 'stone' && computerChoice == 'paper') {
     myOutputValue = 'You lost!';
   }
+  // draw conditions
+  if (userChoice == 'scissors' && computerChoice == 'scissors') {
+    myOutputValue = 'Draw!';
+  }
+  if (userChoice == 'paper' && computerChoice == 'paper') {
+    myOutputValue = 'Draw!';
+  }
+  if (userChoice == 'stone' && computerChoice == 'stone') {
+    myOutputValue = 'Draw!';
+  }
   return myOutputValue;
 };
