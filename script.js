@@ -2,14 +2,10 @@
 // is a learning tool and not a full-fledged node app.
 // eslint-disable-next-line no-unused-vars
 
-// State of the game that keeps track of the number of times the user has won.
-var countUserWon = 0;
-// Tracks the number of times the program won the game.
-var countProgramWon = 0;
-// Tracks the number of times the game was a draw.
-var countDraw = 0;
-// Variable to store the name of the user
-var strUserName = '';
+var countUserWon = 0; // State of the game that keeps track of the number of times the user has won.
+var countProgramWon = 0; // Tracks the number of times the program won the game.
+var countDraw = 0; // Tracks the number of times the game was a draw.
+var strUserName = ''; // Variable to store the name of the user
 
 // This function randomly chooses a value between 1 and the maximum value specified (both including)
 var getRandomNumber = function (max) {
@@ -22,7 +18,7 @@ var getRandomNumber = function (max) {
 // the value of which percentage to be calculated.
 var calculatePercentage = function (totalValue, partialValue) {
   if (totalValue == 0) {
-    return 0;
+    return 0; // To prevent division by 0
   }
   return ((partialValue / totalValue) * 100).toFixed(3);
 };
@@ -44,6 +40,8 @@ var getGameResult = function (userGuess) {
   // get the random draw and mapping between the random number and values are:
   // 1 ==> scissors, 2 ==> paper and 3 ==> stone
   var randomDraw = getRandomNumber(3);
+  // eslint-disable-next-line no-trailing-spaces
+  
   // If the user input and program output is same, the result is a "draw".
   if (((userGuess == varScissors) && (randomDraw == 1))
      || ((userGuess == varPaper) && (randomDraw == 2))
@@ -66,7 +64,8 @@ var getGameResult = function (userGuess) {
   {
     varGameResult = varProgram;
     countProgramWon += 1;
-  } else {
+  }
+  else {
     varGameResult = 'Inavlid Input. <br/>Please input one of the following options: "scissors", "paper" or "stone". <br />';
   }
   return varGameResult;
@@ -78,6 +77,7 @@ var findWinLossRecord = function () {
   var numTotalGames = countDraw + countUserWon + countProgramWon;
   var userWinPercentage = calculatePercentage(numTotalGames, countUserWon);
   var programWinPercentage = calculatePercentage(numTotalGames, countProgramWon);
+  // Formatting the output string
   var returnResult = '<br/>Total number of games played: ' + numTotalGames;
   returnResult += '<br/>Number of draws: ' + countDraw;
   returnResult += '<br/>' + strUserName + ' won: ' + userWinPercentage + '%';
@@ -85,10 +85,19 @@ var findWinLossRecord = function () {
   return returnResult;
 };
 
+// Function to store the user name and if still there is no user name, prompt for it again.
+var validateUserName = function (userName) {
+  strUserName = userName; // stores the input from user in a global variable
+  strUserName.trim(); // remove the whitepaces from the ends
+  if (strUserName.length == 0) {
+    return 'Please enter your name and submit.';
+  }
+  return ('Welcome ' + strUserName + '!! Start playing the game by entering one of the options: "scissors", "paper" or "stone". ');
+};
+
 var main = function (userInput) {
   if (strUserName.length == 0) {
-    strUserName = userInput;
-    return ('Welcome ' + strUserName + '!! Start playing the game by entering one of the options: "scissors", "paper" or "stone". ');
+    return validateUserName(userInput);
   }
   // Function that gets the game result after analysing the user input and program draw
   var varResult = getGameResult(userInput);
