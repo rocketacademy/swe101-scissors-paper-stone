@@ -32,33 +32,33 @@ var main = function (input) {
   var myOutputValue = 'xxx';
   // win conditions
   if (userChoice == 'scissors' && computerChoice == 'paper') {
-    myOutputValue = 'You won!';
+    myOutputValue = 'You chose ' + userChoice + '. You won!';
   }
   if (userChoice == 'paper' && computerChoice == 'stone') {
-    myOutputValue = 'You won!';
+    myOutputValue = 'You chose ' + userChoice + '. You won!';
   }
   if (userChoice == 'stone' && computerChoice == 'scissors') {
-    myOutputValue = 'You won!';
+    myOutputValue = 'You chose ' + userChoice + '. You won!';
   }
   // lose conditions
   if (userChoice == 'scissors' && computerChoice == 'stone') {
-    myOutputValue = 'You lost!';
+    myOutputValue = 'You chose ' + userChoice + '. You lost!';
   }
   if (userChoice == 'paper' && computerChoice == 'scissors') {
-    myOutputValue = 'You lost!';
+    myOutputValue = 'You chose ' + userChoice + '. You lost!';
   }
   if (userChoice == 'stone' && computerChoice == 'paper') {
-    myOutputValue = 'You lost!';
+    myOutputValue = 'You chose ' + userChoice + '. You lost!';
   }
   // draw conditions
   if (userChoice == 'scissors' && computerChoice == 'scissors') {
-    myOutputValue = 'Draw!';
+    myOutputValue = 'You chose ' + userChoice + '. You tied!';
   }
   if (userChoice == 'paper' && computerChoice == 'paper') {
-    myOutputValue = 'Draw!';
+    myOutputValue = 'You chose ' + userChoice + '. You tied!';
   }
   if (userChoice == 'stone' && computerChoice == 'stone') {
-    myOutputValue = 'Draw!';
+    myOutputValue = 'You chose ' + userChoice + '. You tied!';
   }
   return myOutputValue;
 };
