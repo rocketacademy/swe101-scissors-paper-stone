@@ -16,6 +16,15 @@ var getRandomNumber = function (max) {
   return randomInteger;
 };
 
+// Function to calculate the percentage given the total value and
+// the value of which percentage to be calculated.
+var calculatePercentage = function (totalValue, partialValue) {
+  if (totalValue == 0) {
+    return 0;
+  }
+  return ((partialValue / totalValue) * 100).toFixed(3);
+};
+
 // This function decides on the result of the game by comparing the user inuput and the
 // random value chosen by program
 // Rule: scissors beats paper, paper beats stone, and stone beats scissors.
@@ -32,7 +41,7 @@ var getGameResult = function (userGuess) {
 
   // get the random draw and mapping between the random number and values are:
   // 1 ==> scissors, 2 ==> paper and 3 ==> stone
-  var randomDraw = getRandomNumber();
+  var randomDraw = getRandomNumber(3);
   // If the user input and program output is same, the result is a "draw".
   if (((userGuess == varScissors) && (randomDraw == 1))
      || ((userGuess == varPaper) && (randomDraw == 2))
@@ -56,17 +65,28 @@ var getGameResult = function (userGuess) {
     varGameResult = varProgram;
     countProgramWon += 1;
   } else {
-    varGameResult = 'Failed to validate the game result. ';
+    varGameResult = 'Failed to validate the game result. Not a valid game. ';
   }
   return varGameResult;
+};
+
+// Function to calculate win-loss record of each player and to format the output.
+var findWinLossRecord = function () {
+  // Total number of games played, including the current one.
+  var numTotalGames = countDraw + countUserWon + countProgramWon;
+  var userWinPercentage = calculatePercentage(numTotalGames, countUserWon);
+  var programWinPercentage = calculatePercentage(numTotalGames, countProgramWon);
+  var returnResult = '\nTotal number of games played: ' + numTotalGames;
+  returnResult += '\nNumber of draws: ' + countDraw;
+  returnResult += '\nUser won: ' + userWinPercentage + '%';
+  returnResult += '\nProgram won: ' + programWinPercentage + '%';
+  return returnResult;
 };
 
 var main = function (userGuess) {
   // Function that gets the game result after analysing the user input and program draw
   var varResult = getGameResult(userGuess);
-  // Total number of games played, including the current one.
-  var numTotalGames = countDraw + countUserWon + countProgramWon;
+  varResult += '\n' + findWinLossRecord();
 
   return varResult;
 };
-
