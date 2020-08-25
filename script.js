@@ -5,11 +5,11 @@ var main = function (input) {
   myOutputValue = 'empty';
   var HandRef = diceRoll;
   var autohand = 'empty'
-  if (input !== 'stone' || input !== 'scissors'|| input !== 'paper'){myOutputValue = 'Invalid';}
+  var result = 'empty';
+  if (input !== 'stone' || input !== 'scissors'|| input !== 'paper'){result = 'Failed';}
   if(HandRef = 1){autohand = 'paper';};
   if(HandRef = 2){autohand = 'scissors';};
   if(HandRef = 3){autohand = 'stone';}
-  var result = 'Empty';
   //draw outcome
   if (input == autohand){draw = draw + 1; result = 'draw';}
   // loss outcome
