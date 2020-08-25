@@ -29,7 +29,36 @@ var main = function (input) {
     spsRoll = 'stone';
   }
 
-  var myOutputValue = 'you lost';
+  // Win conditions
 
+  if (input == 'scissors' && spsRoll == 'paper') {
+    myOutputValue = 'you won this round!';
+  }
+  if (input == 'paper' && spsRoll == 'stone') {
+    myOutputValue = 'you won this round!';
+  }
+  if (input == 'stone' && spsRoll == 'scissors') {
+    myOutputValue = 'you won this round!';
+  }
+  // Lose conditions
+  if (input == 'scissors' && spsRoll == 'stone') {
+    myOutputValue = 'you lost! why you so stupid!';
+  }
+  if (input == 'paper' && spsRoll == 'scissors') {
+    myOutputValue = 'you lost! why you so stupid';
+  }
+  if (input == 'stone' && spsRoll == 'paper') {
+    myOutputValue = 'you lost! why u so stupid';
+  }
+  // Draw conditions
+  if (input == 'scissors' && spsRoll == 'scissors') {
+    myOutputValue = 'Draw! lets challenge again.';
+  }
+  if (input == 'paper' && spsRoll == 'paper') {
+    myOutputValue = 'Draw! lets challenge again.';
+  }
+  if (input == 'stone' && spsRoll == 'stone') {
+    myOutputValue = 'Draw! lets challenge again.';
+  }
   return myOutputValue;
 };
