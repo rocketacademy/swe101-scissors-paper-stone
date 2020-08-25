@@ -20,7 +20,7 @@ var main = function (input) {
   if (input =='paper' && autohand == 'stone'){result = 'win';}
   if (input =='stone' && autohand == 'scissors'){result = 'win';}
   if (input =='scissors' && autohand == 'paper'){result = 'win';}
-  if (result == 'loss') {loss = loss+1;}
+  if (result == 'lose') {loss = loss+1;}
   if (result == 'draw') {draw = draw +1;}
   if (result == 'win') {win = win +1;}
 var myOutputValue = 'You chose '+ input + ' and the computer chose ' + autohand + '. You '+ result + '! Your current tally is ' + win + '- wins, ' + loss + '- loss, ' + win + '- draws.';
