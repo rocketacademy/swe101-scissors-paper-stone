@@ -13,52 +13,52 @@ var computerSpsRoll = function () {
 // is a learning tool and not a full-fledged node app.
 // eslint-disable-next-line no-unused-vars
 var main = function (input) {
-  var myOutputValue = 'hello world';
+  var myOutputValue;
   var spsRoll = computerSpsRoll();
   console.log(spsRoll);
 
-  if (computerSpsRoll == 1) {
+  if (spsRoll == 1) {
     spsRoll = 'scissors';
   }
 
-  if (computerSpsRoll == 2) {
+  if (spsRoll == 2) {
     spsRoll = 'paper';
   }
 
-  if (computerSpsRoll == 3) {
+  if (spsRoll == 3) {
     spsRoll = 'stone';
   }
 
   // Win conditions
 
   if (input == 'scissors' && spsRoll == 'paper') {
-    myOutputValue = 'you won this round!';
+    myOutputValue = 'you won this round! Computer chose ' + spsRoll;
   }
   if (input == 'paper' && spsRoll == 'stone') {
-    myOutputValue = 'you won this round!';
+    myOutputValue = 'you won this round! Computer chose ' + spsRoll;
   }
   if (input == 'stone' && spsRoll == 'scissors') {
-    myOutputValue = 'you won this round!';
+    myOutputValue = 'you won this round! Computer chose ' + spsRoll;
   }
   // Lose conditions
   if (input == 'scissors' && spsRoll == 'stone') {
-    myOutputValue = 'you lost! why you so stupid!';
+    myOutputValue = 'you lost! why you so stupid! Computer chose ' + spsRoll;
   }
   if (input == 'paper' && spsRoll == 'scissors') {
-    myOutputValue = 'you lost! why you so stupid';
+    myOutputValue = 'you lost! why you so stupid! Computer chose ' + spsRoll;
   }
   if (input == 'stone' && spsRoll == 'paper') {
-    myOutputValue = 'you lost! why u so stupid';
+    myOutputValue = 'you lost! why you so stupid! Computer chose ' + spsRoll;
   }
   // Draw conditions
   if (input == 'scissors' && spsRoll == 'scissors') {
-    myOutputValue = 'Draw! lets challenge again.';
+    myOutputValue = 'Draw! lets challenge again. Computer chose ' + spsRoll;
   }
   if (input == 'paper' && spsRoll == 'paper') {
-    myOutputValue = 'Draw! lets challenge again.';
+    myOutputValue = 'Draw! lets challenge again. Computer chose' + spsRoll;
   }
   if (input == 'stone' && spsRoll == 'stone') {
-    myOutputValue = 'Draw! lets challenge again.';
+    myOutputValue = 'Draw! lets challenge again. Computer chose' + spsRoll;
   }
   return myOutputValue;
 };
