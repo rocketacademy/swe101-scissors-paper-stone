@@ -25,20 +25,18 @@ var main = function (input) {
   if (input == programChoice) {
     result = 'you draw.';
     timesDrew += 1; // Add 1 to the total number of times Drew
-  }
-  if ((input == 'scissors' && programChoice == 'paper')
+  } else if ((input == 'scissors' && programChoice == 'paper')
     || (input == 'paper' && programChoice == 'stone')
     || (input == 'stone' && programChoice == 'scissors')) {
     result = 'you won!';
     timesUserWon += 1; // Add 1 to the total number of times player won.
-  }
-  if ((input == 'scissors' && programChoice == 'stone')
+  } else if ((input == 'scissors' && programChoice == 'stone')
     || (input == 'paper' && programChoice == 'scissors')
     || (input == 'stone' && programChoice == 'paper')) {
     result = 'you lose~';
     timesProgramWon += 1; // Add 1 to the total number of times Program won.
   }
-  myOutputValue = result + ' You chose ' + input + ' and computer chose ' + programChoice
+  myOutputValue = result + ' \r\n You chose ' + input + ' and computer chose ' + programChoice
   + '. Win-Loss-Draw record: ' + timesUserWon + '-' + timesProgramWon + '-' + timesDrew;
   return myOutputValue;
 };
