@@ -31,56 +31,64 @@ var userLosses = 0;
 var gamesPlayed = 0;
 var winPercent = 0;
 
+var userName = 'nil';
+
 var main = function (input) {
-  // defining the variables
-  var userChoice = input;
-  var computerChoice = computerSPS();
-  gamesPlayed = gamesPlayed + 1;
-  var myOutputValue = 'xxx';
-  // win conditions
-  if (userChoice == 'scissors' && computerChoice == 'paper') {
-    userWins = userWins + 1;
-    winPercent = (userWins / gamesPlayed) * 100;
-    myOutputValue = 'You chose ' + userChoice + '. You won! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
-  }
-  if (userChoice == 'paper' && computerChoice == 'stone') {
-    userWins = userWins + 1;
-    winPercent = (userWins / gamesPlayed) * 100;
-    myOutputValue = 'You chose ' + userChoice + '. You won! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
-  }
-  if (userChoice == 'stone' && computerChoice == 'scissors') {
-    userWins = userWins + 1;
-    winPercent = (userWins / gamesPlayed) * 100;
-    myOutputValue = 'You chose ' + userChoice + '. You won! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
-  }
-  // lose conditions
-  if (userChoice == 'scissors' && computerChoice == 'stone') {
-    userLosses = userLosses + 1;
-    winPercent = (userWins / gamesPlayed) * 100;
-    myOutputValue = 'You chose ' + userChoice + '. You lost! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
-  }
-  if (userChoice == 'paper' && computerChoice == 'scissors') {
-    userLosses = userLosses + 1;
-    winPercent = (userWins / gamesPlayed) * 100;
-    myOutputValue = 'You chose ' + userChoice + '. You lost! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
-  }
-  if (userChoice == 'stone' && computerChoice == 'paper') {
-    userLosses = userLosses + 1;
-    winPercent = (userWins / gamesPlayed) * 100;
-    myOutputValue = 'You chose ' + userChoice + '. You lost! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
-  }
-  // draw conditions
-  if (userChoice == 'scissors' && computerChoice == 'scissors') {
-    winPercent = (userWins / gamesPlayed) * 100;
-    myOutputValue = 'You chose ' + userChoice + '. You tied! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
-  }
-  if (userChoice == 'paper' && computerChoice == 'paper') {
-    winPercent = (userWins / gamesPlayed) * 100;
-    myOutputValue = 'You chose ' + userChoice + '. You tied! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
-  }
-  if (userChoice == 'stone' && computerChoice == 'stone') {
-    winPercent = (userWins / gamesPlayed) * 100;
-    myOutputValue = 'You chose ' + userChoice + '. You tied! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
+  var myOutputValue = 'Waiting of user name input';
+  if (userName == 'nil') {
+    userName = input;
+    myOutputValue = 'Welcome ' + userName + ', game initialized. Please pick "scissors," "paper," or "stone."';
+  } else {
+    var userChoice = input;
+    var computerChoice = computerSPS();
+    gamesPlayed = gamesPlayed + 1;
+    // input validation - if not 'scissors', 'paper', or 'stone'.
+    myOutputValue = 'You have made a wrong entry, you may only enter scissors, paper, or stone. Please check that you have spelt correctly';
+    // win conditions
+    if (userChoice == 'scissors' && computerChoice == 'paper') {
+      userWins = userWins + 1;
+      winPercent = (userWins / gamesPlayed) * 100;
+      myOutputValue = 'You chose ' + userChoice + '. You won! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
+    }
+    if (userChoice == 'paper' && computerChoice == 'stone') {
+      userWins = userWins + 1;
+      winPercent = (userWins / gamesPlayed) * 100;
+      myOutputValue = 'You chose ' + userChoice + '. You won! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
+    }
+    if (userChoice == 'stone' && computerChoice == 'scissors') {
+      userWins = userWins + 1;
+      winPercent = (userWins / gamesPlayed) * 100;
+      myOutputValue = 'You chose ' + userChoice + '. You won! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
+    }
+    // lose conditions
+    if (userChoice == 'scissors' && computerChoice == 'stone') {
+      userLosses = userLosses + 1;
+      winPercent = (userWins / gamesPlayed) * 100;
+      myOutputValue = 'You chose ' + userChoice + '. You lost! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
+    }
+    if (userChoice == 'paper' && computerChoice == 'scissors') {
+      userLosses = userLosses + 1;
+      winPercent = (userWins / gamesPlayed) * 100;
+      myOutputValue = 'You chose ' + userChoice + '. You lost! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
+    }
+    if (userChoice == 'stone' && computerChoice == 'paper') {
+      userLosses = userLosses + 1;
+      winPercent = (userWins / gamesPlayed) * 100;
+      myOutputValue = 'You chose ' + userChoice + '. You lost! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
+    }
+    // draw conditions
+    if (userChoice == 'scissors' && computerChoice == 'scissors') {
+      winPercent = (userWins / gamesPlayed) * 100;
+      myOutputValue = 'You chose ' + userChoice + '. You tied! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
+    }
+    if (userChoice == 'paper' && computerChoice == 'paper') {
+      winPercent = (userWins / gamesPlayed) * 100;
+      myOutputValue = 'You chose ' + userChoice + '. You tied! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
+    }
+    if (userChoice == 'stone' && computerChoice == 'stone') {
+      winPercent = (userWins / gamesPlayed) * 100;
+      myOutputValue = 'You chose ' + userChoice + '. You tied! W: ' + userWins + ' L: ' + userLosses + ' Your win rate is: ' + winPercent + '%';
+    }
   }
   return myOutputValue;
 };
