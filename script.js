@@ -36,7 +36,7 @@ var printGameOptionMessage = function ()
   varMessage += 'Enter 1 for playing normal Scissors Paper Stone game. <br/>';
   varMessage += 'Enter 2 for playing Koren Scissors Paper Stone game (muk-jji-ppa). <br/>';
   return varMessage;
-}
+};
 
 // Function to store the user name and if still there is no user name, prompt for it again.
 var validateUserName = function (userName) {
@@ -150,7 +150,6 @@ var findWinLossRecord = function () {
 // It will declare the last recent winner as the winner of the game.
 var playKoreanSPS = function( userGuess )
 {
-  strMostRecentWinner = '';
   var varGameResult = getGameResult( userGuess );
   while( !varGameResult.includes( 'Draw' ) )
   {
@@ -172,7 +171,8 @@ var main = function (userInput) {
   if (strUserName.length == 0) {
     return validateUserName(userInput);
   }
-  if(( varSPSGameType == 0 ) && (userInput <= 0 || userInput > 2))
+
+  if(( varSPSGameType == 0 ) && ((userInput <= 0 || userInput > 2) || isNaN(Number( userInput ))))
   {
     varSPSGameType = 0;
     return printGameOptionMessage();
