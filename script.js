@@ -204,6 +204,7 @@ var playKoreanSPS = function( userGuess )
   return 'Winner is: ' + strMostRecentWinner;
 };
 
+// eslint-disable-next-line no-unused-vars
 var main = function (userInput) {
   // Validate the user name is already passed or not by the user. If not, prompt for that again.
   if (strUserName.length == 0) {
