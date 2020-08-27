@@ -22,35 +22,45 @@ var main = function (input) {
 
   } else if (currentGameMode == "RPS Game") {
     // if game mode is RPS Game 
+    myOutputValue = RPSLogic(input);
 
-    var rpsGameOutput = rockPaperScissors()
 
-    if (input == "rock" && rpsGameOutput == "scissors") {
-      var myOutputValue = 'You Win'
-      UserWinCounter += 1;
-
-    } else if (input == "scissors" && rpsGameOutput == "paper") {
-      var myOutputValue = 'You Win'
-      UserWinCounter += 1;
-
-    } else if (input == "paper" && rpsGameOutput == "rock") {
-      var myOutputValue = 'You Win'
-      UserWinCounter += 1;
-
-    } else if (input == rpsGameOutput) {
-      var myOutputValue = 'You Draw with the computer';
-
-    } else if (input !== "paper" && input !== "rock" && input !== "scissors") {
-      var myOutputValue = 'Input error, Please enter paper, rock or sissors ';
-
-    } else {
-      var myOutputValue = 'You Lose'
-      CompWinCounter += 1;
-    }
   }
 
   return myOutputValue + "<br> Your score is " + UserWinCounter + "<br> The computer score is " + CompWinCounter;
 };
+
+
+var RPSLogic = function (input) {
+
+  var message = " "
+  var rpsGameOutput = rockPaperScissors()
+
+  if (input == "rock" && rpsGameOutput == "scissors") {
+    var message = 'You Win'
+    UserWinCounter += 1;
+
+  } else if (input == "scissors" && rpsGameOutput == "paper") {
+    var message = 'You Win'
+    UserWinCounter += 1;
+
+  } else if (input == "paper" && rpsGameOutput == "rock") {
+    var message = 'You Win'
+    UserWinCounter += 1;
+
+  } else if (input == rpsGameOutput) {
+    var message = 'You Draw with the computer';
+
+  } else if (input !== "paper" && input !== "rock" && input !== "scissors") {
+    var message = 'Input error, Please enter paper, rock or sissors ';
+
+  } else {
+    var message = 'You Lose'
+    CompWinCounter += 1;
+  } return message
+
+}
+
 
 var rockPaperScissors = function () {
   var randomDecimal = Math.random() * 3; // returns a random number from 0 - 2 
