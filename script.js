@@ -10,66 +10,68 @@ var main = function (input) {
     currentgamemode = "SPS game";
     myoutputvalue = "Hello, " + input;
   }else{
-    if (number() == 1){
-      var output = "scissors";
+    var randomnumber = number();
+    
+    if (randomnumber == 1){
+      var sps = "scissors";
     }
-    if (number() == 2){
-      var output = "paper";
+    if (randomnumber == 2){
+      sps = "paper";
     }
-    if (number() == 3){
-      var output = "stone";
+    if (randomnumber == 3){
+      sps = "stone";
     }
     
     if (input != "scissors" && input != "paper" && input != "stone"){
       myoutputvalue = "Please enter either scissors paper or stone";
     } else{
-      if (input == "scissors" && output == "scissors"){
+      if (input == "scissors" && sps == "scissors"){
         userwin = userwin;
         computerwin = computerwin;
-        var myoutputvalue = "Draw. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
+        myoutputvalue = "Draw. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
       }
-      if (input == "paper" && output == "scissors"){
-        userwin = userwin;
-        computerwin = computerwin +1;
-        var myoutputvalue = "Lose. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
-        
-      }
-      if (input == "stone" && output == "scissors"){
-        userwin = userwin + 1;
-        computerwin = computerwin;
-        var myoutputvalue = "Win. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
-        
-      }
-      if (input == "scissors" && output == "paper"){
-        userwin = userwin + 1;
-        computerwin = computerwin;
-        var myoutputvalue = "Win. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
-      }
-      if (input == "paper" && output == "paper"){
-        userwin = userwin;
-        computerwin = computerwin;
-        var myoutputvalue = "Draw. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
-      }
-      if (input == "stone" && output == "paper"){
+      if (input == "paper" && sps == "scissors"){
         userwin = userwin;
         computerwin = computerwin +1;
-        var myoutputvalue = "Lose. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
+        myoutputvalue = "Lose. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
         
       }
-      if (input == "scissors" && output == "stone"){
-        userwin = userwin;
-        computerwin = computerwin +1;
-        var myoutputvalue = "Lose. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
-      }
-      if (input == "paper" && output == "stone"){
+      if (input == "stone" && sps == "scissors"){
         userwin = userwin + 1;
         computerwin = computerwin;
-        var myoutputvalue = "Win. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
+        myoutputvalue = "Win. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
+        
       }
-      if (input == "stone" && output == "stone"){
+      if (input == "scissors" && sps == "paper"){
+        userwin = userwin + 1;
+        computerwin = computerwin;
+        myoutputvalue = "Win. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
+      }
+      if (input == "paper" && sps == "paper"){
         userwin = userwin;
         computerwin = computerwin;
-        var myoutputvalue = "Draw. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
+        myoutputvalue = "Draw. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
+      }
+      if (input == "stone" && sps == "paper"){
+        userwin = userwin;
+        computerwin = computerwin +1;
+        myoutputvalue = "Lose. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
+        
+      }
+      if (input == "scissors" && sps == "stone"){
+        userwin = userwin;
+        computerwin = computerwin +1;
+        myoutputvalue = "Lose. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
+      }
+      if (input == "paper" && sps == "stone"){
+        userwin = userwin + 1;
+        computerwin = computerwin;
+        myoutputvalue = "Win. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
+      }
+      if (input == "stone" && sps == "stone"){
+        userwin = userwin;
+        computerwin = computerwin;
+        myoutputvalue = "Draw. User vs Computer = " + userwin + " vs " + computerwin + ". Try again "+ username;
       }
     }  
   }  
