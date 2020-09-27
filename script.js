@@ -141,7 +141,7 @@ var gameEngine = function (userChoice, gameVersion, userName) {
     
     <br> Program chose ${randomChoice}.
     
-    <br><br> Program wins! ${userName} loses. 
+    <br><br> Program wins! 
     <br><br> Total Games = ${totalGames} 
     
     <br>Total ${userName} Wins = ${userWins} 
@@ -163,7 +163,7 @@ var gameEngine = function (userChoice, gameVersion, userName) {
     ${userName} chose ${userChoice}.
     <br> Program chose ${randomChoice}.
     
-    <br><br> Program wins! ${userName} loses. 
+    <br><br> Program wins! 
     <br><br> Total Games = ${totalGames}.
     
     <br>Total ${userName}  Wins = ${userWins} 
@@ -187,7 +187,7 @@ var gameEngine = function (userChoice, gameVersion, userName) {
     ${userName} chose ${userChoice}.
     <br>Program chose ${randomChoice}.
    
-    <br><br> Program wins! ${userName} loses. 
+    <br><br> Program wins! 
     <br><br> Total Games = ${totalGames} 
    
     <br>Total ${userName}  Wins = ${userWins} 
@@ -211,7 +211,7 @@ var gameEngine = function (userChoice, gameVersion, userName) {
     ${userName} chose ${userChoice}.
     <br> Program chose ${randomChoice}.
     
-    <br><br> ${userName} wins! Program loses. 
+    <br><br> ${userName} wins! 
     <br><br> Total Games = ${totalGames} 
     
     <br>Total ${userName}  Wins = ${userWins}
@@ -234,7 +234,7 @@ var gameEngine = function (userChoice, gameVersion, userName) {
     ${userName} chose ${userChoice}.
     <br> Program chose ${randomChoice}.
     
-    <br><br> ${userName} wins! Program loses. 
+    <br><br> ${userName} wins! 
     <br><br> Total Games = ${totalGames} 
     
     <br>Total ${userName} Wins = ${userWins} 
@@ -257,7 +257,7 @@ var gameEngine = function (userChoice, gameVersion, userName) {
     ${userName} chose ${userChoice}.
     <br> Program chose ${randomChoice}.
     
-    <br><br> ${userName} wins! Program loses. 
+    <br><br> ${userName} wins! 
     <br><br> Total Games = ${totalGames} 
     
     <br>Total ${userName} Wins = ${userWins} 
