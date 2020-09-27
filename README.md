@@ -1,4 +1,4 @@
-# swe101-scissors-paper-stone
+# Project 1: swe101-scissors-paper-stone (Jit Corn) 
 SWE101 Project 1: Scissors Paper Stone
 
 Features attempted:
