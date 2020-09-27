@@ -5,15 +5,13 @@ var userWins = 0;
 var programWins = 0;
 var totalDraws = 0;
 var userName = "";
-var currentInputMode = 'input username'; // input choices: username, gamemode, input sps
+var currentInputMode = 'input username'; // input choices: username, gameVersion, input sps
 
 //Initialize global states for Korean SPS game
 var userPrevWin = 'no'; //set user's previous win as as no
 var programPrevWin = 'no'; //set program's previous win as no
-var gameMode = '' // can switch to 1) 'normal' or 2)'korean' or 3)'restart' when korean game is won
+var gameVersion = '' // can switch to 1) 'normal' or 2)'korean' or 3)'restart' when korean game is won
 
-//Initialie global state for computer mode
-var autoInput = 'no';
 
 //Main function that controls the logic flow for input of username followed by input of SPS choice
 var main = function (input) {
@@ -22,13 +20,13 @@ var main = function (input) {
   if (currentInputMode == 'input username') {
 
     userName = input;
-    currentInputMode = 'gamemode';
-    outputValue = `Welcome ${userName}! Please input the version that you want: 'normal' or 'korean'`;
+    currentInputMode = 'gameVersion';
+    outputValue = `Welcome ${userName}! <br> Please input the version that you want: 'normal' or 'korean'`;
 
-  } else if (currentInputMode == 'gamemode') {
-    gameMode = input.toLowerCase();
+  } else if (currentInputMode == 'gameVersion') {
+    gameVersion = input.toLowerCase();
 
-    if (gameMode != 'normal' && gameMode != 'korean') {
+    if (gameVersion != 'normal' && gameVersion != 'korean') {
       outputValue = "Sorry, please input either 'normal' or 'korean"
     } else {
       outputValue = `You have chosen to play ${input} version of the game! <br> Please input scissors, paper or stone next!`;
@@ -37,19 +35,19 @@ var main = function (input) {
   }
 
   else if (currentInputMode == 'input sps') {
-    var gameResult = gameEngine(input, gameMode, userName); // plucks  input as user choice and userName as user input name into gameEngine
+
+    var gameResult = gameEngine(input, gameVersion, userName); // plucks  input as user choice and userName as user input name into gameEngine
     outputValue = gameResult;
 
   } else if (currentInputMode == 'restart') {
 
-    currentInputMode = 'gamemode';
-    outputValue = `Please restart the game by choosing either 'normal' or 'korean' game mode and press the "Submit" button again!`
+    currentInputMode = 'gameVersion';
+    outputValue = `Please restart the game by typing either 'normal' or 'korean' game mode and press the "Submit" button again!`
     console.log("game is restarting");
 
   }
   return outputValue;
 };
-
 
 //generate a random number associated with Scissors, Paper, and Stone respectively
 var randomNumberGenerator = function () {
@@ -71,13 +69,13 @@ var convertRandNumToChoice = function (randNum) {
 
 }
 
-// Korean Version Enabled - Game Logic takes in the "value" from convertUserInputToSPS
-var gameEngine = function (userChoice, gameMode, userName) {
+// Korean Version Enabled - Game Logic takes in user's sps choice, game mode and username
+var gameEngine = function (userChoice, gameVersion, userName) {
   var outputValue = "User loses, program wins!";
   var randomGenNumber = randomNumberGenerator();
-
   var randomChoice = convertRandNumToChoice(randomGenNumber);
-  console.log(randomChoice);
+  console.log(`program generated random choice is ` + randomChoice);
+
 
   //Perform user input validation for SPS Choices;
   if (userChoice != 'scissors' && userChoice != 'paper' && userChoice != 'stone') {
@@ -89,11 +87,11 @@ var gameEngine = function (userChoice, gameMode, userName) {
     totalDraws += 1;
 
     //input logic for korean game mode in the event of a draw
-    if (gameMode == 'korean' && userPrevWin == 'yes') {
-      outputValue = `Ultimate winner: ${userName} wins Korean SPS! <br> Previous winner: ${userPrevWin}`;
+    if (gameVersion == 'korean' && userPrevWin == 'yes') {
+      outputValue = `${userName} won the previous round and its a draw this round. <br>${username} wins Korean SPS!`;
       console.log("Korean Game Draw");
 
-      //restarting the game: switch currentInputMode to input username etc.
+      //restarting the game when korean sps is won: reinitialize global states
       totalGames = 0;
       userWins = 0;
       programWins = 0;
@@ -102,13 +100,13 @@ var gameEngine = function (userChoice, gameMode, userName) {
       currentInputMode = 'restart';
       userPrevWin = 'no';
       programPrevWin = 'no';
-      gameMode = ''
+      gameVersion = ''
 
-    } else if (gameMode == 'korean' && programPrevWin == 'yes') {
-      outputValue = `Ultimate winner: Program wins Korean SPS! <br> Previous winner: ${programPrevWin}`
+    } else if (gameVersion == 'korean' && programPrevWin == 'yes') {
+      outputValue = `Program won the previous round and its a draw this round. <br> Program wins Korean SPS!`
       console.log("Korean Game Draw");
 
-      //restarting the game: switch currentInputMode to input username etc.
+      //restarting the game when korean sps is won: reinitialize global states
       totalGames = 0;
       userWins = 0;
       programWins = 0;
@@ -117,7 +115,7 @@ var gameEngine = function (userChoice, gameMode, userName) {
       currentInputMode = 'restart';
       userPrevWin = 'no';
       programPrevWin = 'no';
-      gameMode = ''
+      gameVersion = ''
 
     } else {
       outputValue = `
@@ -130,7 +128,7 @@ var gameEngine = function (userChoice, gameMode, userName) {
       <br> Total ${userName} Wins = ${userWins} 
       <br> Total Program Wins = ${programWins}. 
       <br> Total Draws = ${totalDraws}.
-      <br> Game Mode = ${gameMode}.`;
+      <br> Game Mode = ${gameVersion}.`;
 
       console.log("Normal Draw");
     }
@@ -149,7 +147,7 @@ var gameEngine = function (userChoice, gameMode, userName) {
     <br>Total ${userName} Wins = ${userWins} 
     <br>Total Program Wins = ${programWins}. 
     <br>Total Draws = ${totalDraws}. 
-    <br>Game Mode = ${gameMode}.`;
+    <br>Game Mode = ${gameVersion}.`;
     console.log("Program Wins");
 
     //including the states of user/program previous wins for Korean Game
@@ -171,7 +169,7 @@ var gameEngine = function (userChoice, gameMode, userName) {
     <br>Total ${userName}  Wins = ${userWins} 
     <br>Total Program Wins = ${programWins}. 
     <br>Total Draws = ${totalDraws}. 
-    <br>Game Mode = ${gameMode}.
+    <br>Game Mode = ${gameVersion}.
     `;
 
     console.log("Program Wins");
@@ -195,7 +193,7 @@ var gameEngine = function (userChoice, gameMode, userName) {
     <br>Total ${userName}  Wins = ${userWins} 
     <br>Total Program Wins = ${programWins}. 
     <br>Total Draws = ${totalDraws}. 
-    <br>Game Mode = ${gameMode}.
+    <br>Game Mode = ${gameVersion}.
     `;
 
     console.log("Program Wins");
@@ -219,7 +217,7 @@ var gameEngine = function (userChoice, gameMode, userName) {
     <br>Total ${userName}  Wins = ${userWins}
     <br>Total Program Wins = ${programWins}
     <br>Total Draws = ${totalDraws}
-    <br>Game Mode = ${gameMode}
+    <br>Game Mode = ${gameVersion}
     `;
 
     console.log("User Wins");
@@ -242,7 +240,7 @@ var gameEngine = function (userChoice, gameMode, userName) {
     <br>Total ${userName} Wins = ${userWins} 
     <br>Total Program Wins = ${programWins}. 
     <br>Total Draws = ${totalDraws}. 
-    <br>Game Mode = ${gameMode}
+    <br>Game Mode = ${gameVersion}
     `;
 
     console.log("User Wins");
@@ -265,7 +263,7 @@ var gameEngine = function (userChoice, gameMode, userName) {
     <br>Total ${userName} Wins = ${userWins} 
     <br>Total Program Wins = ${programWins}. 
     <br>Total Draws = ${totalDraws}. 
-    <br>Game Mode = ${gameMode}
+    <br>Game Mode = ${gameVersion}
     `;
 
     console.log("User Wins");
@@ -282,5 +280,19 @@ var gameEngine = function (userChoice, gameMode, userName) {
 };
 
 
-// Other Notes:
-//https://www.hancinema.net/play-muk-zzi-ppa-the-upgraded-rock-paper-scissors-30907.html referred to this link for how the Korean SPS works from wikipedia
+//Computer vs Computer mode: create autoInput functionality
+
+var autoInputFunction = function (autoInput) {
+  var userSPSInput;
+
+  if (autoInput == '1') {
+    //computer plays game'
+    userSPSInput = convertRandNumToChoice(randomNumberGenerator());
+    console.log(`autoInputFunction choice is ` + userSPSInput)
+
+  };
+  return userSPSInput;
+};
+
+// Other Notes/References:
+//https://www.hancinema.net/play-muk-zzi-ppa-the-upgraded-rock-paper-scissors-30907.html [How Korean SPS works: Src: wiki footnotes]

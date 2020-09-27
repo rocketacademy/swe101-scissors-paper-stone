@@ -25,6 +25,14 @@
     }
 
     button {
+      margin-top: 10px;
+      font-size: 7px;
+      width: 20%;
+    }
+
+    #button2 {
+      margin-top: 10px;
+      margin-left: 190px;
       font-size: 7px;
       width: 20%;
     }
@@ -41,11 +49,11 @@
 <body>
   <h1 id="header">Scissors✂️ Paper🗒Stone🗻</h1>
   <div id="container">
-
-    <p>Please input below:</p>
-
-    <input id="my-input" />
+    <input id="my-input" placeholder="Manual Input here" />
     <button id="my-button">Submit</button>
+    <!-- <ul>Press for computer input</ul> -->
+    <button id="button2" value="1">Computer Auto SPS</button>
+    <p id="autoInput"></p>
 
     <p>Output:</p>
     <div id="output">
@@ -68,6 +76,16 @@
 
       // Reset input value
       input.value = "";
+
+    });
+
+    var button2 = document.querySelector('#button2');
+    button2.addEventListener('click', function () {
+      var autoInput = document.getElementById("button2").value; //Activates computer input mode
+      var autoSPS = autoInputFunction(autoInput); //if autoInput is 1, autoInputFunction will randomly generate a SPS choice by program
+
+      var output = document.querySelector('#output');
+      output.innerHTML = main(autoSPS); //Outputs the computer chosen result into main function and output into html
     });
   </script>
 </body>
