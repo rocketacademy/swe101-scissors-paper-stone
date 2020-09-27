@@ -1,3 +1,5 @@
+// ANSEL'S SUBMISSION AT 6.48 PM!
+
 var firstEntry = 0;
 var numberOfPlays = 0;
 var numberOfDraws = 0;
@@ -73,7 +75,7 @@ function playScissorsPaperStone(userChoice) {
   }
 
   // eslint-disable-next-line no-useless-concat
-  var printStatement = finalOutcome + '. <br> This is turn number ' + numberOfPlays + ', player ' + name + ' has won ' + numberOfPlayerWins + ' game(s)' + ' and the computer has won ' + numberOfComputerWins + ' time(s)' + ' and the number of draws is ' + numberOfDraws + '<br> keep up the good work!';
+  var printStatement = finalOutcome + '. <br> This is turn number ' + numberOfPlays + ', player ' + name + ' has won ' + numberOfPlayerWins + ' game(s)' + ' and the computer has won ' + numberOfComputerWins + ' time(s)' + ' and the number of draws is ' + numberOfDraws + '<br> Keep up the good work!!!';
   return printStatement;
 
   /* Testing!
