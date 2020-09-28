@@ -1,11 +1,11 @@
-var main = function (input) {
-  var computerGeneratedOutput = generateRandomOutput();
-  return gameResult(input, computerGeneratedOutput);
-};
-
 var userWon = 'user won';
 var programWon = 'program won';
 var draw = 'draw';
+
+var gameNumber = 0;
+var numberOfUserWins = 0;
+var numberOfProgramWins = 0;
+var numberOfDraws = 0;
 
 var generateRandomOutput = function () {
   var output = '';
@@ -65,7 +65,40 @@ var gameResult = function (playerChoice, computerChoice) {
         break;
     }
   } else {
-    result = 'Invalid input';
+    result = 'Invalid user input';
   }
   return result;
+};
+
+var recordWinStats = function (gameResultInput) {
+  gameNumber += 1;
+  switch (gameResultInput) {
+    case userWon:
+      numberOfUserWins += 1;
+      break;
+    case programWon:
+      numberOfProgramWins += 1;
+      break;
+    case draw:
+      numberOfDraws += 1;
+      break;
+    default:
+      break;
+  }
+};
+
+var main = function (input) {
+  var computerGeneratedOutput = generateRandomOutput();
+  var result = gameResult(input, computerGeneratedOutput);
+  recordWinStats(result);
+  var winPercentage = ((numberOfUserWins / gameNumber) * 100).toFixed(2);
+  var output = 'User chose: ' + input
+    + '<br>Program chose: ' + computerGeneratedOutput
+    + '<br>Result: ' + result
+    + '<br><br>This is game number: ' + gameNumber
+    + '<br>Number of user wins: ' + numberOfUserWins
+    + '<br>Number of program wins: ' + numberOfProgramWins
+    + '<br>Number of draws: ' + numberOfDraws
+    + '<br>Win percentage: ' + winPercentage + '%';
+  return output;
 };
