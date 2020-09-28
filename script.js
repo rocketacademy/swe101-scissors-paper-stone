@@ -1,11 +1,16 @@
 var userWon = 'user won';
 var programWon = 'program won';
 var draw = 'draw';
+var enterUserName = 'enter username';
+var gameStarted = 'game started';
 
 var gameNumber = 0;
 var numberOfUserWins = 0;
 var numberOfProgramWins = 0;
 var numberOfDraws = 0;
+
+var gameState = enterUserName;
+var userName = '';
 
 var generateRandomOutput = function () {
   var output = '';
@@ -88,17 +93,24 @@ var recordWinStats = function (gameResultInput) {
 };
 
 var main = function (input) {
-  var computerGeneratedOutput = generateRandomOutput();
-  var result = gameResult(input, computerGeneratedOutput);
-  recordWinStats(result);
-  var winPercentage = ((numberOfUserWins / gameNumber) * 100).toFixed(2);
-  var output = 'User chose: ' + input
-    + '<br>Program chose: ' + computerGeneratedOutput
-    + '<br>Result: ' + result
-    + '<br><br>This is game number: ' + gameNumber
-    + '<br>Number of user wins: ' + numberOfUserWins
-    + '<br>Number of program wins: ' + numberOfProgramWins
-    + '<br>Number of draws: ' + numberOfDraws
-    + '<br>Win percentage: ' + winPercentage + '%';
+  var output = '';
+  if (gameState == enterUserName) {
+    userName = input;
+    gameState = gameStarted;
+    output = 'Hello ' + userName + '! You can now start playing by entering "scissors", "paper" or "stone"';
+  } else if (gameState == gameStarted) {
+    var computerGeneratedOutput = generateRandomOutput();
+    var result = gameResult(input, computerGeneratedOutput);
+    recordWinStats(result);
+    var winPercentage = ((numberOfUserWins / gameNumber) * 100).toFixed(2);
+    output = userName + ' chose: ' + input
+      + '<br>Program chose: ' + computerGeneratedOutput
+      + '<br>Result: ' + result
+      + '<br><br>This is game number: ' + gameNumber
+      + '<br>Number of wins for ' + userName + ': ' + numberOfUserWins
+      + '<br>Number of program wins: ' + numberOfProgramWins
+      + '<br>Number of draws: ' + numberOfDraws
+      + '<br>Win percentage: ' + winPercentage + '%';
+  }
   return output;
 };
