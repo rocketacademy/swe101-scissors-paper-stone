@@ -129,11 +129,15 @@ var main = function (input) {
     setUserName(input);
     output = displayInstructions();
   } else if (gameState == GAME_STARTED) {
-    var computerGeneratedOutput = generateRandomOutput();
-    var result = gameResult(input, computerGeneratedOutput);
-    recordWinStats(result);
-    var winPercentage = calculateWinPercentage(numberOfUserWins, gameNumber);
-    output = displayOutput(input, computerGeneratedOutput, result, winPercentage);
+    if (input == SCISSORS || input == PAPER || input == STONE) {
+      var computerGeneratedOutput = generateRandomOutput();
+      var result = gameResult(input, computerGeneratedOutput);
+      recordWinStats(result);
+      var winPercentage = calculateWinPercentage(numberOfUserWins, gameNumber);
+      output = displayOutput(input, computerGeneratedOutput, result, winPercentage);
+    } else {
+      output = 'Please enter "scissors,"paper" or "stone"';
+    }
   }
   return output;
 };
