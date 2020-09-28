@@ -109,9 +109,13 @@ var displayInstructions = function () {
 };
 
 var displayOutput = function (userChoice, computerChoice, result, winPercentage) {
+  var resultWithUsername = result;
+  if (result == USER_WON) {
+    resultWithUsername = userName + ' won';
+  }
   return userName + ' chose: ' + userChoice
     + '<br>Program chose: ' + computerChoice
-    + '<br>Result: ' + result
+    + '<br>Result: ' + resultWithUsername
     + '<br><br>This is game number: ' + gameNumber
     + '<br>Number of wins for ' + userName + ': ' + numberOfUserWins
     + '<br>Number of program wins: ' + numberOfProgramWins
