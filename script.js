@@ -12,7 +12,18 @@ var userPrevWin = 'no'; //set user's previous win as as no
 var programPrevWin = 'no'; //set program's previous win as no
 var gameVersion = '' // can switch to 1) 'normal' or 2)'korean' or 3)'restart' when korean game is won
 
-
+// reinitialize/restart game
+var reinitialize = function () {
+  totalGames = 0;
+  userWins = 0;
+  programWins = 0;
+  totalDraws = 0;
+  userName = "";
+  currentInputMode = 'restart';
+  userPrevWin = 'no';
+  programPrevWin = 'no';
+  gameVersion = ''
+}
 //Main function that controls the logic flow for input of username followed by input of SPS choice
 var main = function (input) {
   var outputValue;
@@ -80,27 +91,22 @@ var gameEngine = function (userChoice, gameVersion, userName) {
   //Perform user input validation for SPS Choices;
   if (userChoice != 'scissors' && userChoice != 'paper' && userChoice != 'stone') {
     outputValue = "Sorry, please input either 'scissors' , 'paper' or 'stone'. ";
+    return outputValue;
+  }
 
-    //Perform core SPS logic
-  } else if (randomChoice == userChoice) {
+  //Perform core SPS logic
+  if (randomChoice == userChoice) {
     totalGames += 1;
     totalDraws += 1;
 
     //input logic for korean game mode in the event of a draw
     if (gameVersion == 'korean' && userPrevWin == 'yes') {
-      outputValue = `${userName} won the previous round and its a draw this round. <br>${username} wins Korean SPS!`;
+      outputValue = `${userName} won the previous round and its a draw this round. <br>${userName} wins Korean SPS!`;
       console.log("Korean Game Draw");
 
       //restarting the game when korean sps is won: reinitialize global states
-      totalGames = 0;
-      userWins = 0;
-      programWins = 0;
-      totalDraws = 0;
-      userName = "";
-      currentInputMode = 'restart';
-      userPrevWin = 'no';
-      programPrevWin = 'no';
-      gameVersion = ''
+
+      reinitialize();
 
     } else if (gameVersion == 'korean' && programPrevWin == 'yes') {
       outputValue = `Program won the previous round and its a draw this round. <br> Program wins Korean SPS!`
