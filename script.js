@@ -1,70 +1,73 @@
-var userWon = 'user won';
-var programWon = 'program won';
-var draw = 'draw';
-var enterUserName = 'enter username';
-var gameStarted = 'game started';
+const USER_WON = 'user won';
+const PROGRAM_WON = 'program won';
+const DRAW = 'draw';
+const ENTER_USERNAME = 'enter username';
+const GAME_STARTED = 'game started';
+const SCISSORS = 'scissors';
+const PAPER = 'paper';
+const STONE = 'stone';
 
 var gameNumber = 0;
 var numberOfUserWins = 0;
 var numberOfProgramWins = 0;
 var numberOfDraws = 0;
 
-var gameState = enterUserName;
+var gameState = ENTER_USERNAME;
 var userName = '';
 
 var generateRandomOutput = function () {
   var output = '';
   var randomNumber = Math.floor(Math.random() * 3);
   if (randomNumber == 0) {
-    output = 'scissors';
+    output = SCISSORS;
   } else if (randomNumber == 1) {
-    output = 'paper';
+    output = PAPER;
   } else if (randomNumber == 2) {
-    output = 'stone';
+    output = STONE;
   }
   return output;
 };
 
 var gameResult = function (playerChoice, computerChoice) {
   var result = '';
-  if (playerChoice == 'scissors') {
+  if (playerChoice == SCISSORS) {
     switch (computerChoice) {
-      case 'scissors':
-        result = draw;
+      case SCISSORS:
+        result = DRAW;
         break;
-      case 'paper':
-        result = userWon;
+      case PAPER:
+        result = USER_WON;
         break;
-      case 'stone':
-        result = programWon;
+      case STONE:
+        result = PROGRAM_WON;
         break;
       default:
         break;
     }
-  } else if (playerChoice == 'paper') {
+  } else if (playerChoice == PAPER) {
     switch (computerChoice) {
-      case 'scissors':
-        result = programWon;
+      case SCISSORS:
+        result = PROGRAM_WON;
         break;
-      case 'paper':
-        result = draw;
+      case PAPER:
+        result = DRAW;
         break;
-      case 'stone':
-        result = userWon;
+      case STONE:
+        result = USER_WON;
         break;
       default:
         break;
     }
-  } else if (playerChoice == 'stone') {
+  } else if (playerChoice == STONE) {
     switch (computerChoice) {
-      case 'scissors':
-        result = userWon;
+      case SCISSORS:
+        result = USER_WON;
         break;
-      case 'paper':
-        result = programWon;
+      case PAPER:
+        result = PROGRAM_WON;
         break;
-      case 'stone':
-        result = draw;
+      case STONE:
+        result = DRAW;
         break;
       default:
         break;
@@ -78,13 +81,13 @@ var gameResult = function (playerChoice, computerChoice) {
 var recordWinStats = function (gameResultInput) {
   gameNumber += 1;
   switch (gameResultInput) {
-    case userWon:
+    case USER_WON:
       numberOfUserWins += 1;
       break;
-    case programWon:
+    case PROGRAM_WON:
       numberOfProgramWins += 1;
       break;
-    case draw:
+    case DRAW:
       numberOfDraws += 1;
       break;
     default:
@@ -92,25 +95,41 @@ var recordWinStats = function (gameResultInput) {
   }
 };
 
+var calculateWinPercentage = function (numberOfWins, numberOfGames) {
+  return ((numberOfWins / numberOfGames) * 100).toFixed(2);
+};
+
+var setUserName = function (username) {
+  userName = username;
+  gameState = GAME_STARTED;
+};
+
+var displayInstructions = function () {
+  return 'Hello ' + userName + '! You can now start playing by entering "scissors", "paper" or "stone"';
+};
+
+var displayOutput = function (userChoice, computerChoice, result, winPercentage) {
+  return userName + ' chose: ' + userChoice
+    + '<br>Program chose: ' + computerChoice
+    + '<br>Result: ' + result
+    + '<br><br>This is game number: ' + gameNumber
+    + '<br>Number of wins for ' + userName + ': ' + numberOfUserWins
+    + '<br>Number of program wins: ' + numberOfProgramWins
+    + '<br>Number of draws: ' + numberOfDraws
+    + '<br>Win percentage: ' + winPercentage + '%';
+};
+
 var main = function (input) {
   var output = '';
-  if (gameState == enterUserName) {
-    userName = input;
-    gameState = gameStarted;
-    output = 'Hello ' + userName + '! You can now start playing by entering "scissors", "paper" or "stone"';
-  } else if (gameState == gameStarted) {
+  if (gameState == ENTER_USERNAME) {
+    setUserName(input);
+    output = displayInstructions();
+  } else if (gameState == GAME_STARTED) {
     var computerGeneratedOutput = generateRandomOutput();
     var result = gameResult(input, computerGeneratedOutput);
     recordWinStats(result);
-    var winPercentage = ((numberOfUserWins / gameNumber) * 100).toFixed(2);
-    output = userName + ' chose: ' + input
-      + '<br>Program chose: ' + computerGeneratedOutput
-      + '<br>Result: ' + result
-      + '<br><br>This is game number: ' + gameNumber
-      + '<br>Number of wins for ' + userName + ': ' + numberOfUserWins
-      + '<br>Number of program wins: ' + numberOfProgramWins
-      + '<br>Number of draws: ' + numberOfDraws
-      + '<br>Win percentage: ' + winPercentage + '%';
+    var winPercentage = calculateWinPercentage(numberOfUserWins, gameNumber);
+    output = displayOutput(input, computerGeneratedOutput, result, winPercentage);
   }
   return output;
 };
