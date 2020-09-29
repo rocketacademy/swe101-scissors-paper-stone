@@ -1,4 +1,3 @@
-
 //Initialize global states for the program
 var totalGames = 0;
 var userWins = 0;
@@ -24,6 +23,7 @@ var reinitialize = function () {
   programPrevWin = 'no';
   gameVersion = ''
 }
+
 //Main function that controls the logic flow for input of username followed by input of SPS choice
 var main = function (input) {
   var outputValue;
@@ -32,13 +32,13 @@ var main = function (input) {
 
     userName = input;
     currentInputMode = 'gameVersion';
-    outputValue = `Welcome ${userName}! <br> Please input the version that you want: 'normal' or 'korean'`;
+    outputValue = `Welcome ${userName}! <br> Please input the version that you want: 'normal' or 'korean' or 'reverse'`;
 
   } else if (currentInputMode == 'gameVersion') {
     gameVersion = input.toLowerCase();
 
-    if (gameVersion != 'normal' && gameVersion != 'korean') {
-      outputValue = "Sorry, please input either 'normal' or 'korean"
+    if (gameVersion != 'normal' && gameVersion != 'korean' && gameVersion != 'reverse') {
+      outputValue = "Sorry, please input either 'normal' or 'korean, or reverse"
     } else {
       outputValue = `You have chosen to play ${input} version of the game! <br> Please input scissors, paper or stone next!`;
       currentInputMode = 'input sps'
@@ -46,8 +46,8 @@ var main = function (input) {
   }
 
   else if (currentInputMode == 'input sps') {
-
-    var gameResult = gameEngine(input, gameVersion, userName); // plucks  input as user choice and userName as user input name into gameEngine
+    // plucks input as user choice and userName as user input name into gameEngine
+    var gameResult = gameEngine(input, gameVersion, userName);
     outputValue = gameResult;
 
   } else if (currentInputMode == 'restart') {
@@ -75,37 +75,55 @@ var convertRandNumToChoice = function (randNum) {
   } else if (randNum == 2) {
     computerChoice = 'stone';
   }
-
   return computerChoice;
-
 }
 
-// Korean Version Enabled - Game Logic takes in user's sps choice, game mode and username
-var gameEngine = function (userChoice, gameVersion, userName) {
-  var outputValue = "User loses, program wins!";
-  var randomGenNumber = randomNumberGenerator();
-  var randomChoice = convertRandNumToChoice(randomGenNumber);
-  console.log(`program generated random choice is ` + randomChoice);
+var gameEngineOutputValue = function (userChoice, randomChoice,) {
+  var outputValue = `
+      <br> ${userName} chose ${userChoice}.
+      <br> Program chose ${randomChoice}. 
+    
+      <br><br> Total Games = ${totalGames} 
+      
+      <br> Total ${userName} Wins = ${userWins}. 
+      <br> Total Program Wins = ${programWins}. 
+      <br> Total Draws = ${totalDraws}.
+      <br> Game Mode = ${gameVersion}.
+      `;
+  return outputValue;
+}
 
-
-  //Perform user input validation for SPS Choices;
+//user SPS Input Validation function
+var userSPSInputValidation = function (userChoice) {
+  var outputValue;
   if (userChoice != 'scissors' && userChoice != 'paper' && userChoice != 'stone') {
     outputValue = "Sorry, please input either 'scissors' , 'paper' or 'stone'. ";
     return outputValue;
   }
+}
+
+// Korean Version Enabled - Game Logic takes in user's sps choice, game mode and username
+var gameEngine = function (userChoice, gameVersion, userName) {
+  var outputValue;
+  var randomGenNumber = randomNumberGenerator();
+  var randomChoice = convertRandNumToChoice(randomGenNumber);
+  console.log(`program generated random choice is ` + randomChoice);
+
+  //Perform user input validation for SPS Choices;
+  userSPSInputValidation(userChoice);
 
   //Perform core SPS logic
   if (randomChoice == userChoice) {
     totalGames += 1;
     totalDraws += 1;
+    console.log(totalGames + 'top');
 
     //input logic for korean game mode in the event of a draw
     if (gameVersion == 'korean' && userPrevWin == 'yes') {
-      outputValue = `${userName} won the previous round and its a draw this round. <br>${userName} wins Korean SPS!`;
+      outputValue = gameEngineOutputValue(userChoice, randomChoice) + `${userName} won the previous round and its a draw this round. <br>${userName} wins Korean SPS!`;
       console.log("Korean Game Draw");
 
       //restarting the game when korean sps is won: reinitialize global states
-
       reinitialize();
 
     } else if (gameVersion == 'korean' && programPrevWin == 'yes') {
@@ -113,181 +131,60 @@ var gameEngine = function (userChoice, gameVersion, userName) {
       console.log("Korean Game Draw");
 
       //restarting the game when korean sps is won: reinitialize global states
-      totalGames = 0;
-      userWins = 0;
-      programWins = 0;
-      totalDraws = 0;
-      userName = "";
-      currentInputMode = 'restart';
-      userPrevWin = 'no';
-      programPrevWin = 'no';
-      gameVersion = ''
+      reinitialize();
 
-    } else {
-      outputValue = `
-      ${userName} chose ${userChoice}.
-      <br> Program chose ${randomChoice}. 
-      
-      <br><br> It is a draw! 
-      <br><br> Total Games = ${totalGames} 
-      
-      <br> Total ${userName} Wins = ${userWins} 
-      <br> Total Program Wins = ${programWins}. 
-      <br> Total Draws = ${totalDraws}.
-      <br> Game Mode = ${gameVersion}.`;
-
+    } else { // means if gameversion is not korean or previous game was a draw, then it continues to be a draw
       console.log("Normal Draw");
+      outputValue = 'It is a draw. ' + gameEngineOutputValue(userChoice, randomChoice);
+      return outputValue;
     }
 
-  } else if (randomChoice == 'scissors' && userChoice == 'paper') {
+    //scenario where computer wins in normal conditions
+  } else if (randomChoice == 'scissors' && userChoice == 'paper' || randomChoice == 'paper' && userChoice == 'stone' || randomChoice == 'stone' && userChoice == 'scissors') {
     totalGames += 1;
-    programWins += 1;
 
-    outputValue = `${userName} chose ${userChoice}.
-    
-    <br> Program chose ${randomChoice}.
-    
-    <br><br> Program wins! 
-    <br><br> Total Games = ${totalGames} 
-    
-    <br>Total ${userName} Wins = ${userWins} 
-    <br>Total Program Wins = ${programWins}. 
-    <br>Total Draws = ${totalDraws}. 
-    <br>Game Mode = ${gameVersion}.`;
-    console.log("Program Wins");
+    //scenario where program wins in reverse conditions
+    if (gameVersion == 'reverse') {
+      userWins += 1;
+      outputValue = `${userName} wins! ` + gameEngineOutputValue(userChoice, randomChoice);
+      console.log('reverse program win');
+      return outputValue;
+    }
+
+    programWins += 1;
+    outputValue = `Program wins! ` + gameEngineOutputValue(userChoice, randomChoice);
+    console.log(gameVersion);
 
     //including the states of user/program previous wins for Korean Game
     userPrevWin = 'no';
     programPrevWin = 'yes';
+    return outputValue;
 
-
-  } else if (randomChoice == 'paper' && userChoice == 'stone') {
+  } else { //scenario where user wins in normal conditions
     totalGames += 1;
-    programWins += 1;
+    //scenario where program wins in reverse conditions
+    if (gameVersion == 'reverse') {
+      programWins += 1;
+      outputValue = `Program wins! ` + gameEngineOutputValue(userChoice, randomChoice);
+      console.log("reverse User win");
+      return outputValue;
 
-    outputValue = `
-    ${userName} chose ${userChoice}.
-    <br> Program chose ${randomChoice}.
-    
-    <br><br> Program wins! 
-    <br><br> Total Games = ${totalGames}.
-    
-    <br>Total ${userName}  Wins = ${userWins} 
-    <br>Total Program Wins = ${programWins}. 
-    <br>Total Draws = ${totalDraws}. 
-    <br>Game Mode = ${gameVersion}.
-    `;
-
-    console.log("Program Wins");
-
-    //including the states of user/program previous wins for Korean Game
-    userPrevWin = 'no';
-    programPrevWin = 'yes';
-
-
-  } else if (randomChoice == 'stone' && userChoice == 'scissors') {
-    totalGames += 1;
-    programWins += 1;
-
-    outputValue = `
-    ${userName} chose ${userChoice}.
-    <br>Program chose ${randomChoice}.
-   
-    <br><br> Program wins! 
-    <br><br> Total Games = ${totalGames} 
-   
-    <br>Total ${userName}  Wins = ${userWins} 
-    <br>Total Program Wins = ${programWins}. 
-    <br>Total Draws = ${totalDraws}. 
-    <br>Game Mode = ${gameVersion}.
-    `;
-
-    console.log("Program Wins");
-
-    //including the states of user/program previous wins for Korean Game
-    userPrevWin = 'no';
-    programPrevWin = 'yes';
-
-
-  } else if (randomChoice == 'scissors' && userChoice == 'stone') {
-    totalGames += 1;
+    }
     userWins += 1;
-
-    outputValue = `
-    ${userName} chose ${userChoice}.
-    <br> Program chose ${randomChoice}.
-    
-    <br><br> ${userName} wins! 
-    <br><br> Total Games = ${totalGames} 
-    
-    <br>Total ${userName}  Wins = ${userWins}
-    <br>Total Program Wins = ${programWins}
-    <br>Total Draws = ${totalDraws}
-    <br>Game Mode = ${gameVersion}
-    `;
-
-    console.log("User Wins");
+    outputValue = `${userName} wins! ` + gameEngineOutputValue(userChoice, randomChoice);
 
     //including the states of user/program previous wins for Korean Game
     userPrevWin = 'yes';
     programPrevWin = 'no';
-
-  } else if (randomChoice == 'paper' && userChoice == 'scissors') {
-    totalGames += 1;
-    userWins += 1;
-
-    outputValue = `
-    ${userName} chose ${userChoice}.
-    <br> Program chose ${randomChoice}.
-    
-    <br><br> ${userName} wins! 
-    <br><br> Total Games = ${totalGames} 
-    
-    <br>Total ${userName} Wins = ${userWins} 
-    <br>Total Program Wins = ${programWins}. 
-    <br>Total Draws = ${totalDraws}. 
-    <br>Game Mode = ${gameVersion}
-    `;
-
-    console.log("User Wins");
-
-    //including the states of user/program previous wins for Korean Game
-    userPrevWin = 'yes';
-    programPrevWin = 'no';
-
-  } else if (randomChoice == 'stone' && userChoice == 'paper') {
-    totalGames += 1;
-    userWins += 1;
-
-    outputValue = `
-    ${userName} chose ${userChoice}.
-    <br> Program chose ${randomChoice}.
-    
-    <br><br> ${userName} wins! 
-    <br><br> Total Games = ${totalGames} 
-    
-    <br>Total ${userName} Wins = ${userWins} 
-    <br>Total Program Wins = ${programWins}. 
-    <br>Total Draws = ${totalDraws}. 
-    <br>Game Mode = ${gameVersion}
-    `;
-
-    console.log("User Wins");
-
-    //including the states of user/program previous wins for Korean Game
-    userPrevWin = 'yes';
-    programPrevWin = 'no';
-
-  };
+    return outputValue;
+  }
   console.log('Total Games', totalGames);
 
   return outputValue;
 
 };
 
-
 //Computer vs Computer mode: create autoInput functionality
-
 var autoInputFunction = function (autoInput) {
   var userSPSInput;
 
