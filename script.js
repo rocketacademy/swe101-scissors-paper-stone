@@ -5,6 +5,11 @@ var drawCount = 0;
 var gameCount = 0;
 var gameStart = 0;
 var userName = '';
+var reverseState = 0;
+var lastWinner = '';
+var koreanVersion = 0;
+var turnComputer = -1;
+var computerPlay = 0;
 
 // Function 1
 // random scissors-paper-stone generator
@@ -80,22 +85,82 @@ var emoji = function (input) {
   return emojiPrint;
 };
 
+// Function 3
+// Just for the printing
+var printing = function (computer, human) {
+  var choicesPrint = '<br> <br> Computer: ' + emoji(computer) + '<br>' + userName + ': ' + emoji(human);
+  var summaryStats = '<br> <br> SUMMARY <br> Computer: ' + computerWins + '<br> User: ' + userWins + '<br> Draws: ' + drawCount + '<br>' + userName + ' win rate: ' + Math.floor(userWins / gameCount * 100) + '%';
+
+  return choicesPrint + summaryStats;
+};
+
 // Function 4
 // This is the main function that gets run
 var main = function (input) {
   // Initialise myOutputValue
   var myOutputValue = '';
+  var summaryMsg = '';
 
   // If the game counter is 0, the user has just input his name
   if (gameStart == 0) {
     userName = input;
-    myOutputValue = 'Hello ' + input + '! Are you ready to play? Input scissors, paper, or stone to begin!';
-    gameStart = gameStart + 1;
+    gameStart = 1;
+    myOutputValue = 'Hello ' + input + '! <br> Would you like the computer to play alternate rounds? (Y/N)';
     return myOutputValue;
+  }
+
+  // CHeck if the player would like the computer to play alternate game
+  if (gameStart == 1) {
+    if (input == 'Y') {
+      computerPlay = 1;
+      myOutputValue = 'You will fite the computer. How brave!';
+    }
+    else if (input == 'N') {
+      computerPlay = 0;
+      myOutputValue = 'You will not fite the computer. Wimp.';
+    }
+    myOutputValue = myOutputValue + '<br> Would you like the korean version? (Y/N)';
+    gameStart = 2;
+    return myOutputValue;
+  }
+
+  // Check if the player would like the korean version
+  if (gameStart == 2) {
+    if (input == 'Y') {
+      koreanVersion = 1;
+      gameStart = 3;
+      myOutputValue = 'You have selected the Korean version. <br> 한국어 버전을 선택하셨습니다. <br>Input scissors, paper, or stone to begin!';
+    }
+    else if (input == 'N') {
+      koreanVersion = 0;
+      gameStart = 3;
+      myOutputValue = 'You have selected the regular version. <br>Input scissors, paper, or stone to begin!';
+    }
+    return myOutputValue;
+  }
+
+  // If the player keys in reverse
+  if (input == 'reverse') {
+    if (reverseState == 0) {
+      myOutputValue = 'REVERSEEE TIMMMEE R U RDY <br> Computer: JINJAA?!?';
+      reverseState = 1;
+      return myOutputValue;
+    }
+    if (reverseState == 1) {
+      myOutputValue = 'GOING BACK TO NORMAL';
+      reverseState = 0;
+      return myOutputValue;
+    }
   }
 
   // increase game count
   gameCount = gameCount + 1;
+  turnComputer = turnComputer + 1;
+
+  // At alternate turn, computer chooses for you!
+  if (computerPlay = 1 && turnComputer % 2 == 1) {
+    main(randomWord());
+  }
 
   // What did the computer show?
   var computerShowed = randomWord();
@@ -104,26 +169,41 @@ var main = function (input) {
   var outcome = userVsProgram(input, computerShowed);
 
   // For troubleshooting
+  console.log('***STATUS***');
+  console.log('Korean Version: ' + koreanVersion);
+  console.log('Revese mode: ' + reverseState);
+  console.log('Computer turn: ' + turnComputer);
   console.log('Computer: ' + computerShowed);
   console.log('Human: ' + input);
   console.log('Outcome: ' + outcome);
 
-  // Summary stats
-  var choicesPrint = '<br> <br> Computer: ' + emoji(computerShowed) + '<br>' + userName + ': ' + emoji(input);
-  var summaryStats = '<br> <br> SUMMARY <br> Computer: ' + computerWins + '<br> User: ' + userWins + '<br> Draws: ' + drawCount + '<br>' + userName + ' win rate: ' + Math.floor(userWins / gameCount * 100) + '%';
-
-  // Determine print
-  if (outcome == 1) {
+  // Print Outcome
+  if (outcome == 1 || (reverseState == 1 && outcome == 2)) {
     userWins = userWins + 1;
-    myOutputValue = userName + ' won' + choicesPrint + summaryStats;
+    summaryMsg = printing(computerShowed, input);
+    myOutputValue = userName + ' won' + summaryMsg;
+    if (koreanVersion == 1) {
+      lastWinner = userName;
+      myOutputValue = userName + ' enthusiastically shouts MUK-JJI-PPA' + summaryMsg;
+    }
   }
-  else if (outcome == 2) {
+  else if (outcome == 2 || (reverseState == 1 && outcome == 1)) {
     computerWins = computerWins + 1;
-    myOutputValue = 'Computer won' + choicesPrint + summaryStats;
+    summaryMsg = printing(computerShowed, input);
+    myOutputValue = 'Computer won' + summaryMsg;
+    if (koreanVersion == 1) {
+      lastWinner = 'Computer';
+      myOutputValue = 'The computer excitedly shouts MUK-JJI-PPA-BEEP-BOOP-BEEP' + summaryMsg;
+    }
   }
   else if (outcome == 3) {
     drawCount = drawCount + 1;
-    myOutputValue = 'Draw' + choicesPrint + summaryStats;
+    summaryMsg = printing(computerShowed, input);
+    myOutputValue = 'Draw' + summaryMsg;
+    if (koreanVersion == 1) {
+      myOutputValue = lastWinner + ' won!!' + summaryMsg;
+      lastWinner = '';
+    }
   }
   else if (outcome == 0) {
     myOutputValue = 'Invalid game. Please input scissors, paper, or stone.' + summaryStats;
