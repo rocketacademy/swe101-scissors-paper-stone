@@ -73,7 +73,7 @@ var main = function (input) {
     if (userGesture == computerGesture) {
       gameCount = gameCount + 1;
       numberOfDraw = numberOfDraw + 1;
-      myOutputValue = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> Its a draw! <br> <br> We played ' + gameCount + ' turns, and there have been ' + numberOfDraw + ' draws. <br> That is ' + ((100 * numberOfDraw) / gameCount) + '%.';
+      myOutputValue = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> Its a draw! <br> <br> So far ' + userName + ', we played ' + gameCount + ' turns, and there have been ' + numberOfDraw + ' draws. <br> That is ' + ((100 * numberOfDraw) / gameCount) + '%.';
     }
     // set winning conditions
     if ((userGesture == 'scissors' && computerGesture == 'paper')
@@ -81,7 +81,7 @@ var main = function (input) {
     || (userGesture == 'stone' && computerGesture == 'scissors')) {
       gameCount = gameCount + 1;
       userWin = userWin + 1;
-      myOutputValue = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> You won! <br> <br> We played ' + gameCount + ' turns, and you have been winning ' + userWin + ' turns. <br> That is ' + ((100 * userWin) / gameCount) + '%. Keep it up!';
+      myOutputValue = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> You won! :D <br> <br> So far ' + userName + ', we played ' + gameCount + ' turns, and you have been winning ' + userWin + ' turns. <br> That is ' + ((100 * userWin) / gameCount) + '%. Keep it up!';
     }
     // set losing conditions
     if ((userGesture == 'scissors' && computerGesture == 'stone')
@@ -89,7 +89,7 @@ var main = function (input) {
     || (userGesture == 'stone' && computerGesture == 'paper')) {
       gameCount = gameCount + 1;
       userLose = userLose + 1;
-      myOutputValue = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> You lost! <br> <br> We played ' + gameCount + ' turns, and you have been losing ' + userLose + ' turns. <br> That is ' + ((100 * userLose) / gameCount) + '%. Try again!';
+      myOutputValue = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> You lost! :( <br> <br> So far ' + userName + ', we played ' + gameCount + ' turns, and you have been losing ' + userLose + ' turns. <br> That is ' + ((100 * userLose) / gameCount) + '%. Try again!';
     }
   }
 
