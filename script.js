@@ -33,52 +33,64 @@ var computerLose = 0;
 // create number of draw record.
 var numberOfDraw = 0;
 
+var currentGameMode = 'waiting for user name';
+var userName = '';
+
 var main = function (input) {
-  var userName = input;
-  var myOutputValue = 'Welcome ' + userName + '!! <br><br> Type in "scissors", "paper" or "stone" to play. <br><br> Are we ready?';
+  var myOutputValue = '';
 
-  //   myOutputValue = 'Oooopppssss! <br><br> please only type in "scissors", "paper" or "stone" to play! <br><br> Please try again!';
-  // }
+  if (currentGameMode == 'waiting for user name') {
+    // set the name
+    userName = input;
 
-  var computerGesture = genRandomGesture();
+    // now we have the name, switch the mode
+    currentGameMode = 'SPS game';
+    myOutputValue = 'Hello ' + userName + '! <br> Enter "scissors", "paper" or "stone" to play! <br> Good luck!';
+  } else
+  if (!(input == 'scissors' || input == 'paper' || input == 'stone')) {
+    myOutputValue = 'Ooppppssss! Please only enter "scissors", "paper" or "stone" to play!';
+  } else
+  if (currentGameMode == 'SPS game') {
+    var computerGesture = genRandomGesture();
 
-  // assign a number to each scissors, paper and stone.
-  if (input == 'scissors') {
-    var userGesture = 1;
-    userGesture = 'scissors';
-  }
-  if (input == 'paper') {
-    var userGesture = 2;
-    userGesture = 'paper';
-  }
-  if (input == 'stone') {
-    var userGesture = 3;
-    userGesture = 'stone';
-  }
-  console.log('user gesture:' + userGesture);
-  console.log('computer gesture:' + computerGesture);
+    // assign a number to each scissors, paper and stone.
+    if (input == 'scissors') {
+      var userGesture = 1;
+      userGesture = 'scissors';
+    }
+    if (input == 'paper') {
+      var userGesture = 2;
+      userGesture = 'paper';
+    }
+    if (input == 'stone') {
+      var userGesture = 3;
+      userGesture = 'stone';
+    }
+    console.log('user gesture:' + userGesture);
+    console.log('computer gesture:' + computerGesture);
 
-  // set a draw condition
-  if (userGesture == computerGesture) {
-    gameCount = gameCount + 1;
-    numberOfDraw = numberOfDraw + 1;
-    myOutputValue = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> Its a draw! <br> <br> We played ' + gameCount + ' turns, and there have been ' + numberOfDraw + ' draws. <br> That is ' + ((100 * numberOfDraw) / gameCount) + '%.';
-  }
-  // set winning conditions
-  if ((userGesture == 'scissors' && computerGesture == 'paper')
+    // set a draw condition
+    if (userGesture == computerGesture) {
+      gameCount = gameCount + 1;
+      numberOfDraw = numberOfDraw + 1;
+      myOutputValue = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> Its a draw! <br> <br> We played ' + gameCount + ' turns, and there have been ' + numberOfDraw + ' draws. <br> That is ' + ((100 * numberOfDraw) / gameCount) + '%.';
+    }
+    // set winning conditions
+    if ((userGesture == 'scissors' && computerGesture == 'paper')
     || (userGesture == 'paper' && computerGesture == 'stone')
     || (userGesture == 'stone' && computerGesture == 'scissors')) {
-    gameCount = gameCount + 1;
-    userWin = userWin + 1;
-    myOutputValue = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> You won! <br> <br> We played ' + gameCount + ' turns, and you have been winning ' + userWin + ' turns. <br> That is ' + ((100 * userWin) / gameCount) + '%. Keep it up!';
-  }
-  // set losing conditions
-  if ((userGesture == 'scissors' && computerGesture == 'stone')
+      gameCount = gameCount + 1;
+      userWin = userWin + 1;
+      myOutputValue = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> You won! <br> <br> We played ' + gameCount + ' turns, and you have been winning ' + userWin + ' turns. <br> That is ' + ((100 * userWin) / gameCount) + '%. Keep it up!';
+    }
+    // set losing conditions
+    if ((userGesture == 'scissors' && computerGesture == 'stone')
     || (userGesture == 'paper' && computerGesture == 'scissors')
     || (userGesture == 'stone' && computerGesture == 'paper')) {
-    gameCount = gameCount + 1;
-    userLose = userLose + 1;
-    myOutputValue = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> You lost! <br> <br> We played ' + gameCount + ' turns, and you have been losing ' + userLose + ' turns. <br> That is ' + ((100 * userLose) / gameCount) + '%. Try again!';
+      gameCount = gameCount + 1;
+      userLose = userLose + 1;
+      myOutputValue = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> You lost! <br> <br> We played ' + gameCount + ' turns, and you have been losing ' + userLose + ' turns. <br> That is ' + ((100 * userLose) / gameCount) + '%. Try again!';
+    }
   }
 
   return myOutputValue;
