@@ -160,6 +160,56 @@ var koreaScissorsPaperStoneGame = function (userInput) {
   return outcomeOfGame;
 };
 
+// FUNCTION: Computer scissors paper stone
+var computerScissorsPaperStoneGame = function () {
+  var outcomeOfGame = ''; // this is a string
+  // generate a number from 1 to 3 for 2 players
+  var computerInput = randomNumGenerator(1, 3);
+  var userInput = randomNumGenerator(1, 3);
+  // convert number to variable (1 is Scissors. 2 is Paper. 3 is Stone)
+  if (computerInput == 1) {
+    computerInput = 'scissors';
+  } else if (computerInput == 2) {
+    computerInput = 'paper';
+  } else if (computerInput == 3) {
+    computerInput = 'stone';
+  }
+  if (userInput == 1) {
+    userInput = 'scissors';
+  } else if (userInput == 2) {
+    userInput = 'paper';
+  } else if (userInput == 3) {
+    userInput = 'stone';
+  }
+  // count as gameplay
+  gamesPlayed += 1;
+  // Check userInput
+  // If its a draw
+  if (userInput == computerInput) {
+    // draw statement
+    outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `Your assistant chose ${userInput}` + '<br>' + 'It is a draw!' + '<br>' + `So far ${userName}, youve been winning ${playerScore}/${gamesPlayed} turns. Pretty good!`;
+
+  // if player win
+  } else if ((userInput == 'scissors' && computerInput == 'paper')
+  || (userInput == 'paper' && computerInput == 'stone')
+  || (userInput == 'stone' && computerInput == 'scissors')) {
+    // increase player score
+    playerScore += 1;
+    // winning statement
+    outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `Your assistant chose ${userInput}` + '<br>' + 'You Win!' + '<br>' + `So far ${userName}, youve been winning ${playerScore}/${gamesPlayed} turns. Pretty good!`;
+
+  // if player lose
+  } else if ((userInput == 'scissors' && computerInput == 'stone')
+  || (userInput == 'paper' && computerInput == 'scissors')
+  || (userInput == 'stone' && computerInput == 'paper')) {
+    // increase computer score
+    computerScore += 1;
+    // losing statement
+    outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `Your assistant chose ${userInput}` + '<br>' + 'You Lost! Bad assistant!' + '<br>' + `So far ${userName}, youve been winning ${playerScore}/${gamesPlayed} turns. Pretty good!`;
+  }
+  return outcomeOfGame;
+};
+
 // FUNCTION: Input validation
 var inputValidation = function (userName, userInput) {
   var returnStatement = '';
@@ -211,9 +261,14 @@ var main = function (input) {
     myOutputValue = 'Hello ' + userName + '!' + '<br>' + 'Welcome to a game of KOREAN ✂️🗒🗻' + '<br>' + 'Take a guess!';
     return myOutputValue;
   }
+  if (input == 'computer') {
+    gameMode = 'computer';
+    myOutputValue = 'Hello ' + userName + '!' + '<br>' + 'Looks like you hired an assistant to play for you. Sit back and watch!' + '<br>' + 'Click submit to continue';
+    return myOutputValue;
+  }
 
   // Check the game modes
-  // Current game modes: Default, Reverse, Korea
+  // Current game modes: Default, Reverse, Korea, Computer
 
   // Default Scissors Paper Stone Game
   if (gameMode == 'default') {
@@ -248,6 +303,11 @@ var main = function (input) {
     }
     return myOutputValue;
   }
+  // Computer Scissors Paper Stone Game
+  if (gameMode == 'computer') {
+    myOutputValue = computerScissorsPaperStoneGame();
+    return myOutputValue;
+  }
 };
 
 /* ------------------GAME INSTRUCTIONS------------------------- */
@@ -260,3 +320,5 @@ var main = function (input) {
 // User needs to enter SPS. The rules are different Anything else will be an error
 // During game mode: korean
 // User needs to enter SPS. The rules are different. the winner is the last person to win before a draw.
+// During game mode: computer
+// Computer playes for player
