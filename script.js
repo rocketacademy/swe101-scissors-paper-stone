@@ -39,21 +39,21 @@ var lastWinner = winner;
 
 var userName = '';
 
-// FUNCTION 3: sps game
-var spsGame = function (input) {
-  var message = '';
+// FUNCTION 3: normal SPS game
+var normalSps = function (input) {
+  var message = 'Now you are in normal game mode! Enter "scissors", "paper" or "stone" to play!';
+  
   // sps game logic
 var computerGesture = genRandomGesture();
-
     // assign a number to each scissors, paper and stone.
     if (input == 'scissors') {
       var userGesture = 1;
       userGesture = 'scissors';
-    }
+    } 
     if (input == 'paper') {
       var userGesture = 2;
       userGesture = 'paper';
-    }
+    } 
     if (input == 'stone') {
       var userGesture = 3;
       userGesture = 'stone';
@@ -88,7 +88,7 @@ var computerGesture = genRandomGesture();
 
 // FUNCTION 4: reverse sps game
 var reverseSps = function (input) {
-  var reverseMessage = ' Now you are in the reverse game mode!';
+  var reverseMessage = ' Now you are in the reverse game mode! Enter "scissors", "paper" or "stone" to play!';
 
 var computerGesture = genRandomGesture();
 
@@ -133,7 +133,7 @@ var computerGesture = genRandomGesture();
 // FUNCTION 5: korean SPS
 var koreanSps = function (input) {
   
-  var koreanMessage = 'You are in the korean game mode';
+  var koreanMessage = 'You are in the korean game mode! Enter "scissors", "paper" or "stone" to play!';
   // sps game logic
 var computerGesture = genRandomGesture();
 
@@ -176,7 +176,7 @@ if ((userGesture == 'scissors' && computerGesture == 'stone')
   // when draw
   if (userGesture == computerGesture) {
     lastWinner = winner;
-      koreanMessage = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> It matches!! <br><br> So the winner is ' + lastWinner;
+      koreanMessage = 'The computer chose ' + computerGesture + '.<br> You chose ' + input + '. <br> <br> It matches!! <br><br> So the winner is the last winner, who is ' + lastWinner + '. Congrat!';
     }
   return koreanMessage;
 };
@@ -191,24 +191,25 @@ var main = function (input) {
     // set the name
     userName = input;
 
-    // now we have the name, switch the mode
-    currentGameMode = 'SPS game';
-    myOutputValue = 'Hello ' + userName + '! <br> Enter "scissors", "paper" or "stone" to play! <br> Good luck!';
-  } else
-  if (!(input == 'scissors' || input == 'paper' || input == 'stone')) {
-    myOutputValue = 'Ooppppssss! Please only enter "scissors", "paper" or "stone" to play!';
-  } else
-  if (currentGameMode == 'SPS game') {
-    myOutputValue = spsGame(input);
-  } 
+    myOutputValue = 'Hello ' + userName + '! <br> Choose your game mode: <br> Enter "normal", "reverse" or "korean" to chose! <br> Good luck!';
+  }
 
+    // now we have the name, select the game mode
+    // normal SPS
+  if (input == 'normal') {
+    currentGameMode = 'normalSPS'
+  }
+  if (currentGameMode == 'normalSPS') {
+    myOutputValue = normalSps(input);
+  } 
+    // reverse SPS
   if (input == 'reverse') {
     currentGameMode = 'reverseSPS';
   }
   if (currentGameMode == 'reverseSPS') {
     myOutputValue = reverseSps (input);
   } 
-
+    // korean SPS
   if (input == 'korean') {
     currentGameMode = 'koreanSPS';
   }
