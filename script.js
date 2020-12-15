@@ -42,9 +42,10 @@ var userName = '';
 // FUNCTION 3: normal SPS game
 var normalSps = function (input) {
   var message = 'Now you are in normal game mode! Enter "scissors", "paper" or "stone" to play!';
-  
+
   // sps game logic
 var computerGesture = genRandomGesture();
+
     // assign a number to each scissors, paper and stone.
     if (input == 'scissors') {
       var userGesture = 1;
@@ -196,6 +197,7 @@ var main = function (input) {
 
     // now we have the name, select the game mode
     // normal SPS
+
   if (input == 'normal') {
     currentGameMode = 'normalSPS'
   }
@@ -216,6 +218,9 @@ var main = function (input) {
   if (currentGameMode == 'koreanSPS') {
     myOutputValue = koreanSps(input);
   }
+  if (!(input == 'scissors' || input == 'paper' || input == 'stone' || input == 'normal' || input == 'reverse' || input == 'korean' || input == userName)) {
+    myOutputValue = 'Ooopppsss! please only type in "scissors", "paper" or "stone" to play <br><br> Or type in "normal", "reverse" or "korean" to change the game mode!';
+  } 
 
   return myOutputValue;
 };
