@@ -8,6 +8,8 @@ var userName = '';
 var playerScore = 0;
 var computerScore = 0;
 var gamesPlayed = 0;
+// Last winner check for koren scissors paper stone
+var lastWinner = '';
 
 /* ------------------Scissors Paper Stone Game---------------------------- */
 // FUNCTION: Generate Random Number
@@ -101,6 +103,63 @@ var reverseScissorsPaperStoneGame = function (userInput) {
   return outcomeOfGame;
 };
 
+// FUNCTION: Korean scissors paper stone
+var koreaScissorsPaperStoneGame = function (userInput) {
+  var outcomeOfGame = ''; // this is a string
+  // generate a number from 1 to 3
+  var computerInput = randomNumGenerator(1, 3);
+  computerInput = 2;
+  // convert number to variable (1 is Scissors. 2 is Paper. 3 is Stone)
+  if (computerInput == 1) {
+    computerInput = 'scissors';
+  } else if (computerInput == 2) {
+    computerInput = 'paper';
+  } else if (computerInput == 3) {
+    computerInput = 'stone';
+  }
+  // count as gameplay
+  gamesPlayed += 1;
+  // Check userInput
+  // If its a draw
+  if (userInput == computerInput) {
+    // check if this is the first game of korean scissors paper stone
+    // if first game
+    if (lastWinner == '') {
+      // draw statement
+      outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `You chose ${userInput}` + '<br>' + 'It is a draw! but nobody wins as this is the first game of korean SPS';
+    } else {
+    // if not first game
+    // draw statement
+      outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `You chose ${userInput}` + '<br>' + `It is a draw! and by the rules of korea the winner is ${lastWinner}!`;
+      // reset lastWinner
+      lastWinner = '';
+    }
+
+  // if player win
+  } else if ((userInput == 'scissors' && computerInput == 'paper')
+  || (userInput == 'paper' && computerInput == 'stone')
+  || (userInput == 'stone' && computerInput == 'scissors')) {
+    // increase player score
+    playerScore += 1;
+    // set lastWinner
+    lastWinner = userName;
+    // winning statement
+    outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `You chose ${userInput}` + '<br>' + 'You need a draw on your next turn to win!';
+
+  // if player lose
+  } else if ((userInput == 'scissors' && computerInput == 'stone')
+  || (userInput == 'paper' && computerInput == 'scissors')
+  || (userInput == 'stone' && computerInput == 'paper')) {
+    // increase computer score
+    computerScore += 1;
+    // set lastWinner
+    lastWinner = 'computer';
+    // losing statement
+    outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `You chose ${userInput}` + '<br>' + 'The computer needs a draw on the next round to win!';
+  }
+  return outcomeOfGame;
+};
+
 // FUNCTION: Input validation
 var inputValidation = function (userName, userInput) {
   var returnStatement = '';
@@ -147,8 +206,14 @@ var main = function (input) {
     myOutputValue = 'Hello ' + userName + '!' + '<br>' + 'Welcome to back to a regular game of ✂️🗒🗻' + '<br>' + 'Take a guess!';
     return myOutputValue;
   }
+  if (input == 'korea') {
+    gameMode = 'korea';
+    myOutputValue = 'Hello ' + userName + '!' + '<br>' + 'Welcome to a game of KOREAN ✂️🗒🗻' + '<br>' + 'Take a guess!';
+    return myOutputValue;
+  }
 
   // Check the game modes
+  // Current game modes: Default, Reverse, Korea
 
   // Default Scissors Paper Stone Game
   if (gameMode == 'default') {
@@ -172,6 +237,17 @@ var main = function (input) {
     }
     return myOutputValue;
   }
+  // Korean Scissors Paper Stone Game
+  if (gameMode == 'korea') {
+    // Check user input for errors. Arguements -> (userName, userInput)
+    myOutputValue = inputValidation(userName, input);
+    // if input has no errors launch game
+    if (checkUserInput == 'checked') {
+      myOutputValue = koreaScissorsPaperStoneGame(input);
+      return myOutputValue;
+    }
+    return myOutputValue;
+  }
 };
 
 /* ------------------GAME INSTRUCTIONS------------------------- */
@@ -182,3 +258,5 @@ var main = function (input) {
 // User needs to enter SPS. Anything else will be an error
 // During game mode: reverse
 // User needs to enter SPS. The rules are different Anything else will be an error
+// During game mode: korean
+// User needs to enter SPS. The rules are different. the winner is the last person to win before a draw.
