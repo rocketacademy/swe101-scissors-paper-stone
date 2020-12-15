@@ -17,7 +17,7 @@ var randomNumGenerator = function (min, max) {
   return randomNumber;
 };
 
-// FUNCTION: Game mode scissors paper stone
+// FUNCTION: Default scissors paper stone
 var scissorsPaperStoneGame = function (userInput) {
   var outcomeOfGame = ''; // this is a string
   // generate a number from 1 to 3
@@ -33,7 +33,8 @@ var scissorsPaperStoneGame = function (userInput) {
   // count as gameplay
   gamesPlayed += 1;
   // Check userInput
-  if (userInput == computerInput) { // If its a draw
+  // If its a draw
+  if (userInput == computerInput) {
     // draw statement
     outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `You chose ${userInput}` + '<br>' + 'It is a draw!' + '<br>' + `So far ${userName}, youve been winning ${playerScore}/${gamesPlayed} turns. Pretty good!`;
 
@@ -54,6 +55,48 @@ var scissorsPaperStoneGame = function (userInput) {
     computerScore += 1;
     // losing statement
     outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `You chose ${userInput}` + '<br>' + 'You Lost! bummer' + '<br>' + `So far ${userName}, youve been winning ${playerScore}/${gamesPlayed} turns. Pretty good!`;
+  }
+  return outcomeOfGame;
+};
+
+// FUNCTION: Reverse scissors paper stone
+var reverseScissorsPaperStoneGame = function (userInput) {
+  var outcomeOfGame = ''; // this is a string
+  // generate a number from 1 to 3
+  var computerInput = randomNumGenerator(1, 3);
+  // convert number to variable (1 is Scissors. 2 is Paper. 3 is Stone)
+  if (computerInput == 1) {
+    computerInput = 'scissors';
+  } else if (computerInput == 2) {
+    computerInput = 'paper';
+  } else if (computerInput == 3) {
+    computerInput = 'stone';
+  }
+  // count as gameplay
+  gamesPlayed += 1;
+  // Check userInput
+  // If its a draw
+  if (userInput == computerInput) {
+    // draw statement
+    outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `You chose ${userInput}` + '<br>' + 'It is a draw!' + '<br>' + `So far ${userName}, youve been winning ${playerScore}/${gamesPlayed} turns. Pretty good!`;
+
+  // if player win
+  } else if ((userInput == 'scissors' && computerInput == 'stone')
+  || (userInput == 'paper' && computerInput == 'scissors')
+  || (userInput == 'stone' && computerInput == 'paper')) {
+    // increase player score
+    playerScore += 1;
+    // winning statement
+    outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `You chose ${userInput}` + '<br>' + 'In the wacky world of reverse...You Win!' + '<br>' + `So far ${userName}, youve been winning ${playerScore}/${gamesPlayed} turns. Pretty good!`;
+
+  // if player lose
+  } else if ((userInput == 'scissors' && computerInput == 'paper')
+  || (userInput == 'paper' && computerInput == 'stone')
+  || (userInput == 'stone' && computerInput == 'scissors')) {
+    // increase computer score
+    computerScore += 1;
+    // losing statement
+    outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `You chose ${userInput}` + '<br>' + 'In the wacky world of reverse...You Lost! bummer' + '<br>' + `So far ${userName}, youve been winning ${playerScore}/${gamesPlayed} turns. Pretty good!`;
   }
   return outcomeOfGame;
 };
@@ -83,27 +126,48 @@ var inputValidation = function (userName, userInput) {
 /* ----------------------------------------------------------- */
 var main = function (input) {
   var myOutputValue = '';
-  // switch the game modes by user input (NOT IN USE YET)
-  if (input == 'reverse') {
-    // pass
-  }
-  // check the game modes
+  // get user to key in username
   if (gameMode == 'waitingForUsername') {
     // take user input as username
     userName = input;
     // now that we have the name, switch the mode
-    gameMode = 'startGame';
+    gameMode = 'default';
     myOutputValue = 'Hello ' + userName + '!' + '<br>' + 'Welcome to a game of ✂️🗒🗻' + '<br>' + 'Take a guess!';
     return myOutputValue;
   }
-  // Start Scissors Paper Stone Game
-  if (gameMode == 'startGame') {
-    // validate user input. ensure that they don't type nonsense
+
+  // switch the game modes by user input
+  if (input == 'reverse') {
+    gameMode = 'reverse';
+    myOutputValue = 'Hello ' + userName + '!' + '<br>' + 'Welcome to a game of REVERSE ✂️🗒🗻' + '<br>' + 'Take a guess!';
+    return myOutputValue;
+  }
+  if (input == 'default') {
+    gameMode = 'default';
+    myOutputValue = 'Hello ' + userName + '!' + '<br>' + 'Welcome to back to a regular game of ✂️🗒🗻' + '<br>' + 'Take a guess!';
+    return myOutputValue;
+  }
+
+  // Check the game modes
+
+  // Default Scissors Paper Stone Game
+  if (gameMode == 'default') {
     // Check user input for errors. Arguements -> (userName, userInput)
     myOutputValue = inputValidation(userName, input);
     // if input has no errors launch game
     if (checkUserInput == 'checked') {
       myOutputValue = scissorsPaperStoneGame(input);
+      return myOutputValue;
+    }
+    return myOutputValue;
+  }
+  // Reverse Scissors Paper Stone Game
+  if (gameMode == 'reverse') {
+    // Check user input for errors. Arguements -> (userName, userInput)
+    myOutputValue = inputValidation(userName, input);
+    // if input has no errors launch game
+    if (checkUserInput == 'checked') {
+      myOutputValue = reverseScissorsPaperStoneGame(input);
       return myOutputValue;
     }
     return myOutputValue;
@@ -114,5 +178,7 @@ var main = function (input) {
 // Game modes are : waiting for username and start game
 // During game mode: waiting for username
 // User nees to enter a name and it gets stored in a global variable
-// During game mode: start game
+// During game mode: default
 // User needs to enter SPS. Anything else will be an error
+// During game mode: reverse
+// User needs to enter SPS. The rules are different Anything else will be an error
