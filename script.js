@@ -1,122 +1,118 @@
-// Global variables
-var gameMode = 'waiting for username';
+/* ------------------Global Variables---------------------------- */
+// Game Modes
+var gameMode = 'waitingForUsername';
+var checkUserInput = 'notChecked';
+// User Name
 var userName = '';
+// Score keepers
 var playerScore = 0;
 var computerScore = 0;
 var gamesPlayed = 0;
 
-// Random Scissors Paper Stone Function
-// Random Number Function
+/* ------------------Scissors Paper Stone Game---------------------------- */
+// FUNCTION: Generate Random Number
 var randomNumGenerator = function (min, max) {
   // generate a random number from min to max
   var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
   return randomNumber;
 };
 
-// Scissors Paper Stone Game Logic
-// Tie Number to Object (1. Scissors 2. Paper 3. Stone)
+// FUNCTION: Game mode scissors paper stone
 var scissorsPaperStoneGame = function (userInput) {
+  var outcomeOfGame = ''; // this is a string
   // generate a number from 1 to 3
   var computerInput = randomNumGenerator(1, 3);
-  // TEST
-  computerInput = 3;
+  // convert number to variable (1 is Scissors. 2 is Paper. 3 is Stone)
+  if (computerInput == 1) {
+    computerInput = 'scissors';
+  } else if (computerInput == 2) {
+    computerInput = 'paper';
+  } else if (computerInput == 3) {
+    computerInput = 'stone';
+  }
   // count as gameplay
   gamesPlayed += 1;
-  // Statements for output
-  var computerChoiceStatementScissors = 'The computer chose ✂️' + '<br>';
-  var computerChoiceStatementPaper = 'The computer chose 🗒' + '<br>';
-  var computerChoiceStatementStone = 'The computer chose 🗻' + '<br>';
-  var userChoiceStatementScissors = 'You chose ✂️' + '<br>';
-  var userChoiceStatementPaper = 'You chose 🗒' + '<br>';
-  var userChoiceStatementStone = 'You chose 🗻' + '<br>';
-  var resultStatementWin = 'You Win! Hooray' + '<br>';
-  var resultStatementDraw = 'Its a draw!' + '<br>';
-  var resultStatementLose = 'You Lose! Bummer' + '<br>';
-  // check userInput
-  if (userInput == 'scissors') {
-    // if computer input is paper. WIN
-    if (computerInput == 2) {
-      playerScore += 1;
-      returnStatement = computerChoiceStatementPaper + userChoiceStatementScissors + resultStatementWin;
-    // else if computer input is scissors. DRAW
-    } else if (computerInput == 1) {
-      returnStatement = computerChoiceStatementScissors + userChoiceStatementScissors + resultStatementDraw;
-    // else computer input is stone. LOSE
-    } else {
-      computerScore += 1;
-      returnStatement = computerChoiceStatementStone + userChoiceStatementScissors + resultStatementLose;
-    }
+  // Check userInput
+  if (userInput == computerInput) { // If its a draw
+    // draw statement
+    outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `You chose ${userInput}` + '<br>' + 'It is a draw!' + '<br>' + `So far ${userName}, youve been winning ${playerScore}/${gamesPlayed} turns. Pretty good!`;
 
-    // else if user is Paper
-  } else if (userInput == 'paper') {
-    // if computer input is stone. WIN
-    if (computerInput == 3) {
-      playerScore += 1;
-      returnStatement = computerChoiceStatementStone + userChoiceStatementPaper + resultStatementWin;
-    // else if computer input is paper. DRAW
-    } else if (computerInput == 2) {
-      returnStatement = computerChoiceStatementPaper + userChoiceStatementPaper + resultStatementDraw;
-    // else computer input is scissors. LOSE
-    } else {
-      computerScore += 1;
-      returnStatement = computerChoiceStatementScissors + userChoiceStatementPaper + resultStatementLose;
-    }
+  // if player win
+  } else if ((userInput == 'scissors' && computerInput == 'paper')
+  || (userInput == 'paper' && computerInput == 'stone')
+  || (userInput == 'stone' && computerInput == 'scissors')) {
+    // increase player score
+    playerScore += 1;
+    // winning statement
+    outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `You chose ${userInput}` + '<br>' + 'You Win!' + '<br>' + `So far ${userName}, youve been winning ${playerScore}/${gamesPlayed} turns. Pretty good!`;
 
-    // else if user is Stone
-  } else if (userInput == 'stone') {
-    // if computer input is scissors. WIN
-    if (computerInput == 1) {
-      playerScore += 1;
-      returnStatement = computerChoiceStatementScissors + userChoiceStatementStone + resultStatementWin;
-    // else if computer input is stone. DRAW
-    } else if (computerInput == 3) {
-      returnStatement = computerChoiceStatementStone + userChoiceStatementStone + resultStatementDraw;
-    // else computer input is paper. LOSE
-    } else {
-      computerScore += 1;
-      returnStatement = computerChoiceStatementPaper + userChoiceStatementStone + resultStatementLose;
-    }
-  } else {
-    // pass
+  // if player lose
+  } else if ((userInput == 'scissors' && computerInput == 'stone')
+  || (userInput == 'paper' && computerInput == 'scissors')
+  || (userInput == 'stone' && computerInput == 'paper')) {
+    // increase computer score
+    computerScore += 1;
+    // losing statement
+    outcomeOfGame = `The computer chose ${computerInput}` + '<br>' + `You chose ${userInput}` + '<br>' + 'You Lost! bummer' + '<br>' + `So far ${userName}, youve been winning ${playerScore}/${gamesPlayed} turns. Pretty good!`;
   }
-  return returnStatement + '<br>' + `So far ${userName}, you've been winning ${playerScore}/${gamesPlayed} turns. Pretty good!`;
+  return outcomeOfGame;
 };
 
-// Input validation
+// FUNCTION: Input validation
 var inputValidation = function (userName, userInput) {
   var returnStatement = '';
   // if input is scissors paper or stone
   if ((userInput == 'scissors')
   || (userInput == 'paper')
   || (userInput == 'stone')) {
-    gameMode = 'inputValidationChecked';
-  // if blank
+    checkUserInput = 'checked';
+  // if input is blank
   } else if (userInput.trim() == '') {
-    gameMode = 'start game';
+    checkUserInput = 'notChecked';
     returnStatement = `Hey ${userName} no blanks allowed!`;
+  // if input is not list of words
   } else {
-    gameMode = 'start game';
+    checkUserInput = 'notChecked';
     returnStatement = `Hey ${userName}! You need to type either ✂️🗒🗻!`;
   }
   return returnStatement;
 };
 
-// MAIN FUNCTION
+/* ----------------------------------------------------------- */
+/* ------------------MAIN FUNCTION---------------------------- */
+/* ----------------------------------------------------------- */
 var main = function (input) {
   var myOutputValue = '';
-  if (gameMode == 'waiting for username') {
-    // set the name
+  // switch the game modes by user input (NOT IN USE YET)
+  if (input == 'reverse') {
+    // pass
+  }
+  // check the game modes
+  if (gameMode == 'waitingForUsername') {
+    // take user input as username
     userName = input;
     // now that we have the name, switch the mode
-    gameMode = 'start game';
+    gameMode = 'startGame';
     myOutputValue = 'Hello ' + userName + '!' + '<br>' + 'Welcome to a game of ✂️🗒🗻' + '<br>' + 'Take a guess!';
-  } else if (gameMode == 'start game' || 'inputValidationChecked') {
-    // input validations arguements (userName, userInput)
-    myOutputValue = (inputValidation(userName, input));
-    // start game
-    if (gameMode == 'inputValidationChecked') {
-      myOutputValue = scissorsPaperStoneGame(input);
-    }
+    return myOutputValue;
   }
-  return myOutputValue;
+  // Start Scissors Paper Stone Game
+  if (gameMode == 'startGame') {
+    // validate user input. ensure that they don't type nonsense
+    // Check user input for errors. Arguements -> (userName, userInput)
+    myOutputValue = inputValidation(userName, input);
+    // if input has no errors launch game
+    if (checkUserInput == 'checked') {
+      myOutputValue = scissorsPaperStoneGame(input);
+      return myOutputValue;
+    }
+    return myOutputValue;
+  }
 };
+
+/* ------------------GAME INSTRUCTIONS------------------------- */
+// Game modes are : waiting for username and start game
+// During game mode: waiting for username
+// User nees to enter a name and it gets stored in a global variable
+// During game mode: start game
+// User needs to enter SPS. Anything else will be an error
