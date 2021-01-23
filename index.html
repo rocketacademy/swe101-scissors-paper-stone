@@ -52,12 +52,18 @@
   <body>
     <h1 id="header">SWE101: Scissors Paper Stone 🚀</h1>
     <div id="container">
-      <p>Input:</p>
+      <p>Player Name:</p>
+      <input id="name-field" />
+      <p>Player Input:</p>
       <input id="input-field" />
       <button id="submit-button">Submit</button>
-      <p>Output:</p>
+      
       <div id="output-div"></div>
     </div>
+
+
+    
+
     <!-- Import program logic -->
     <script src="script.js"></script>
     <!-- Define button click functionality -->
@@ -66,7 +72,10 @@
       button.addEventListener("click", function () {
         // Set result to input value
         var input = document.querySelector("#input-field");
-        var result = main(input.value);
+        
+
+        var player_name = document.querySelector("#name-field");
+        var result = main(input.value, player_name.value);
 
         // Display result in output element
         var output = document.querySelector("#output-div");
