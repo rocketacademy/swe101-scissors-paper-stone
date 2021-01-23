@@ -5,33 +5,33 @@ var computerWinsCount = 0;
 
 var main = function (input, player_name) {
 
-  /*
-Win-Loss Record
-Add state to your program such that it keeps track of the number of times the user has won 
-and the number of times the computer has won. Output this win-loss record in a format you like 
-in the program output. 
-You can also output the number of draws and/or each party's winning percentage if you'd like.
+var inputValid = validateInput(input);
+if (inputValid){
+    var player2Moves =makePlayer2Moves();
+    
+    var win = winOrLoseOrDraw(input,player2Moves);
+    round = round+1;
+    var myOutputValue = "ROUND : "+round+ 
+    " The computer chose "+player2Moves+". "+
+    player_name+" chose "
+    +input +",  "
+    + player_name+" "+win +"! "+ "Computer Wins : "+computerWinsCount+ " Player Wins : "+ playerWinCount;
+    return myOutputValue;
+} else {
+  return "You have entered an invalid input "+ input +  ", please enter scissor, paper or stone.";
+}
 
-
-
-Input Validation
-Sometimes the user types bad and types something other than "scissors", "paper", or "stone" 
-during gameplay. Add input validation to kindly let the user know that there are only 3 
-input options, and ask them to try again.
-  */
-
-
-  var player2Moves =makePlayer2Moves();
-  
-  var win = winOrLoseOrDraw(input,player2Moves);
-  round = round+1;
-  var myOutputValue = "ROUND : "+round+ 
-  " The computer chose "+player2Moves+". "+
-  player_name+" chose "
-  +input +",  "
-  + player_name+" "+win +"! "+ "Computer Wins : "+computerWinsCount+ " Player Wins : "+ playerWinCount;
-  return myOutputValue;
 };
+
+var validateInput =function(input){
+  if (input=="scissor" || input=="paper" ||input=="stone"){
+    return true;
+  } else {
+    return false;
+  }
+  
+ 
+}
 
 var playerWins=function(){
   return 
@@ -53,7 +53,6 @@ var makePlayer2Moves=function(){
 // 
 var winOrLoseOrDraw=function(player1move, player2move){
 
-  
   ///player1 scissor
   
   // player 2 scissor
