@@ -1,3 +1,8 @@
+
+var round=0;
+var playerWinCount=0; 
+var computerWinsCount = 0;
+
 var main = function (input, player_name) {
 
   /*
@@ -20,12 +25,17 @@ input options, and ask them to try again.
   
   var win = winOrLoseOrDraw(input,player2Moves);
   round = round+1;
-  var myOutputValue = "The computer chose "+player2Moves+".\n" +
-  player_name+" chose "+input +",\n "+ player_name+" "+win +"!" + " round "+round;
+  var myOutputValue = "ROUND : "+round+ 
+  " The computer chose "+player2Moves+". "+
+  player_name+" chose "
+  +input +",  "
+  + player_name+" "+win +"! "+ "Computer Wins : "+computerWinsCount+ " Player Wins : "+ playerWinCount;
   return myOutputValue;
 };
 
-
+var playerWins=function(){
+  return 
+} 
 var makePlayer2Moves=function(){
   var choice =  parseInt(Math.random() * 3);
 
@@ -48,45 +58,51 @@ var winOrLoseOrDraw=function(player1move, player2move){
   
   // player 2 scissor
   if (player1move=='scissor' && player2move=='scissor'){
-    return 'draw';
+    return 'DRAW';
   }
   // player 2 paper
   if (player1move=='scissor' && player2move=='paper'){
-    return 'win';
+    playerWinCount=playerWinCount+1;
+    return 'WINS';
   }
   // player 2 stone
   if (player1move=='scissor' && player2move=='stone'){
-    return 'lose';
+    computerWinsCount = computerWinsCount+1;
+    return 'LOSE';
   }
 
   ///player 1 paper
 
   // player 2 scissor
   if (player1move=='paper' && player2move=='scissor'){
-    return 'lose';
+    computerWinsCount = computerWinsCount+1;
+    return 'LOSE';
   }
   // player 2 paper
   if (player1move=='paper' && player2move=='paper'){
-    return 'draw';
+    return 'DRAW';
   }
   // player 2 stone
   if (player1move=='paper' && player2move=='stone'){
-    return 'win';
+    playerWinCount=playerWinCount+1;
+    return 'WIN';
   }
 
   ///player 1 stone
 ///The computer chose stone. You chose paper You undefined!
   // player 2 scissor
   if (player1move=='stone' && player2move=='scissor'){
-    return 'win';
+    playerWinCount=playerWinCount+1;
+    return 'WIN';
   }
   // player 2 paper
   if (player1move=='stone' && player2move=='paper'){
-    return 'lose';
+    computerWinsCount = computerWinsCount+1;
+    return 'LOSE';
   }
   // player 2 stone
   if (player1move=='stone' && player2move=='stone'){
-    return 'draw';
+    return 'DRAW';
   }
 }
 
