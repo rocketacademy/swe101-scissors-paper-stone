@@ -105,27 +105,3 @@ var winOrLoseOrDraw=function(player1move, player2move){
     return 'DRAW';
   }
 }
-
-// var calcNumIceCubesNeeded = function (numGuests) {
-//   var numDrinksPerGuest = 2;
-//   var numIceCubesPerDrink = 4;
-//   return numGuests * numDrinksPerGuest * numIceCubesPerDrink;
-// };
-
-// var calcNumPoundsOfIceFromCubes = function (numCubes) {
-//   var numGramsPerCube = 1.5;
-//   var numPoundsPerGram = 1 / 454;
-//   return numCubes * numGramsPerCube * numPoundsPerGram;
-// };
-
-// var calcNumHoursNeededToProduceIce = function (numPoundsOfIce) {
-//   var numPoundsOfIceProducedPerHour = 5;
-//   return numPoundsOfIce / numPoundsOfIceProducedPerHour;
-// };
-
-// var main = function (numGuests) {
-//   var numIceCubesNeeded = calcNumIceCubesNeeded(numGuests);
-//   var numPoundsOfIceNeeded = calcNumPoundsOfIceFromCubes(numIceCubesNeeded);
-//   var numHoursNeededToProduceIce = calcNumHoursNeededToProduceIce(numPoundsOfIceNeeded);
-//   return `The hotel would need to run the ice machine for ${numHoursNeededToProduceIce} hours to produce enough ice for ${numGuests} guests.`;
-// };
