@@ -10,19 +10,25 @@ if (inputValid){
     var player2Moves =makePlayer2Moves();
     
     var win = winOrLoseOrDraw(input,player2Moves);
+    
     round = round+1;
+    
     var myOutputValue = "ROUND : "+round+ 
     " The computer chose "+player2Moves+". "+
     player_name+" chose "
     +input +",  "
     + player_name+" "+win +"! "+ "Computer Wins : "+computerWinsCount+ " Player Wins : "+ playerWinCount;
+    
     return myOutputValue;
 } else {
+  
   return "You have entered an invalid input "+ input +  ", please enter scissor, paper or stone.";
+
 }
 
 };
 
+// validate inputs
 var validateInput =function(input){
   if (input=="scissor" || input=="paper" ||input=="stone"){
     return true;
@@ -33,9 +39,7 @@ var validateInput =function(input){
  
 }
 
-var playerWins=function(){
-  return 
-} 
+// computer moves
 var makePlayer2Moves=function(){
   var choice =  parseInt(Math.random() * 3);
 
@@ -50,7 +54,7 @@ var makePlayer2Moves=function(){
   }
 
 }
-// 
+// check win, lose or draw
 var winOrLoseOrDraw=function(player1move, player2move){
 
   ///player1 scissor
@@ -88,7 +92,7 @@ var winOrLoseOrDraw=function(player1move, player2move){
   }
 
   ///player 1 stone
-///The computer chose stone. You chose paper You undefined!
+
   // player 2 scissor
   if (player1move=='stone' && player2move=='scissor'){
     playerWinCount=playerWinCount+1;
