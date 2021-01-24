@@ -86,32 +86,49 @@ var getWinLossRecord = function () {
   return output + ' Try harder the subsequent rounds!';
 };
 
-var main = function (input) {
-  var myOutputValue = 'Please enter your user name in the text field above.';
+var setPreGameMessage = function (input) {
+  // trim the input, ie. remove trailing and leading spaces
   var trimmedInput = input.trim();
 
-  // input is an empty string, and the user is in the midst of setting name
-  if (trimmedInput == '' && !isUsernameSet) {
-    myOutputValue = 'You are not allowed to have an empty name! Please enter a valid name above!';
-  }
+  // base case: input is an empty string
+  var output = 'You are not allowed to have an empty name! Please enter a valid name above!';
 
-  // input is valid, and the user is in the midst of setting name
-  if (trimmedInput != '' && !isUsernameSet) {
+  // input is valid, ie. not an empty string
+  if (trimmedInput != '') {
     userName = trimmedInput;
     isUsernameSet = true;
-    myOutputValue = 'Welcome ' + userName + ', to a game of Scissors, Paper, Stone! Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item, and begin the game!';
+    output = 'Welcome ' + userName + ', to a game of Scissors, Paper, Stone! Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item, and begin the game!';
+  }
 
+  return output;
+};
+
+var playDefault = function (input) {
+  // when submit is hit, generate random type
+  var computerSps = getComputerSps();
+
+  gamesPlayed = gamesPlayed + 1;
+
+  var output = 'The computer chose ' + computerSps + ' ' + getSpsEmoji(computerSps) + '.<br />You chose ' + input + ' ' + getSpsEmoji(input) + '.' + getWinningState(input, computerSps) + getWinLossRecord();
+
+  return output;
+};
+
+var main = function (input) {
+  var myOutputValue = 'Please enter your name in the text field above.';
+
+  // user is still in the midst of setting user
+  if (!isUsernameSet) {
+    myOutputValue = setPreGameMessage(input);
+    // return to terminate function, this is because
+    // we want to display a welcome message instead of
+    // starting game straight after entering a proper name
     return myOutputValue;
   }
 
   // user has already set name
   if (isUsernameSet) {
-    // when submit is hit, generate random type
-    var computerSps = getComputerSps();
-
-    gamesPlayed = gamesPlayed + 1;
-
-    myOutputValue = 'The computer chose ' + computerSps + ' ' + getSpsEmoji(computerSps) + '.<br />You chose ' + input + ' ' + getSpsEmoji(input) + '.' + getWinningState(input, computerSps) + getWinLossRecord();
+    myOutputValue = playDefault(input);
   }
 
   return myOutputValue;
