@@ -80,12 +80,14 @@ var getWinningState = function (playerInput, computerInput, reverse) {
     // end current game if most recent winner is determined
     if (mostRecentWinner != '') {
       // message to be printed
-      drawMessage = drawMessage + ' Since ' + mostRecentWinner + ' was the most recent winner, ' + mostRecentWinner + ' is the ultimate winner of this game! Please type in any 1 of the following 3 items above to restart the game: scissors, paper, stone.';
+      drawMessage = drawMessage + ' Since ' + mostRecentWinner + ' was the most recent winner, ' + mostRecentWinner + ' is the ultimate winner of this game! Please type in your name above to start a new game.';
 
-      // reset game state and mostRecentWinner
+      // reset game state, user name and mostRecentWinner
       gamesPlayed = 0;
       gamesWon = 0;
       mostRecentWinner = '';
+      userName = '';
+      isUsernameSet = false;
     }
     return drawMessage;
   }
