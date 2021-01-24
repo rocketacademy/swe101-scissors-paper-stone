@@ -155,14 +155,14 @@ var setReverseMessage = function (reverse) {
 
 var setGameType = function (input) {
   // base: regular
-  myOutputValue = 'You have decided to play the regular version of Scissors Paper Stone.<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
+  var output = 'You have decided to play the regular version of Scissors Paper Stone.<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
 
   if (input == 'korean') {
-    myOutputValue = "You have decided to play the Korean version of Scissors Paper Stone.<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.";
+    output = 'You have decided to play the Korean version of Scissors Paper Stone.<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
     gameType = 'korean';
   }
   isGameTypeSet = true;
-  return myOutputValue;
+  return output;
 };
 
 var playTurn = function (input) {
