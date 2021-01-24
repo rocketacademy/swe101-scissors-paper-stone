@@ -18,9 +18,13 @@ var isReverse = false;
 // initialize most recent winner
 var mostRecentWinner = '';
 
-// initialize game type game
+// initialize game type
 var gameType = 'regular';
 var isGameTypeSet = false;
+
+// initialize computer mode
+var isComputerMode = false;
+var isComputerModeSet = false;
 
 var getComputerSps = function () {
   // generate a value between 0 and 2.9999...
@@ -94,6 +98,8 @@ var getWinningState = function (playerInput, computerInput, reverse) {
       isUsernameSet = false;
       gameType = 'regular';
       isGameTypeSet = false;
+      isComputerMode = false;
+      isComputerModeSet = false;
     }
     return drawMessage;
   }
@@ -143,12 +149,19 @@ var setPreGameMessage = function (input) {
 
 var setReverseMessage = function (reverse) {
   // base: assume reverse
-  var output = userName.toUpperCase() + ', IT\'S NOW TIME TO PLAY REVERSE! The rules are now reversed: scissors beat stone, stone beats paper, and paper beats scissors. Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
+  var output = userName.toUpperCase() + ', IT\'S NOW TIME TO PLAY REVERSE! The rules are now reversed: scissors beat stone, stone beats paper, and paper beats scissors.';
+  var appendedString = '<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
 
   // if you want to reset back to non-reverse
   if (!reverse) {
-    output = 'Welcome back ' + userName + ', to your proper game of Scissors, Paper, Stone! Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item, and continue the current game!';
+    output = 'Welcome back ' + userName + ', to your proper game of Scissors, Paper, Stone!';
   }
+
+  if (isComputerMode) {
+    appendedString = '<br /><br />Since you have decided to spectate for this game, we will still be choosing for you. We can only promise to be lucky ;).';
+  }
+
+  output = output + appendedString;
 
   return output;
 };
@@ -164,7 +177,20 @@ var setGameType = function (input) {
 
   isGameTypeSet = true;
   // both the regular and korean versions require the instructions below
-  output = output + '<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
+  output = output + '<br /><br />Do you prefer to play this game, or spectate? If you wish to spectate, please type in "spectate" above and submit. Otherwise, type in "play" above and submit.';
+  return output;
+};
+
+var setComputerMode = function (input) {
+  // base: play
+  var output = 'You have decided to play!<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
+
+  if (input == 'spectate') {
+    output = 'You have decided to spectate.<br /><br />You can type in whatever you want into the field above and submit, but we will still be choosing for you. We can only promise to be lucky ;).';
+    isComputerMode = true;
+  }
+
+  isComputerModeSet = true;
   return output;
 };
 
@@ -201,14 +227,14 @@ var main = function (input) {
   var sanitisedInput = input.toLowerCase();
 
   // default: assume game type is unchosen
-  myOutputValue = userName + ', would you like to play the regular or Korean version of Scissors Paper Stone?<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.<br /><br />If you want to play the Korean version, please type in "Korean" above and submit. Otherwise, just type in "regular"';
+  myOutputValue = userName + ', would you like to play the regular or Korean version of Scissors Paper Stone?<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.<br /><br />If you want to play the Korean version, please type in "Korean" above and submit. Otherwise, just type in "regular".';
 
   // if game type is not chosen, take the user's next input to decide
   if (!isGameTypeSet) {
     // default:, assume user did not type in "korean" or "regular"
     // update output, re-hint to user to choose valid game type
     if (sanitisedInput != 'korean' && sanitisedInput != 'regular') {
-      myOutputValue = 'If you want to play the Korean version, please type in "Korean" above and submit. Otherwise, just type in "regular"';
+      myOutputValue = 'If you want to play the Korean version, please type in "Korean" above and submit. Otherwise, just type in "regular".';
       return myOutputValue;
     }
 
@@ -219,6 +245,22 @@ var main = function (input) {
   }
 
   // here on out, we assume the game type is set
+  // now we chose the computer mode
+  if (!isComputerModeSet) {
+    // default:, assume user did not type in "korean" or "regular"
+    // update output, re-hint to user to choose valid game type
+    if (sanitisedInput != 'play' && sanitisedInput != 'spectate') {
+      myOutputValue = 'Please type in and submit only one of the following: play, spectate.';
+      return myOutputValue;
+    }
+
+    // else, set game type
+    myOutputValue = setComputerMode(sanitisedInput);
+
+    return myOutputValue;
+  }
+
+  // here on out, we assume computer mode is set
   // begin game proper. default: assume invalid input
   myOutputValue = "Looks like you are selecting an invalid item, or there's a typo in your text! Please select and type in only one of the following: scissors, paper, stone.";
 
@@ -227,6 +269,14 @@ var main = function (input) {
     isReverse = !isReverse;
     myOutputValue = setReverseMessage(isReverse);
     return myOutputValue;
+  }
+
+  // in computer mode, the computer chooses for you
+  // thus, assign input to computer-chosen values
+  // moving this below the setting of reverse so
+  // the user still has some agency in reversing modes.
+  if (isComputerMode) {
+    sanitisedInput = getComputerSps();
   }
 
   // only play the turn if input matches
