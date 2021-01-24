@@ -2,9 +2,9 @@
 var userName = '';
 var isUsernameSet = false;
 
-// initialize games played and games won
-var gamesPlayed = 0;
-var gamesWon = 0;
+// initialize turns played and turns won
+var turnsPlayed = 0;
+var turnsWon = 0;
 
 // initialize each possible input
 var validInput1 = 'scissors';
@@ -83,8 +83,8 @@ var getWinningState = function (playerInput, computerInput, reverse) {
       drawMessage = drawMessage + ' Since ' + mostRecentWinner + ' was the most recent winner, ' + mostRecentWinner + ' is the ultimate winner of this game! Please type in your name above to start a new game.';
 
       // reset game state, user name and mostRecentWinner
-      gamesPlayed = 0;
-      gamesWon = 0;
+      turnsPlayed = 0;
+      turnsWon = 0;
       mostRecentWinner = '';
       userName = '';
       isUsernameSet = false;
@@ -95,7 +95,7 @@ var getWinningState = function (playerInput, computerInput, reverse) {
   // winning condition
   // initialized above
   if (isWinning) {
-    gamesWon = gamesWon + 1;
+    turnsWon = turnsWon + 1;
     mostRecentWinner = userName;
     return '<br /><br />You win! Congratulations!';
   }
@@ -107,10 +107,10 @@ var getWinningState = function (playerInput, computerInput, reverse) {
 };
 
 var getWinLossRecord = function () {
-  var output = '<br /><br />So far ' + userName + ', you\'ve been winning ' + gamesWon + '/' + gamesPlayed + ' turns.';
+  var output = '<br /><br />So far ' + userName + ', you\'ve been winning ' + turnsWon + '/' + turnsPlayed + ' turns.';
 
   // if you win at least half of the matches
-  if (gamesWon * 2 >= gamesPlayed) {
+  if (turnsWon * 2 >= turnsPlayed) {
     return output + ' Pretty good!';
   }
 
@@ -137,27 +137,26 @@ var setPreGameMessage = function (input) {
 
 var setReverseMessage = function (reverse) {
   // base: assume reverse
-  var output = userName.toUpperCase() + ', IT\'S TIME TO PLAY REVERSE! The rules are now reversed: scissors beat stone, stone beats paper, and paper beats scissors. Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
+  var output = userName.toUpperCase() + ', IT\'S NOW TIME TO PLAY REVERSE! The rules are now reversed: scissors beat stone, stone beats paper, and paper beats scissors. Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
 
   // if you want to reset back to non-reverse
   if (!reverse) {
-    output = 'Welcome back ' + userName + ', to a proper game of Scissors, Paper, Stone! Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item, and continue the game!';
+    output = 'Welcome back ' + userName + ', to your proper game of Scissors, Paper, Stone! Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item, and continue the current game!';
   }
 
   return output;
 };
 
-var playGame = function (input) {
+var playTurn = function (input) {
   // when submit is hit, generate random type
   var computerSps = getComputerSps();
 
   var output = 'The computer chose ' + computerSps + ' ' + getSpsEmoji(computerSps) + '.<br />You chose ' + input + ' ' + getSpsEmoji(input) + '.' + getWinningState(input, computerSps, isReverse);
 
-  // print win loss record if games played > 0
+  // print win loss record if turns played > 0
   // this also prevents win loss record to be printed as 0/0,
-  // when the game state is reset when there is a draw
-  // and there exists a most recent winner
-  if (gamesPlayed > 0) {
+  // when the game state is reset under korean rules
+  if (turnsPlayed > 0) {
     output = output + getWinLossRecord();
   }
 
@@ -191,14 +190,14 @@ var main = function (input) {
       return myOutputValue;
     }
 
-    // only play the game if it matches
+    // only play the turn if input matches
     if (
       sanitisedInput == validInput1
       || sanitisedInput == validInput2
       || sanitisedInput == validInput3
     ) {
-      gamesPlayed = gamesPlayed + 1;
-      myOutputValue = playGame(sanitisedInput);
+      turnsPlayed = turnsPlayed + 1;
+      myOutputValue = playTurn(sanitisedInput);
     }
   }
 
