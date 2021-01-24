@@ -15,6 +15,9 @@ var validInput3 = 'stone';
 var reverseInput = 'reverse';
 var isReverse = false;
 
+// initialize most recent winner
+var mostRecentWinner = '';
+
 var getComputerSps = function () {
   // generate a value between 0 and 2.9999...
   var randomDecimal = Math.random() * 3;
@@ -55,6 +58,9 @@ var getSpsEmoji = function (spsType) {
 };
 
 var getWinningState = function (playerInput, computerInput, reverse) {
+  // initialize message to show when there's a draw
+  var drawMessage = "<br /><br />It's a draw!";
+
   // initialize winning condition, assuming non-reverse
   // player chose scissors, computer chose paper
   // player chose paper, computer chose stone
@@ -71,18 +77,30 @@ var getWinningState = function (playerInput, computerInput, reverse) {
   // draw conditions:
   // same inputs from both
   if (playerInput == computerInput) {
-    return "<br /><br />It's a draw!";
+    // end current game if most recent winner is determined
+    if (mostRecentWinner != '') {
+      // message to be printed
+      drawMessage = drawMessage + ' Since ' + mostRecentWinner + ' was the most recent winner, ' + mostRecentWinner + ' is the ultimate winner of this game! Please type in any 1 of the following 3 items above to restart the game: scissors, paper, stone.';
+
+      // reset game state and mostRecentWinner
+      gamesPlayed = 0;
+      gamesWon = 0;
+      mostRecentWinner = '';
+    }
+    return drawMessage;
   }
 
   // winning condition
   // initialized above
   if (isWinning) {
     gamesWon = gamesWon + 1;
+    mostRecentWinner = userName;
     return '<br /><br />You win! Congratulations!';
   }
 
   // losing conditions:
   // everything else
+  mostRecentWinner = 'Computer';
   return '<br /><br />You lose! Bummer.';
 };
 
@@ -131,7 +149,15 @@ var playGame = function (input) {
   // when submit is hit, generate random type
   var computerSps = getComputerSps();
 
-  var output = 'The computer chose ' + computerSps + ' ' + getSpsEmoji(computerSps) + '.<br />You chose ' + input + ' ' + getSpsEmoji(input) + '.' + getWinningState(input, computerSps, isReverse) + getWinLossRecord();
+  var output = 'The computer chose ' + computerSps + ' ' + getSpsEmoji(computerSps) + '.<br />You chose ' + input + ' ' + getSpsEmoji(input) + '.' + getWinningState(input, computerSps, isReverse);
+
+  // print win loss record if games played > 0
+  // this also prevents win loss record to be printed as 0/0,
+  // when the game state is reset when there is a draw
+  // and there exists a most recent winner
+  if (gamesPlayed > 0) {
+    output = output + getWinLossRecord();
+  }
 
   return output;
 };
