@@ -18,9 +18,9 @@ var isReverse = false;
 // initialize most recent winner
 var mostRecentWinner = '';
 
-// initialize korean vs regular game
-var isKorean = false;
-var isKoreanSet = false;
+// initialize game type game
+var gameType = 'regular';
+var isGameTypeSet = false;
 
 var getComputerSps = function () {
   // generate a value between 0 and 2.9999...
@@ -81,8 +81,8 @@ var getWinningState = function (playerInput, computerInput, reverse) {
   // draw conditions:
   // same inputs from both
   if (playerInput == computerInput) {
-    // end current game if most recent winner is determined, and game is korean
-    if (mostRecentWinner != '' && isKorean) {
+    // end current game if most recent winner is determined, and game type is korean
+    if (mostRecentWinner != '' && gameType == 'korean') {
       // message to be printed
       drawMessage = drawMessage + ' Since ' + mostRecentWinner + ' was the most recent winner, ' + mostRecentWinner + ' is the ultimate winner of this game! Please type in your name above to start a new game.';
 
@@ -92,8 +92,8 @@ var getWinningState = function (playerInput, computerInput, reverse) {
       mostRecentWinner = '';
       userName = '';
       isUsernameSet = false;
-      isKorean = false;
-      isKoreanSet = false;
+      gameType = 'regular';
+      isGameTypeSet = false;
     }
     return drawMessage;
   }
@@ -153,6 +153,18 @@ var setReverseMessage = function (reverse) {
   return output;
 };
 
+var setGameType = function (input) {
+  // base: regular
+  myOutputValue = 'You have decided to play the regular version of Scissors Paper Stone.<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
+
+  if (input == 'korean') {
+    myOutputValue = "You have decided to play the Korean version of Scissors Paper Stone.<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.";
+    gameType = 'korean';
+  }
+  isGameTypeSet = true;
+  return myOutputValue;
+};
+
 var playTurn = function (input) {
   // when submit is hit, generate random type
   var computerSps = getComputerSps();
@@ -186,31 +198,26 @@ var main = function (input) {
     // for consistency, we accept capitalization in inputs
     var sanitisedInput = input.toLowerCase();
 
-    // default: assume korean vs regular is unchosen
+    // default: assume game type is unchosen
     myOutputValue = userName + ', would you like to play the regular or Korean version of Scissors Paper Stone?<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.<br /><br />If you want to play the Korean version, please type in "Korean" above and submit. Otherwise, just type in "regular"';
 
-    // if korean vs regular is not chosen, take the user's next input to decide
-    if (!isKoreanSet) {
-      // base: regular
-      myOutputValue = 'You have decided to play the regular version of Scissors Paper Stone.<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
-
-      // input validation, user should type in "korean" or "regular"
-      // update output, re-hint to user to choose korean or regular
+    // if game type is not chosen, take the user's next input to decide
+    if (!isGameTypeSet) {
+      // default:, assume user did not type in "korean" or "regular"
+      // update output, re-hint to user to choose valid game type
       if (sanitisedInput != 'korean' && sanitisedInput != 'regular') {
         myOutputValue = 'If you want to play the Korean version, please type in "Korean" above and submit. Otherwise, just type in "regular"';
         return myOutputValue;
       }
 
-      if (sanitisedInput == 'korean') {
-        myOutputValue = "You have decided to play the Korean version of Scissors Paper Stone.<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.";
-        isKorean = true;
-      }
-      isKoreanSet = true;
+      // else, set game type
+      myOutputValue = setGameType(sanitisedInput);
+
       return myOutputValue;
     }
 
-    // once korean vs regular is set, begin game proper.
-    if (isKoreanSet) {
+    // once game type is set, begin game proper.
+    if (isGameTypeSet) {
       // default: assume invalid input
       myOutputValue = "Looks like you are selecting an invalid item, or there's a typo in your text! Please select and type in only one of the following: scissors, paper, stone.";
 
