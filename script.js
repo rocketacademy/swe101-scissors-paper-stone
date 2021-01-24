@@ -155,13 +155,16 @@ var setReverseMessage = function (reverse) {
 
 var setGameType = function (input) {
   // base: regular
-  var output = 'You have decided to play the regular version of Scissors Paper Stone.<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
+  var output = 'You have decided to play the regular version of Scissors Paper Stone.';
 
   if (input == 'korean') {
-    output = 'You have decided to play the Korean version of Scissors Paper Stone.<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
+    output = 'You have decided to play the Korean version of Scissors Paper Stone.<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.';
     gameType = 'korean';
   }
+
   isGameTypeSet = true;
+  // both the regular and korean versions require the instructions below
+  output = output + '<br /><br />Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
   return output;
 };
 
@@ -193,50 +196,48 @@ var main = function (input) {
     return myOutputValue;
   }
 
-  // user has already set name
-  if (isUsernameSet) {
-    // for consistency, we accept capitalization in inputs
-    var sanitisedInput = input.toLowerCase();
+  // here on out, we assume the player has already set his name
+  // for consistency, we accept capitalization in inputs
+  var sanitisedInput = input.toLowerCase();
 
-    // default: assume game type is unchosen
-    myOutputValue = userName + ', would you like to play the regular or Korean version of Scissors Paper Stone?<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.<br /><br />If you want to play the Korean version, please type in "Korean" above and submit. Otherwise, just type in "regular"';
+  // default: assume game type is unchosen
+  myOutputValue = userName + ', would you like to play the regular or Korean version of Scissors Paper Stone?<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.<br /><br />If you want to play the Korean version, please type in "Korean" above and submit. Otherwise, just type in "regular"';
 
-    // if game type is not chosen, take the user's next input to decide
-    if (!isGameTypeSet) {
-      // default:, assume user did not type in "korean" or "regular"
-      // update output, re-hint to user to choose valid game type
-      if (sanitisedInput != 'korean' && sanitisedInput != 'regular') {
-        myOutputValue = 'If you want to play the Korean version, please type in "Korean" above and submit. Otherwise, just type in "regular"';
-        return myOutputValue;
-      }
-
-      // else, set game type
-      myOutputValue = setGameType(sanitisedInput);
-
+  // if game type is not chosen, take the user's next input to decide
+  if (!isGameTypeSet) {
+    // default:, assume user did not type in "korean" or "regular"
+    // update output, re-hint to user to choose valid game type
+    if (sanitisedInput != 'korean' && sanitisedInput != 'regular') {
+      myOutputValue = 'If you want to play the Korean version, please type in "Korean" above and submit. Otherwise, just type in "regular"';
       return myOutputValue;
     }
 
-    // once game type is set, begin game proper.
-    if (isGameTypeSet) {
-      // default: assume invalid input
-      myOutputValue = "Looks like you are selecting an invalid item, or there's a typo in your text! Please select and type in only one of the following: scissors, paper, stone.";
+    // else, set game type
+    myOutputValue = setGameType(sanitisedInput);
 
-      // setting introductory message when switching reverse/non-reverse
-      if (sanitisedInput == reverseInput) {
-        isReverse = !isReverse;
-        myOutputValue = setReverseMessage(isReverse);
-        return myOutputValue;
-      }
+    return myOutputValue;
+  }
 
-      // only play the turn if input matches
-      if (
-        sanitisedInput == validInput1
-        || sanitisedInput == validInput2
-        || sanitisedInput == validInput3
-      ) {
-        turnsPlayed = turnsPlayed + 1;
-        myOutputValue = playTurn(sanitisedInput);
-      }
+  // once game type is set, begin game proper.
+  if (isGameTypeSet) {
+    // default: assume invalid input
+    myOutputValue = "Looks like you are selecting an invalid item, or there's a typo in your text! Please select and type in only one of the following: scissors, paper, stone.";
+
+    // setting introductory message when switching reverse/non-reverse
+    if (sanitisedInput == reverseInput) {
+      isReverse = !isReverse;
+      myOutputValue = setReverseMessage(isReverse);
+      return myOutputValue;
+    }
+
+    // only play the turn if input matches
+    if (
+      sanitisedInput == validInput1
+      || sanitisedInput == validInput2
+      || sanitisedInput == validInput3
+    ) {
+      turnsPlayed = turnsPlayed + 1;
+      myOutputValue = playTurn(sanitisedInput);
     }
   }
 
