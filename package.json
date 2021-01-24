@@ -1,6 +1,6 @@
 {
   "name": "swe101-starter-code",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "SWE101 Starter Code",
   "main": "script.js",
   "scripts": {
