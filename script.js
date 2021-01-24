@@ -135,7 +135,7 @@ var setPreGameMessage = function (input) {
   if (trimmedInput != '') {
     userName = trimmedInput;
     isUsernameSet = true;
-    output = 'Welcome ' + userName + '! would you like to play the regular or Korean version of Scissors Paper Stone?<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.<br /><br />If you want to play the Korean version, please type in "Korean" above and submit. Otherwise, just type in "regular"';
+    output = 'Welcome ' + userName + '! Would you like to play the regular or Korean version of Scissors Paper Stone?<br/><br/>In the Korean version, we will keep track of the most recent winner. When there\'s a draw, the most recent winner is the ultimate winner of the game.<br /><br />If you want to play the Korean version, please type in "Korean" above and submit. Otherwise, just type in "regular"';
   }
 
   return output;
