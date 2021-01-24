@@ -218,27 +218,25 @@ var main = function (input) {
     return myOutputValue;
   }
 
-  // once game type is set, begin game proper.
-  if (isGameTypeSet) {
-    // default: assume invalid input
-    myOutputValue = "Looks like you are selecting an invalid item, or there's a typo in your text! Please select and type in only one of the following: scissors, paper, stone.";
+  // here on out, we assume the game type is set
+  // begin game proper. default: assume invalid input
+  myOutputValue = "Looks like you are selecting an invalid item, or there's a typo in your text! Please select and type in only one of the following: scissors, paper, stone.";
 
-    // setting introductory message when switching reverse/non-reverse
-    if (sanitisedInput == reverseInput) {
-      isReverse = !isReverse;
-      myOutputValue = setReverseMessage(isReverse);
-      return myOutputValue;
-    }
+  // setting introductory message when switching reverse/non-reverse
+  if (sanitisedInput == reverseInput) {
+    isReverse = !isReverse;
+    myOutputValue = setReverseMessage(isReverse);
+    return myOutputValue;
+  }
 
-    // only play the turn if input matches
-    if (
-      sanitisedInput == validInput1
-      || sanitisedInput == validInput2
-      || sanitisedInput == validInput3
-    ) {
-      turnsPlayed = turnsPlayed + 1;
-      myOutputValue = playTurn(sanitisedInput);
-    }
+  // only play the turn if input matches
+  if (
+    sanitisedInput == validInput1
+  || sanitisedInput == validInput2
+  || sanitisedInput == validInput3
+  ) {
+    turnsPlayed = turnsPlayed + 1;
+    myOutputValue = playTurn(sanitisedInput);
   }
 
   return myOutputValue;
