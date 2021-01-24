@@ -1,3 +1,7 @@
+// initialize user name
+var userName = '';
+var isUsernameSet = false;
+
 // initialize games played and games won
 var gamesPlayed = 0;
 var gamesWon = 0;
@@ -71,7 +75,7 @@ var getWinningState = function (playerInput, computerInput) {
 };
 
 var getWinLossRecord = function () {
-  var output = '<br /><br />So far, you\'ve been winning ' + gamesWon + '/' + gamesPlayed + ' turns.';
+  var output = '<br /><br />So far ' + userName + ', you\'ve been winning ' + gamesWon + '/' + gamesPlayed + ' turns.';
 
   // if you win at least half of the matches
   if (gamesWon * 2 >= gamesPlayed) {
@@ -83,12 +87,32 @@ var getWinLossRecord = function () {
 };
 
 var main = function (input) {
-  // when submit is hit, generate random type
-  var computerSps = getComputerSps();
+  var myOutputValue = 'Please enter your user name in the text field above.';
+  var trimmedInput = input.trim();
 
-  gamesPlayed = gamesPlayed + 1;
+  // input is an empty string, and the user is in the midst of setting name
+  if (trimmedInput == '' && !isUsernameSet) {
+    myOutputValue = 'You are not allowed to have an empty name! Please enter a valid name above!';
+  }
 
-  var myOutputValue = 'The computer chose ' + computerSps + ' ' + getSpsEmoji(computerSps) + '.<br />You chose ' + input + ' ' + getSpsEmoji(input) + '.' + getWinningState(input, computerSps) + getWinLossRecord();
+  // input is valid, and the user is in the midst of setting name
+  if (trimmedInput != '' && !isUsernameSet) {
+    userName = trimmedInput;
+    isUsernameSet = true;
+    myOutputValue = 'Welcome ' + userName + ', to a game of Scissors, Paper, Stone! Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item, and begin the game!';
+
+    return myOutputValue;
+  }
+
+  // user has already set name
+  if (isUsernameSet) {
+    // when submit is hit, generate random type
+    var computerSps = getComputerSps();
+
+    gamesPlayed = gamesPlayed + 1;
+
+    myOutputValue = 'The computer chose ' + computerSps + ' ' + getSpsEmoji(computerSps) + '.<br />You chose ' + input + ' ' + getSpsEmoji(input) + '.' + getWinningState(input, computerSps) + getWinLossRecord();
+  }
 
   return myOutputValue;
 };
