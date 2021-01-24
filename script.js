@@ -247,8 +247,8 @@ var main = function (input) {
   // here on out, we assume the game type is set
   // now we chose the computer mode
   if (!isComputerModeSet) {
-    // default:, assume user did not type in "korean" or "regular"
-    // update output, re-hint to user to choose valid game type
+    // default: assume user did not type in "play" or "spectate"
+    // update output, re-hint to user to choose valid mode
     if (sanitisedInput != 'play' && sanitisedInput != 'spectate') {
       myOutputValue = 'Please type in and submit only one of the following: play, spectate.';
       return myOutputValue;
