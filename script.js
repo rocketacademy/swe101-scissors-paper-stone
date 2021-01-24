@@ -107,8 +107,6 @@ var playDefault = function (input) {
   // when submit is hit, generate random type
   var computerSps = getComputerSps();
 
-  gamesPlayed = gamesPlayed + 1;
-
   var output = 'The computer chose ' + computerSps + ' ' + getSpsEmoji(computerSps) + '.<br />You chose ' + input + ' ' + getSpsEmoji(input) + '.' + getWinningState(input, computerSps) + getWinLossRecord();
 
   return output;
@@ -128,7 +126,21 @@ var main = function (input) {
 
   // user has already set name
   if (isUsernameSet) {
-    myOutputValue = playDefault(input);
+    // for consistency, we accept capitalization in inputs
+    var sanitisedInput = input.toLowerCase();
+
+    // default: assume invalid input
+    myOutputValue = "Looks like you are selecting an invalid item, or there's a typo in your text! Please select and type in only one of the following: scissors, paper, stone.";
+
+    // only play the game if it matches
+    if (
+      sanitisedInput == validInput1
+      || sanitisedInput == validInput2
+      || sanitisedInput == validInput3
+    ) {
+      gamesPlayed = gamesPlayed + 1;
+      myOutputValue = playDefault(sanitisedInput);
+    }
   }
 
   return myOutputValue;
