@@ -11,6 +11,10 @@ var validInput1 = 'scissors';
 var validInput2 = 'paper';
 var validInput3 = 'stone';
 
+// initialize reverse settings
+var reverseInput = 'reverse';
+var isReverse = false;
+
 var getComputerSps = function () {
   // generate a value between 0 and 2.9999...
   var randomDecimal = Math.random() * 3;
@@ -50,21 +54,29 @@ var getSpsEmoji = function (spsType) {
   return '&#128142;';
 };
 
-var getWinningState = function (playerInput, computerInput) {
+var getWinningState = function (playerInput, computerInput, reverse) {
+  // initialize winning condition, assuming non-reverse
+  // player chose scissors, computer chose paper
+  // player chose paper, computer chose stone
+  // player chose stone, computer chose paper
+  var isWinning = (playerInput == validInput1 && computerInput == validInput2)
+    || (playerInput == validInput2 && computerInput == validInput3)
+    || (playerInput == validInput3 && computerInput == validInput1);
+
+  // reverse winning condition
+  if (reverse) {
+    isWinning = !isWinning;
+  }
+
   // draw conditions:
   // same inputs from both
   if (playerInput == computerInput) {
     return "<br /><br />It's a draw!";
   }
-  // winning conditions:
-  // player chose scissors, computer chose paper
-  // player chose paper, computer chose stone
-  // player chose stone, computer chose paper
-  if (
-    (playerInput == validInput1 && computerInput == validInput2)
-    || (playerInput == validInput2 && computerInput == validInput3)
-    || (playerInput == validInput3 && computerInput == validInput1)
-  ) {
+
+  // winning condition
+  // initialized above
+  if (isWinning) {
     gamesWon = gamesWon + 1;
     return '<br /><br />You win! Congratulations!';
   }
@@ -103,11 +115,23 @@ var setPreGameMessage = function (input) {
   return output;
 };
 
-var playDefault = function (input) {
+var setReverseMessage = function (reverse) {
+  // base: assume reverse
+  var output = userName.toUpperCase() + ', IT\'S TIME TO PLAY REVERSE! The rules are now reversed: scissors beat stone, stone beats paper, and paper beats scissors. Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item.';
+
+  // if you want to reset back to non-reverse
+  if (!reverse) {
+    output = 'Welcome back ' + userName + ', to a proper game of Scissors, Paper, Stone! Please type in any 1 of the following 3 items: scissors, paper, stone. Hit Submit to choose your item, and continue the game!';
+  }
+
+  return output;
+};
+
+var playGame = function (input) {
   // when submit is hit, generate random type
   var computerSps = getComputerSps();
 
-  var output = 'The computer chose ' + computerSps + ' ' + getSpsEmoji(computerSps) + '.<br />You chose ' + input + ' ' + getSpsEmoji(input) + '.' + getWinningState(input, computerSps) + getWinLossRecord();
+  var output = 'The computer chose ' + computerSps + ' ' + getSpsEmoji(computerSps) + '.<br />You chose ' + input + ' ' + getSpsEmoji(input) + '.' + getWinningState(input, computerSps, isReverse) + getWinLossRecord();
 
   return output;
 };
@@ -115,7 +139,7 @@ var playDefault = function (input) {
 var main = function (input) {
   var myOutputValue = 'Please enter your name in the text field above.';
 
-  // user is still in the midst of setting user
+  // user is still in the midst of setting name
   if (!isUsernameSet) {
     myOutputValue = setPreGameMessage(input);
     // return to terminate function, this is because
@@ -132,6 +156,13 @@ var main = function (input) {
     // default: assume invalid input
     myOutputValue = "Looks like you are selecting an invalid item, or there's a typo in your text! Please select and type in only one of the following: scissors, paper, stone.";
 
+    // setting introductory message when switching reverse/non-reverse
+    if (sanitisedInput == reverseInput) {
+      isReverse = !isReverse;
+      myOutputValue = setReverseMessage(isReverse);
+      return myOutputValue;
+    }
+
     // only play the game if it matches
     if (
       sanitisedInput == validInput1
@@ -139,7 +170,7 @@ var main = function (input) {
       || sanitisedInput == validInput3
     ) {
       gamesPlayed = gamesPlayed + 1;
-      myOutputValue = playDefault(sanitisedInput);
+      myOutputValue = playGame(sanitisedInput);
     }
   }
 
