@@ -1,3 +1,8 @@
+// initialize games played and games won
+var gamesPlayed = 0;
+var gamesWon = 0;
+
+// initialize each possible input
 var validInput1 = 'scissors';
 var validInput2 = 'paper';
 var validInput3 = 'stone';
@@ -56,6 +61,7 @@ var getWinningState = function (playerInput, computerInput) {
     || (playerInput == validInput2 && computerInput == validInput3)
     || (playerInput == validInput3 && computerInput == validInput1)
   ) {
+    gamesWon = gamesWon + 1;
     return '<br /><br />You win! Congratulations!';
   }
 
@@ -64,11 +70,25 @@ var getWinningState = function (playerInput, computerInput) {
   return '<br /><br />You lose! Bummer.';
 };
 
+var getWinLossRecord = function () {
+  var output = '<br /><br />So far, you\'ve been winning ' + gamesWon + '/' + gamesPlayed + ' turns.';
+
+  // if you win at least half of the matches
+  if (gamesWon * 2 >= gamesPlayed) {
+    return output + ' Pretty good!';
+  }
+
+  // base case: losing more than half of the matches
+  return output + ' Try harder the subsequent rounds!';
+};
+
 var main = function (input) {
   // when submit is hit, generate random type
   var computerSps = getComputerSps();
 
-  var myOutputValue = 'The computer chose ' + computerSps + ' ' + getSpsEmoji(computerSps) + '.<br />You chose ' + input + ' ' + getSpsEmoji(input) + '.' + getWinningState(input, computerSps);
+  gamesPlayed = gamesPlayed + 1;
+
+  var myOutputValue = 'The computer chose ' + computerSps + ' ' + getSpsEmoji(computerSps) + '.<br />You chose ' + input + ' ' + getSpsEmoji(input) + '.' + getWinningState(input, computerSps) + getWinLossRecord();
 
   return myOutputValue;
 };
