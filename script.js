@@ -4,6 +4,8 @@ var drawCount = 0;
 var winLossRecord;
 var finalResult;
 
+var person = prompt('Please enter your name', 'Harry Potter');
+
 var rollDice = function () {
   // produces a decimal between 0 and 3
   var randomDecimal = Math.random() * 3;
@@ -49,22 +51,24 @@ var inputValidation = function (input) {
     finalResult = 'invalid';
   }
 };
+
 var finalOutput = function (input, comGuess) {
   if (finalResult == 'lose') {
-    return 'You lost! <br><br>' + comGuess + ' beats ' + input + '. <br><br>The computer has won <b>' + comWins + '</b> times.';
+    return person + ' lost! <br><br>' + comGuess + ' beats ' + input + '. <br><br>The computer has won <b>' + comWins + '</b> times.';
   }
   if (finalResult == 'draw') {
     return 'It is a draw! <br><br>You both chose ' + input + '. <br><br>You have come to a draw <b>' + drawCount + '</b> time(s).';
   }
   if (finalResult == 'win') {
-    return 'Congratulations! <br><br>You beat the computer. ' + input + ' beats ' + comGuess + '. <br><br>You have won <b>' + playerWins + '</b> times.';
+    return 'Congratulations ' + person + '! <br><br>You beat the computer. ' + input + ' beats ' + comGuess + '. <br><br>You have won <b>' + playerWins + '</b> times.';
   }
   if (finalResult == 'invalid') {
-    return 'Only scissors, paper or stone are acceptable answers';
+    return person + ', please only input scissors, paper or stone as answers';
   }
 };
 
 var main = function (input) {
+  console.log(person);
   var comGuess = rollDice();
   var myOutputValue;
 
@@ -90,7 +94,7 @@ var main = function (input) {
   winCondition(input, comGuess);
 
   myOutputValue = finalOutput(input, comGuess);
-  winLossRecord = '<br>Your win-loss record is <b>' + playerWins + '</b> wins and <b>' + comWins + '</b> losses.';
+  winLossRecord = '<br>' + person + ', your win-loss record is <b>' + playerWins + '</b> wins and <b>' + comWins + '</b> losses.';
 
   return myOutputValue + ' ' + winLossRecord;
 };
