@@ -2,8 +2,6 @@
 var pointOfDraw = 0;
 var pointOfComputerwin = 0;
 var pointOfPlayerWin = 0;
-var computerLose = 0;
-var playerLose = 0;
 // scissors,paper,stone
 // scissors,paper and stone will be randomized by dice 1-3
 var diceRoll = function () {
@@ -14,7 +12,11 @@ var diceRoll = function () {
 };
 
 var main = function (input) {
-  var myOutputValue = 'hello world';
+  var currentUserWin;
+  var currentComputerWin;
+  var userName;
+  // input validation to kindly let the user know that there are only 3 input options
+  var myOutputValue = 'Hello ' + userName + '.<br> You may only input scissors, paper or stone to play the game.<br> Enjoy!';
   // randomObjects is scissors paper and stone
   var randomObjects;
   var randomNumber = diceRoll();
@@ -36,30 +38,48 @@ var main = function (input) {
   // stone win scissors
   // paper win stone
   // scissors win paper
-  if (input == 'scissors' && randomObjects == 'paper');
-  pointOfPlayerWin = pointOfPlayerWin + 1;
-  myOutputValue = 'You choose ' + input + '. The computer chose paper. You Win. You have ' + pointOfPlayerWin + ' ';
-  if (input == 'paper' && randomObjects == 'stone');
-  myOutputValue = 'You choose ' + input + '. The computer chose stone. You Win. You have ' + pointOfPlayerWin + '';
-  if (input == 'stone' && randomObjects == 'scissors');
-  myOutputValue = 'You choose ' + input + '. The computer chose scissors. You Win. You have ' + pointOfPlayerWin + ' ';
+  // also the user will be notified on how many points he will have if he win
+  if (input == 'scissors' && randomObjects == 'paper') {
+    currentUserWin = pointOfPlayerWin + 1;
+    myOutputValue = 'You choose ' + input + '.<br> The computer chose paper.<br> You Win. <br>You have ' + currentUserWin + ' point.';
+    pointOfPlayerWin = currentUserWin;
+  }
+  if (input == 'paper' && randomObjects == 'stone') {
+    currentUserWin = pointOfPlayerWin + 1;
+    myOutputValue = 'You choose ' + input + '.<br> The computer chose stone.<br> You Win. You have ' + currentUserWin + ' point.';
+    pointOfPlayerWin = currentUserWin;
+  }
+  if (input == 'stone' && randomObjects == 'scissors') {
+    currentUserWin = pointOfPlayerWin + 1;
+    myOutputValue = 'You choose ' + input + '.<br> The computer chose scissors.<br> You Win.<br> You have ' + currentUserWin + ' point. ';
+    pointOfPlayerWin = currentUserWin;
+  }
   console.log(pointOfPlayerWin);
   // losing conditions
   // stone lose to paper
   // paper lose to scissors
   // scissors lose to stone
-  if (input == 'scissors' && randomObjects == 'stone');
-  pointOfComputerwin = pointOfComputerwin + 1;
-  myOutputValue = 'You choose ' + input + '. The computer chose stone. You Lose. The Computer win ' + pointOfComputerwin + '';
-  if (input == 'paper' && randomObjects == 'scissors');
-  myOutputValue = 'You choose ' + input + '. The computer chose scissors. You Lose. The Computer win ' + pointOfComputerwin + '';
-  if (input == 'stone' && randomObjects == 'paper');
-  myOutputValue = 'You choose ' + input + '. The computer chose paper. You Lose. The Computer win ' + pointOfComputerwin + '';
+  // the user will know how many points the computer will have if user lost
+  if (input == 'scissors' && randomObjects == 'stone') {
+    currentComputerWin = pointOfComputerwin + 1;
+    myOutputValue = 'You choose ' + input + '.<br> The computer chose stone.<br> You Lose.<br> The Computer wins ' + currentComputerWin + ' point ';
+    pointOfComputerwin = currentComputerWin;
+  }
+  if (input == 'paper' && randomObjects == 'scissors') {
+    currentComputerWin = pointOfComputerwin + 1;
+    myOutputValue = 'You choose ' + input + '.<br> The computer chose scissors.<br> You Lose.<br> The Computer wins ' + currentComputerWin + ' point ';
+    pointOfComputerwin = currentComputerWin;
+  }
+  if (input == 'stone' && randomObjects == 'paper') {
+    currentComputerWin = pointOfComputerwin + 1;
+    myOutputValue = 'You choose ' + input + '.<br> The computer chose paper.<br> You Lose.<br> The Computer wins ' + currentComputerWin + ' point ';
+    pointOfComputerwin = currentComputerWin;
+  }
 
   // if the user input eg stone and the output which is stone is the same, the results will a draw
   if (input == randomObjects) {
     pointOfDraw = pointOfDraw + 1;
-    myOutputValue = 'You choose ' + input + ' The Computer chose ' + randomObjects + ' its a draw. Total draw so far is ' + pointOfDraw + '';
+    myOutputValue = 'You choose ' + input + '.<br> The Computer chose ' + randomObjects + '<br> Its a draw.<br> Total draw so far is ' + pointOfDraw + '';
   }
 
   return myOutputValue;
