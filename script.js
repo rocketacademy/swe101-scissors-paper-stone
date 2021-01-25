@@ -28,7 +28,7 @@ var main = function (input) {
   console.log(randomNumber);
   console.log(randomWord);
 
-  var myOutputValue = 'invalid input';
+  var myOutputValue = 'invalid input, kindly enter scissors/paper/stone only!';
   // 3 different inputs, scissors paper stone with point win/loss system
   if (input == randomWord) {
     currentWins = previousWin + 0;
