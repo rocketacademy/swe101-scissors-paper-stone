@@ -6,6 +6,11 @@ var randomDiceRoll = function () {
   var randomResult = randomInterger + 1;
   return randomResult;
 };
+// create base win/loss system
+var previousWin = 0;
+var currentWins = 0;
+var previousLoss = 0;
+var currentLoss = 0;
 
 var main = function (input) {
   // 3 different random generated outcome assigned for scissors, paper, stone
@@ -24,33 +29,47 @@ var main = function (input) {
   console.log(randomWord);
 
   var myOutputValue = 'invalid input';
-  // 3 different inputs, scissors paper stone
+  // 3 different inputs, scissors paper stone with point win/loss system
   if (input == randomWord) {
-    myOutputValue = 'you chose ' + input + ' and its a draw! try again!';
+    currentWins = previousWin + 0;
+    myOutputValue = 'you chose ' + input + ' and its a draw! try again! - current wins-loss record is ' + currentWins + ' wins and ' + currentLoss + ' losses.';
+    previousWin = currentWins;
   }
   // if input is scissors
 
   else if (input == 'scissors' && randomWord == 'paper') {
-    myOutputValue = 'you chose ' + input + ' and won ' + randomWord + ' !';
+    currentWins = previousWin + 1;
+    myOutputValue = 'you chose ' + input + ' and won ' + randomWord + ' - current wins-loss record is ' + currentWins + ' wins and ' + currentLoss + ' losses.';
+    previousWin = currentWins;
   }
   else if (input == 'scissors' && randomWord == 'stone') {
-    myOutputValue = 'you chose ' + input + ' and lost to ' + randomWord + ', please try again!';
+    currentLoss = previousLoss + 1;
+    myOutputValue = 'you chose ' + input + ' and lost to ' + randomWord + ', please try again! - current wins-loss record is ' + currentWins + ' wins and ' + currentLoss + ' losses.';
+    previousLoss = currentLoss;
   }
   // if input is paper
 
   else if (input == 'paper' && randomWord == 'stone') {
-    myOutputValue = 'you chose ' + input + ' and won ' + randomWord + ' !';
+    currentWins = previousWin + 1;
+    myOutputValue = 'you chose ' + input + ' and won ' + randomWord + ' - current wins-loss record is ' + currentWins + ' wins and ' + currentLoss + ' losses.';
+    previousWin = currentWins;
   }
   else if (input == 'paper' && randomWord == 'scissors') {
-    myOutputValue = 'you chose ' + input + ' and lost to ' + randomWord + ', please try again!';
+    currentLoss = previousLoss + 1;
+    myOutputValue = 'you chose ' + input + ' and lost to ' + randomWord + ', please try again! - current wins-loss record is ' + currentWins + ' wins and ' + currentLoss + ' losses.';
+    previousLoss = currentLoss;
   }
   // if input is stone
 
   else if (input == 'stone' && randomWord == 'scissors') {
-    myOutputValue = 'you chose ' + input + ' and won ' + randomWord + ' !';
+    currentWins = previousWin + 1;
+    myOutputValue = 'you chose ' + input + ' and won ' + randomWord + ' - current wins-loss record is ' + currentWins + ' wins and ' + currentLoss + ' losses.';
+    previousWin = currentWins;
   }
   else if (input == 'stone' && randomWord == 'paper') {
-    myOutputValue = 'you chose ' + input + ' and lost to ' + randomWord + ', please try again!';
+    currentLoss = previousLoss + 1;
+    myOutputValue = 'you chose ' + input + ' and lost to ' + randomWord + ', please try again! - current wins-loss record is ' + currentWins + ' wins and ' + currentLoss + ' losses.';
+    previousLoss = currentLoss;
   }
   console.log(randomWord);
 
