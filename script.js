@@ -1,4 +1,4 @@
-// Basic Scissors Paper Stone
+// Basic Scissors Paper Stone (reference answer)
 // default settings
 var computerGuess = '';
 var outcome = '';
@@ -11,12 +11,8 @@ var totalLog = 0;
 var message = '';
 
 var main = function (userGuess) { 
-  message = 'Please enter your name';
-
-/*===== QUESTION ===== 
-How do you always return a message in the output if user just clicks submit? 
-*/
-
+  // in index.html, i've included a placeholder
+  
   // set the name if there is no name 
   if (currentGameMode == 'waiting for user name') {
     userName = userGuess; 
@@ -36,8 +32,8 @@ How do you always return a message in the output if user just clicks submit?
       return message;
     }
     else {
-      computerProgram();
-
+      computerGuess = computerGame();
+      outcome = computerProgram();
       // when user starts playing, number of games increases
       totalLog = totalLog + 1;
     }
@@ -70,18 +66,17 @@ var computerGame = function () {
   return computerChoice;
 }
 
-// run computer game
 // the program outputs whether the user won, the program won, or it's a draw.
-var computerProgram = function () {
+var computerProgram = function (userGuess) {
 
   // run computer random guess
-  var computerGuess = computerGame ();
+    computerGuess = computerGame ();
     console.log('computer guesses');
     console.log(computerGuess);
   
   // winning logic: 
   // draw 
-  if (computerGuess == userGuess) {
+  if (userGuess == computerGuess) {
     outcome = 'It\'s a draw';
   } 
   /* user wins when: 
@@ -102,5 +97,5 @@ var computerProgram = function () {
   else {
     outcome = 'You lose! Bummer.'
   }
-
+  return outcome;
 }
