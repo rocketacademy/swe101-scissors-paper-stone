@@ -3,8 +3,9 @@ var pointOfDraw = 0;
 var pointOfComputerwin = 0;
 var pointOfPlayerWin = 0;
 // creating a user name
-var myOutputValue = '';
 var currentGameMode = 'waiting for user name';
+var userName;
+var myOutputValue = '';
 
 // scissors,paper,stone
 // scissors,paper and stone will be randomized by dice 1-3
@@ -25,10 +26,7 @@ var main = function (input) {
     userName = input;
     // now that we have the name, switch the mode
     currentGameMode = 'scs';
-
-    myOutputValue = 'Hello ' + userName;
-  }
-  if (currentGameMode == 'scs') {
+  } else if (currentGameMode == 'scs') {
   }
 
   // input validation to kindly let the user know that there are only 3 input options
