@@ -1,4 +1,106 @@
-var main = function (input) {
-  var myOutputValue = 'hello world, made a change';
-  return myOutputValue;
+// Basic Scissors Paper Stone
+// default settings
+var computerGuess = '';
+var outcome = '';
+var userName = '';
+var currentGameMode = 'waiting for user name';
+
+//win + loss record 
+var currentLog = 0;
+var totalLog = 0;
+var message = '';
+
+var main = function (userGuess) { 
+  message = 'Please enter your name';
+
+/*===== QUESTION ===== 
+How do you always return a message in the output if user just clicks submit? 
+*/
+
+  // set the name if there is no name 
+  if (currentGameMode == 'waiting for user name') {
+    userName = userGuess; 
+    currentGameMode = 'dice game';
+    message = 'Please enter your name';
+    return message;
+  }
+
+  // if there is a name, store the name and run the whole game 
+  else if (currentGameMode == 'dice game') {
+
+    // input validation: user must input either scissors, paper, or stone
+    if (!(userGuess == 'scissors' 
+    || userGuess == 'paper'
+    || userGuess == 'stone')) {
+      message = 'Hi ' + userName + '. Please choose scissors, paper, or stone';
+      return message;
+    }
+    else {
+      computerProgram();
+
+      // when user starts playing, number of games increases
+      totalLog = totalLog + 1;
+    }
+
+    message = 'The computer chose ' + computerGuess + '.\n' + 'You chose ' + userGuess + '.' + '<br>' + outcome + '<br>' + 'So far ' + userName + ', you\'ve been winning ' + currentLog + '/' + totalLog;      
+  }
+
+  // print message
+  return message;
 };
+
+// the program internally randomly returns string scissors, paper, or stone
+var computerGame = function () {
+  // computer produces random number 1,2,3
+  var randomNumber = Math.round ( Math.random() * 4 );
+
+  // assign 1: scissors
+  var computerChoice = 'scissors';
+
+  // assign 2: paper
+  if (randomNumber == 2) {
+    computerChoice = 'paper';
+  }
+
+  // assign 3: stone 
+  if (randomNumber == 3) {
+    computerChoice = 'stone';
+  }
+
+  return computerChoice;
+}
+
+// run computer game
+// the program outputs whether the user won, the program won, or it's a draw.
+var computerProgram = function () {
+
+  // run computer random guess
+  var computerGuess = computerGame ();
+    console.log('computer guesses');
+    console.log(computerGuess);
+  
+  // winning logic: 
+  // draw 
+  if (computerGuess == userGuess) {
+    outcome = 'It\'s a draw';
+  } 
+  /* user wins when: 
+  user: scissors && computer: paper 
+  user: paper && computer: stone
+  user: stone && computer: scissors */ 
+  else if ( 
+    (userGuess == 'scissors' && computerGuess == 'paper') ||
+    (userGuess == 'paper' && computerGuess == 'stone') ||
+    (userGuess == 'stone' && computerGuess == 'scissors')
+  ) {
+    outcome = 'You win! Awesome.';
+
+    // increase my winning log by 1 
+    currentLog = currentLog + 1;
+
+  } 
+  else {
+    outcome = 'You lose! Bummer.'
+  }
+
+}
