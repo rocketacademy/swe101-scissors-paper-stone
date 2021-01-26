@@ -16,13 +16,13 @@ var main = function (userGuess) {
   // set the name if there is no name 
   if (currentGameMode == 'waiting for user name') {
     userName = userGuess; 
-    currentGameMode = 'dice game';
-    message = 'Please enter your name';
+    currentGameMode = 'scissors paper stone game';
+    message = 'Hi ' + userName + ' Please choose scissors, paper, stone';
     return message;
   }
 
   // if there is a name, store the name and run the whole game 
-  else if (currentGameMode == 'dice game') {
+  else if (currentGameMode == 'scissors paper stone game') {
 
     // input validation: user must input either scissors, paper, or stone
     if (!(userGuess == 'scissors' 
@@ -48,7 +48,7 @@ var main = function (userGuess) {
 // the program internally randomly returns string scissors, paper, or stone
 var computerGame = function () {
   // computer produces random number 1,2,3
-  var randomNumber = Math.round ( Math.random() * 4 );
+  var randomNumber = Math.floor ( Math.random() * 4 );
 
   // assign 1: scissors
   var computerChoice = 'scissors';
@@ -70,14 +70,15 @@ var computerGame = function () {
 var computerProgram = function (userGuess) {
 
   // run computer random guess
-    computerGuess = computerGame ();
-    console.log('computer guesses');
-    console.log(computerGuess);
+  computerGuess = computerGame ();
+  console.log('computer guesses');
+  console.log(computerGuess);
   
   // winning logic: 
   // draw 
   if (userGuess == computerGuess) {
     outcome = 'It\'s a draw';
+    console.log('banana');
   } 
   /* user wins when: 
   user: scissors && computer: paper 
@@ -95,7 +96,7 @@ var computerProgram = function (userGuess) {
 
   } 
   else {
-    outcome = 'You lose! Bummer.'
+    outcome = 'You lose! Bummer.';
   }
   return outcome;
 }
