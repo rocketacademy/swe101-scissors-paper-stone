@@ -1,3 +1,7 @@
+// create user name for the player when the player first enters his name in the input box.
+var userName = '';
+var gameMode = 'waiting for user name';
+
 // create random dice function for a total result of 3
 var randomDiceRoll = function () {
   // return 2;
@@ -13,6 +17,14 @@ var previousLoss = 0;
 var currentLoss = 0;
 
 var main = function (input) {
+  var myOutputValue = '';
+  if (gameMode == 'waiting for user name') {
+    userName = input;
+    gameMode = 'start game';
+    myOutputValue = 'hi ' + userName + ' you are now ready to play the game!';
+    return myOutputValue;
+  }
+
   // 3 different random generated outcome assigned for scissors, paper, stone
   var randomNumber = randomDiceRoll();
   var randomWord;
@@ -28,7 +40,7 @@ var main = function (input) {
   console.log(randomNumber);
   console.log(randomWord);
 
-  var myOutputValue = 'invalid input, kindly enter scissors/paper/stone only!';
+  myOutputValue = 'invalid input, kindly enter scissors/paper/stone only!';
   // 3 different inputs, scissors paper stone with point win/loss system
   if (input == randomWord) {
     currentWins = previousWin + 0;
