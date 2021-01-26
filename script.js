@@ -33,7 +33,7 @@ var main = function (userGuess) {
     }
     else {
       computerGuess = computerGame();
-      outcome = computerProgram();
+      outcome = computerProgram(userGuess);
       // when user starts playing, number of games increases
       totalLog = totalLog + 1;
     }
@@ -66,13 +66,15 @@ var computerGame = function () {
   return computerChoice;
 }
 
-// the program outputs whether the user won, the program won, or it's a draw.
+// the program outputs whether the user won, user lost, user drew
 var computerProgram = function (userGuess) {
 
   // run computer random guess
   computerGuess = computerGame ();
   console.log('computer guesses');
   console.log(computerGuess);
+  console.log('user guesses');
+  console.log(userGuess);
   
   // winning logic: 
   // draw 
