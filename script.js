@@ -80,7 +80,6 @@ var computerProgram = function (userGuess) {
   // draw 
   if (userGuess == computerGuess) {
     outcome = 'It\'s a draw';
-    console.log('banana');
   } 
   /* user wins when: 
   user: scissors && computer: paper 
