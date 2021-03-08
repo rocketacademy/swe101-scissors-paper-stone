@@ -55,7 +55,9 @@
   <div id="container">
     <p id="user-name">Hi!</p>
     <!-- //**stage4 -->
-    <p>For reverse Game Mode type: reverse (case sensitive)</p>
+    <p>For reverse Game Mode type: reverse (case sensitive).</p>
+    <p>For Korean version of the game type: muk-jji-ppa</p>
+    <p>Let computer play for you. Play "computer vs computer". type: computer</p>
     <!-- //**stage4 -->
     <p>Input:</p>
     <input id="input-field" />
@@ -69,7 +71,7 @@
   <script>
     //##STAGE-3 User Name
     let userName = prompt("Please enter your name:", "name");
-    if (userName == null) {
+    if (userName == null || userName == 'name') {
       userName = 'GuestPlayer';
     }
     document.getElementById('user-name').innerText = `Hey ${userName}! Let's play Scissors Paper Stone by entering one of the 3 objects`;
