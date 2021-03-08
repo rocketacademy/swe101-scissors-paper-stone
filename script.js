@@ -7,7 +7,7 @@ var randomNum = function () {
 var assignNumberToWords = function () {
   var numGenerator = randomNum();
   if (numGenerator == 0) {
-    return 'scissor';
+    return 'scissors';
   }
   if (numGenerator == 1) {
     return 'rock';
@@ -23,7 +23,22 @@ var main = function (input) {
   console.log('scissor-paper-stone');
   console.log(scissorPaperStone);
   var myOutputValue = 'hello world';
+  // condition of the game = scissors < rock || rock < paper || paper < scissors
+  // If both parties choose the same object, it's a draw.
   if (input == scissorPaperStone) {
+    myOutputValue = 'draw';
+    console.log('draw!');
+  }
+  else if (input == 'rock' && scissorPaperStone == 'scissors'
+   || input == 'paper' && scissorPaperStone == 'rock'
+   || input == 'scissors' && scissorPaperStone == 'paper') {
     myOutputValue = 'you win';
-  } return myOutputValue;
+    console.log('you win');
+  }
+  else {
+    myOutputValue = 'you lose';
+    console.log('you lose');
+  }
+
+  return myOutputValue;
 };
