@@ -1,7 +1,7 @@
 // random number from 0 to 2
 var randomNum = function () {
-  var numZeroTotwo = Math.floor(Math.random() * 3);
-  return numZeroTotwo;
+  var numZeroToTwo = Math.floor(Math.random() * 3);
+  return numZeroToTwo;
 };
 
 // user win
@@ -36,26 +36,33 @@ var assignNumberToWords = function () {
 };
 
 var main = function (input) {
-  var scissorPaperStone = assignNumberToWords();
+  var scissorsPaperStone = assignNumberToWords();
   console.log('scissor-paper-stone');
-  console.log(scissorPaperStone);
-  var myOutputValue = 'hello world';
-
+  var myOutputValue = 'bug';
   // If both parties choose the same object, it's a draw.
-  if (input == scissorPaperStone) {
+  if (input == scissorsPaperStone) {
     numOfDraw = numOfDraw + 1;
     myOutputValue = 'Draw!! You draw ' + numOfDraw + ' times. You win ' + numOfUserWin + ' times ' + userWinPercentage + '%. Computer win ' + numOfComputerWin + ' times ' + computerWinPercentage + '%';
+    console.log('You choose');
+    console.log(input);
+    console.log('Computer choose');
+    console.log(scissorsPaperStone);
     console.log('draw!');
   }
+
   // condition of the game = scissors < rock || rock < paper || paper < scissors
-  else if (input == 'stone' && scissorPaperStone == 'scissors'
-   || input == 'paper' && scissorPaperStone == 'stone'
-   || input == 'scissors' && scissorPaperStone == 'paper') {
+  else if (input == 'stone' && scissorsPaperStone == 'scissors'
+   || input == 'paper' && scissorsPaperStone == 'stone'
+   || input == 'scissors' && scissorsPaperStone == 'paper') {
     totalMatch = totalMatch + 1;
     numOfUserWin = numOfUserWin + 1;
     userWinPercentage = (numOfUserWin / totalMatch) * 100;
     computerWinPercentage = (numOfComputerWin / totalMatch) * 100;
     myOutputValue = 'You win ' + numOfUserWin + ' times ' + userWinPercentage + '%. Computer win ' + numOfComputerWin + ' times ' + computerWinPercentage + '%. You draw ' + numOfDraw + ' times.';
+    console.log('You choose');
+    console.log(input);
+    console.log('Computer choose');
+    console.log(scissorsPaperStone);
     console.log('you win ');
   }
 
@@ -65,7 +72,12 @@ var main = function (input) {
     userWinPercentage = (numOfUserWin / totalMatch) * 100;
     computerWinPercentage = (numOfComputerWin / totalMatch) * 100;
     myOutputValue = 'You lose. Computer win ' + numOfComputerWin + ' times ' + computerWinPercentage + '%. You win ' + numOfUserWin + ' times ' + userWinPercentage + '%. you draw ' + numOfDraw + ' times.';
+    console.log('You choose');
+    console.log(input);
+    console.log('Computer choose');
+    console.log(scissorsPaperStone);
     console.log('you lose');
   }
+
   return myOutputValue;
 };
