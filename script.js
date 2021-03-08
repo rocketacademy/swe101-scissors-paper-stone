@@ -13,16 +13,16 @@ var numOfComputerWin = 0;
 // total game
 var totalMatch = 0;
 
-// number of draw
-var numOfDraw = 0;
-
+// winning percentage
 var userWinPercentage = 0;
 var computerWinPercentage = 0;
+
+// number of draw
+var numOfDraw = 0;
 
 // assign value to words
 var assignNumberToWords = function () {
   var numGenerator = randomNum();
-  return 'paper';
   if (numGenerator == 0) {
     return 'scissors';
   }
@@ -40,15 +40,14 @@ var main = function (input) {
   console.log('scissor-paper-stone');
   console.log(scissorPaperStone);
   var myOutputValue = 'hello world';
-  // condition of the game = scissors < rock || rock < paper || paper < scissors
-  // If both parties choose the same object, it's a draw.
 
+  // If both parties choose the same object, it's a draw.
   if (input == scissorPaperStone) {
     numOfDraw = numOfDraw + 1;
     myOutputValue = 'Draw!! You draw ' + numOfDraw + ' times. You win ' + numOfUserWin + ' times ' + userWinPercentage + '%. Computer win ' + numOfComputerWin + ' times ' + computerWinPercentage + '%';
     console.log('draw!');
   }
-
+  // condition of the game = scissors < rock || rock < paper || paper < scissors
   else if (input == 'stone' && scissorPaperStone == 'scissors'
    || input == 'paper' && scissorPaperStone == 'stone'
    || input == 'scissors' && scissorPaperStone == 'paper') {
@@ -68,6 +67,5 @@ var main = function (input) {
     myOutputValue = 'You lose. Computer win ' + numOfComputerWin + ' times ' + computerWinPercentage + '%. You win ' + numOfUserWin + ' times ' + userWinPercentage + '%. you draw ' + numOfDraw + ' times.';
     console.log('you lose');
   }
-  // percentage for win/lose
   return myOutputValue;
 };
