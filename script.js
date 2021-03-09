@@ -1,4 +1,4 @@
-// Unfinished Project 1
+// Rock Paper Scissor Game (Project 1)
 
 var currentGameMode = 'waiting for user name mode';
 var userName = '';
@@ -7,7 +7,7 @@ var scoreUserWin = 0;
 var scoreCpuWin = 0;
 var scoreDraw = 0;
 
-// Get random CPU pick from an array
+// get random CPU pick from an array
 var cpuPick = function () {
   var pickList = ['rock', 'scissor', 'paper'];
   var randPick = pickList[Math.floor(Math.random() * pickList.length)];
@@ -27,7 +27,6 @@ var main = function (input) {
     }
     // now that we have user name, switch the mode
     currentGameMode = 'game mode';
-
     myOutputValue = 'Hello ' + userName + " let's play RSP";
     return myOutputValue;
   } if (currentGameMode == 'game mode') {
@@ -37,10 +36,12 @@ var main = function (input) {
     myOutputValue = 'Your pick is ' + input + '. CPU pick is ' + randomCpuPick + '!';
     console.log(input);
     console.log((input != 'rock' && input != 'paper' && input != 'scissor'));
+
     // input not equal to rock, and not to paper, and not to scissor
     if (input != 'rock' && input != 'paper' && input != 'scissor') {
       return 'This is not a valid input, please enter only the word "rock", "paper", "scissor"';
     }
+
     // var compareGame = function (randomCpuPick, userInput) {}
     if (randomCpuPick == userInput) {
       scoreDraw = scoreDraw + 1;
@@ -73,12 +74,3 @@ var main = function (input) {
     return myOutputValue;
   }
 };
-
-//  if (userName == input) {
-//   var validUserName = 'Your username is ' + userName + ". Let's play the game!";
-//   return validUserName;
-// }
-// if (userName != 1) {
-//   var invalidUserName = 'Your username can not be empty, please enter your username again';
-//   return invalidUserName;
-// }
