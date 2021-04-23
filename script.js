@@ -5,7 +5,7 @@ var main = function (input) {
     return (myOutputValue = playGame(input));
   } else {
     myOutputValue =
-      'Please input either "scissors", "paper", or "stone". There are no other acceptable inputs.';
+      'Please input either "scissors", "paper", or "stone". There are no other acceptable inputs 😟.';
     return myOutputValue;
   }
 };
@@ -26,31 +26,49 @@ var playGame = function (input) {
   var computerChoice = computerChoiceGenerator();
   if (computerChoice == "scissors") {
     if (input == "paper") {
-      return (myOutputValue = `You lose! The computer played ${computerChoice} and you played ${input}.`);
+      return (myOutputValue = `You lose!😭 <br> 
+      The computer played ${computerChoice}✂️, <br>
+      and you played ${input}📃.`);
     } else if (input == "scissors") {
-      return (myOutputValue = `You tie! The computer played ${computerChoice} and you played ${input}.`);
+      return (myOutputValue = `You tie!😊<br> 
+      The computer played ${computerChoice}✂️, <br> 
+      and you played ${input}✂️.`);
     } else if (input == "stone") {
-      return (myOutputValue = `You win! The computer played ${computerChoice} and you played ${input}.`);
+      return (myOutputValue = `You win!🤩 <br>
+      The computer played ${computerChoice}✂️<br>
+       and you played ${input}💎.`);
     }
 
     //Scenario where computer plays paper
   } else if (computerChoice == "paper") {
     if (input == "paper") {
-      return (myOutputValue = `You tie! The computer played ${computerChoice} and you played ${input}.`);
+      return (myOutputValue = `You tie!😊<br>
+       The computer played ${computerChoice}📃<br>
+       and you played ${input}📃.`);
     } else if (input == "scissors") {
-      return (myOutputValue = `You win! The computer played ${computerChoice} and you played ${input}.`);
+      return (myOutputValue = `You win!🤩 <br>
+      The computer played ${computerChoice}📃<br>
+       and you played ${input}✂️.`);
     } else if (input == "stone") {
-      return (myOutputValue = `You lose! The computer played ${computerChoice} and you played ${input}.`);
+      return (myOutputValue = `You lose!😭 <br>
+      The computer played ${computerChoice}📃 <br>
+      and you played ${input}💎.`);
     }
 
     //Scenario where computer plays stone
   } else if ((computerChoice = "stone")) {
     if (input == "paper") {
-      return (myOutputValue = `You win! The computer played ${computerChoice} and you played ${input}.`);
+      return (myOutputValue = `You win!🤩 <br>
+      The computer played ${computerChoice}💎 <br>
+      and you played ${input}📃.`);
     } else if (input == "scissors") {
-      return (myOutputValue = `You lose! The computer played ${computerChoice} and you played ${input}.`);
+      return (myOutputValue = `You lose!😭 <br>
+      The computer played ${computerChoice}💎 <br>
+      and you played ${input}✂️.`);
     } else if (input == "stone") {
-      return (myOutputValue = `You tie! The computer played ${computerChoice} and you played ${input}.`);
+      return (myOutputValue = `You tie!😊 <br>
+      The computer played ${computerChoice}💎 <br>
+      and you played ${input}💎.`);
     }
   }
 };
