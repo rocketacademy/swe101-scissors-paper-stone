@@ -12,7 +12,7 @@ var main = function (userChoice) {
       userChoice == "reversed stone"
     )
   ) {
-    return "this is not a valid input ";
+    return "this is not a valid input.<br> The three input for ✂️🧻🥌 are: <br>scissors<br>paper<br>stone ";
   }
 
   if (computerChoice == userChoice) {
