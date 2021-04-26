@@ -3,16 +3,30 @@ var winCounter = 0;
 var gamesPlayed = 0;
 var winRatio = 0;
 
+// username related global variables
+var nameCollected = false;
+var userName = "";
+
 var main = function (input) {
   var myOutputValue = "Default output value";
+  // First we need to get the user's name:
+  if (nameCollected == false) {
+    userName = input;
+    //set nameCollected to be true, so that we stop entering this section when main is next called (i.e. when the user hits the submit button)
+    nameCollected = true;
+    return `Hello ${userName}😊, welcome to our scissors paper stone game!<br>Now that we have your name, let's start playing.<br>Enter 'scissors', 'paper', or 'stone'.`;
+  }
+
   //Only kickstart the game if the user's input has been validated to either be scissors, paper, or stone
   if (input == "scissors" || input == "paper" || input == "stone") {
+    // Play the game
     var gameOutcome = playGame(input);
     winRatio = Math.floor((winCounter / gamesPlayed) * 1000) / 10;
-    winRatioOutput = `<br><br>So far, you have won games ${winRatio}% of the time.<br>Note: ties do not count as wins.`;
+    winRatioOutput = `<br><br>${userName}, so far, you have won games ${winRatio}% of the time.<br>Note: ties do not count as wins.`;
     myOutputValue = gameOutcome + winRatioOutput;
     return myOutputValue;
   } else {
+    // Validation error message
     myOutputValue =
       'Please input either "scissors", "paper", or "stone". There are no other acceptable inputs 😟.';
     return myOutputValue;
