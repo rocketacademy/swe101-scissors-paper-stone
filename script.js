@@ -1,8 +1,17 @@
+// Defining my global variables
+var winCounter = 0;
+var gamesPlayed = 0;
+var winRatio = 0;
+
 var main = function (input) {
   var myOutputValue = "Default output value";
   //Only kickstart the game if the user's input has been validated to either be scissors, paper, or stone
   if (input == "scissors" || input == "paper" || input == "stone") {
-    return (myOutputValue = playGame(input));
+    var gameOutcome = playGame(input);
+    winRatio = Math.floor((winCounter / gamesPlayed) * 1000) / 10;
+    winRatioOutput = `<br><br>So far, you have won games ${winRatio}% of the time.<br>Note: ties do not count as wins.`;
+    myOutputValue = gameOutcome + winRatioOutput;
+    return myOutputValue;
   } else {
     myOutputValue =
       'Please input either "scissors", "paper", or "stone". There are no other acceptable inputs 😟.';
@@ -24,6 +33,10 @@ var computerChoiceGenerator = function () {
 
 var playGame = function (input) {
   var computerChoice = computerChoiceGenerator();
+  // the game starts, so add 1 to the game counter regardless of comupter choice
+  gamesPlayed += 1;
+
+  // scenario where computer plays scissors
   if (computerChoice == "scissors") {
     if (input == "paper") {
       return (myOutputValue = `You lose!😭 <br> 
@@ -34,6 +47,8 @@ var playGame = function (input) {
       The computer played ${computerChoice}✂️, <br> 
       and you played ${input}✂️.`);
     } else if (input == "stone") {
+      // Only add one to win counter if the user wins
+      winCounter += 1;
       return (myOutputValue = `You win!🤩 <br>
       The computer played ${computerChoice}✂️<br>
        and you played ${input}💎.`);
@@ -46,6 +61,8 @@ var playGame = function (input) {
        The computer played ${computerChoice}📃<br>
        and you played ${input}📃.`);
     } else if (input == "scissors") {
+      // Only add one to win counter if the user wins
+      winCounter += 1;
       return (myOutputValue = `You win!🤩 <br>
       The computer played ${computerChoice}📃<br>
        and you played ${input}✂️.`);
@@ -58,6 +75,8 @@ var playGame = function (input) {
     //Scenario where computer plays stone
   } else if ((computerChoice = "stone")) {
     if (input == "paper") {
+      // Only add one to win counter if the user wins
+      winCounter += 1;
       return (myOutputValue = `You win!🤩 <br>
       The computer played ${computerChoice}💎 <br>
       and you played ${input}📃.`);
