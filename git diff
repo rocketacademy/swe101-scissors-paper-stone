@@ -1,0 +1,120 @@
+[1mdiff --git a/script.js b/script.js[m
+[1mindex c94fc83..a4a5c7f 100644[m
+[1m--- a/script.js[m
+[1m+++ b/script.js[m
+[36m@@ -6,6 +6,8 @@[m [mvar currentGameMode = "waiting for username";[m
+ var userName = "";[m
+ var lastWinner = "";[m
+ [m
+[32m+[m[32mvar isReverseGame = false;[m
+[32m+[m[32mvar isComputerAssisted = false;[m
+ var main = function (userChoice) {[m
+   //game modes[m
+   if (currentGameMode == "waiting for username") {[m
+[36m@@ -14,20 +16,25 @@[m [mvar main = function (userChoice) {[m
+     return `Hello ${userName}`;[m
+   }[m
+   if (userChoice == "reverse") {[m
+[31m-    currentGameMode = "reverse";[m
+[31m-    return `Reverse game started, please input`;[m
+[32m+[m[32m    isReverseGame = !isReverseGame;[m
+[32m+[m[32m    return `Game mode reversed, please input`;[m
+   }[m
+[32m+[m
+[32m+[m[32m  var computerMessage = "";[m
+   if (userChoice == "cvc") {[m
+[31m-    currentGameMode = "cvc";[m
+[31m-    userName = `${userName}'s 🖥️ friend`;[m
+[31m-    return `Ok 🖥️ shall play for you the basic game of ✂️🧻🥌`;[m
+[32m+[m[32m    isComputerAssisted = !isComputerAssisted;[m
+[32m+[m[32m    computerMessage = `human will play for themself`;[m
+[32m+[m[32m    if (isComputerAssisted) {[m
+[32m+[m[32m      computerMessage = `Ok 🖥️ shall play for you the basic game of ✂️🧻🥌`;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    return computerMessage;[m
+   }[m
+ [m
+[31m-  if (currentGameMode == "cvc") {[m
+[32m+[m[32m  if (isComputerAssisted) {[m
+     userChoice = ComputerChoice();[m
+   }[m
+   //default[m
+[31m-  var output = "lost👻";[m
+[32m+[m[32m  var win = false;[m
+   var computerChoice = ComputerChoice();[m
+   if ([m
+     !([m
+[36m@@ -38,39 +45,43 @@[m [mvar main = function (userChoice) {[m
+   ) {[m
+     return "this is not a valid input.<br> The three input for ✂️🧻🥌 are: <br>scissors<br>paper<br>stone ";[m
+   }[m
+[32m+[m
+   //draw condition applies for both normal game and reversed game[m
+   if (computerChoice == userChoice) {[m
+[31m-    output = "draw😱";[m
+[32m+[m[32m    win = null;[m
+     numDraw++;[m
+     if (lastWinner != "") {[m
+       return `${lastWinner} is the winner of muk-jji-ppa!`;[m
+     }[m
+   }[m
+   //normal game[m
+[31m-  if (currentGameMode == "Scissors paper stone" || "cvc") {[m
+[32m+[m[32m  if (currentGameMode == "Scissors paper stone") {[m
+     if ([m
+       (computerChoice == "scissors" && userChoice == "stone") ||[m
+       (computerChoice == "stone" && userChoice == "paper") ||[m
+       (computerChoice == "paper" && userChoice == "scissors")[m
+     ) {[m
+[31m-      output = "win👾";[m
+[31m-      numUserWins++;[m
+[31m-    } else {[m
+[31m-      numComputerWins++;[m
+[32m+[m[32m      win = true;[m
+     }[m
+   }[m
+[32m+[m
+   //reversed modes[m
+[31m-  else if (currentGameMode == "reverse") {[m
+[31m-    if ([m
+[31m-      (computerChoice == "scissors" && userChoice == "paper") ||[m
+[31m-      (computerChoice == "stone" && userChoice == "scissors") ||[m
+[31m-      (computerChoice == "paper" && userChoice == "stone")[m
+[31m-    ) {[m
+[31m-      output = "win🙃";[m
+[31m-      numUserWins++;[m
+[31m-    } else {[m
+[31m-      numComputerWins++;[m
+[31m-    }[m
+[32m+[m[32m  if (isReverseGame && win != null) {[m
+[32m+[m[32m    win = !win;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  var output;[m
+[32m+[m[32m  //set last winner, assign string to output[m
+[32m+[m[32m  if (win == false) {[m
+[32m+[m[32m    lastWinner = "🖥️";[m
+[32m+[m[32m    numComputerWins++;[m
+[32m+[m[32m    output = "lose👻";[m
+[32m+[m[32m  } else if (win == true) {[m
+[32m+[m[32m    lastWinner = userName;[m
+[32m+[m[32m    numUserWins++;[m
+[32m+[m[32m    output = "win👾";[m
+[32m+[m[32m  } else {[m
+[32m+[m[32m    output = "draw😱";[m
+   }[m
+   var totalGames = numUserWins + numComputerWins;[m
+   var specialMessage = `So far you've been winning ${numUserWins}/${totalGames}. Not bad!`;[m
+[36m@@ -78,12 +89,6 @@[m [mvar main = function (userChoice) {[m
+     var specialMessage = `So far you've been winning ${numUserWins}/${totalGames}. 🖥️ is luckier than you! `;[m
+   }[m
+ [m
+[31m-  //set last winner[m
+[31m-  if (output == "lost👻") {[m
+[31m-    lastWinner = "🖥️";[m
+[31m-  } else if (output == "win🙃" || output == "win👾") {[m
+[31m-    lastWinner = userName;[m
+[31m-  }[m
+   return `${userName} ${output} with ${userChoice} against ${computerChoice}<br>${userName} has ${numUserWins} wins vs the 🖥️ with ${numComputerWins} wins! With ${numDraw} draws <br>${specialMessage} `;[m
+ };[m
+ [m

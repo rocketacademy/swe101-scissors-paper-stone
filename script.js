@@ -6,6 +6,8 @@ var currentGameMode = "waiting for username";
 var userName = "";
 var lastWinner = "";
 
+var isReverseGame = false;
+var isComputerAssisted = false;
 var main = function (userChoice) {
   //game modes
   if (currentGameMode == "waiting for username") {
@@ -14,20 +16,25 @@ var main = function (userChoice) {
     return `Hello ${userName}`;
   }
   if (userChoice == "reverse") {
-    currentGameMode = "reverse";
-    return `Reverse game started, please input`;
-  }
-  if (userChoice == "cvc") {
-    currentGameMode = "cvc";
-    userName = `${userName}'s 🖥️ friend`;
-    return `Ok 🖥️ shall play for you the basic game of ✂️🧻🥌`;
+    isReverseGame = !isReverseGame;
+    return `Game mode reversed, please input`;
   }
 
-  if (currentGameMode == "cvc") {
+  var computerMessage = "";
+  if (userChoice == "cvc") {
+    isComputerAssisted = !isComputerAssisted;
+    computerMessage = `human will play for themself`;
+    if (isComputerAssisted) {
+      computerMessage = `Ok 🖥️ shall play for you the basic game of ✂️🧻🥌`;
+    }
+    return computerMessage;
+  }
+
+  if (isComputerAssisted) {
     userChoice = ComputerChoice();
   }
   //default
-  var output = "lost👻";
+  var win = false;
   var computerChoice = ComputerChoice();
   if (
     !(
@@ -38,39 +45,43 @@ var main = function (userChoice) {
   ) {
     return "this is not a valid input.<br> The three input for ✂️🧻🥌 are: <br>scissors<br>paper<br>stone ";
   }
+
   //draw condition applies for both normal game and reversed game
   if (computerChoice == userChoice) {
-    output = "draw😱";
+    win = null;
     numDraw++;
     if (lastWinner != "") {
       return `${lastWinner} is the winner of muk-jji-ppa!`;
     }
   }
   //normal game
-  if (currentGameMode == "Scissors paper stone" || "cvc") {
+  if (currentGameMode == "Scissors paper stone") {
     if (
       (computerChoice == "scissors" && userChoice == "stone") ||
       (computerChoice == "stone" && userChoice == "paper") ||
       (computerChoice == "paper" && userChoice == "scissors")
     ) {
-      output = "win👾";
-      numUserWins++;
-    } else {
-      numComputerWins++;
+      win = true;
     }
   }
+
   //reversed modes
-  else if (currentGameMode == "reverse") {
-    if (
-      (computerChoice == "scissors" && userChoice == "paper") ||
-      (computerChoice == "stone" && userChoice == "scissors") ||
-      (computerChoice == "paper" && userChoice == "stone")
-    ) {
-      output = "win🙃";
-      numUserWins++;
-    } else {
-      numComputerWins++;
-    }
+  if (isReverseGame && win != null) {
+    win = !win;
+  }
+
+  var output;
+  //set last winner, assign string to output
+  if (win == false) {
+    lastWinner = "🖥️";
+    numComputerWins++;
+    output = "lose👻";
+  } else if (win == true) {
+    lastWinner = userName;
+    numUserWins++;
+    output = "win👾";
+  } else {
+    output = "draw😱";
   }
   var totalGames = numUserWins + numComputerWins;
   var specialMessage = `So far you've been winning ${numUserWins}/${totalGames}. Not bad!`;
@@ -78,12 +89,6 @@ var main = function (userChoice) {
     var specialMessage = `So far you've been winning ${numUserWins}/${totalGames}. 🖥️ is luckier than you! `;
   }
 
-  //set last winner
-  if (output == "lost👻") {
-    lastWinner = "🖥️";
-  } else if (output == "win🙃" || output == "win👾") {
-    lastWinner = userName;
-  }
   return `${userName} ${output} with ${userChoice} against ${computerChoice}<br>${userName} has ${numUserWins} wins vs the 🖥️ with ${numComputerWins} wins! With ${numDraw} draws <br>${specialMessage} `;
 };
 
