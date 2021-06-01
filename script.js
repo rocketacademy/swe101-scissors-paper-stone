@@ -4,78 +4,32 @@ var compScissors = "The computer chose scissors";
 var main = function (input) {
   var RandChoice = RandRoll();
   console.log(RandChoice);
-  var myOutputValue = "Wrong input! Please only input scissors, rock or paper.";
-  if (input == "scissors") {
-    if (RandChoice == compPaper) {
-      myOutputValue =
-        compPaper +
-        "<br>" +
-        "You chose scissors and therefore you have won!" +
-        "<br>" +
-        " You can type again to play again.";
-    } else if (RandChoice == compRock) {
-      myOutputValue =
-        compRock +
-        "<br>" +
-        "You chose scissors and therefore you have lost. :(" +
-        "<br>" +
-        "Try again?";
-    } else {
-      myOutputValue =
-        "You both have chosen scissors." +
-        "<br>" +
-        "Its a draw!" +
-        "<br>" +
-        "Try again?";
-    }
-  }
-  if (input == "paper") {
-    if (RandChoice == compRock) {
-      myOutputValue =
-        compRock +
-        "<br>" +
-        "You chose paper and therefore you have won!" +
-        "<br>" +
-        "You can type again to play again.";
-    } else if (RandChoice == compScissors) {
-      myOutputValue =
-        compScissors +
-        "<br>" +
-        "You chose paper and therefore you have lost. :(" +
-        "<br>" +
-        "Try again?";
-    } else {
-      myOutputValue =
-        "You both have chosen paper." +
-        "<br>" +
-        "Its a draw!" +
-        "<br>" +
-        "Try again?";
-    }
-  }
-  if (input == "rock") {
-    if (RandChoice == compScissors) {
-      myOutputValue =
-        compScissors +
-        "<br>" +
-        "You chose rock and therefore you have won!" +
-        "<br>" +
-        "You can type again to play again.";
-    } else if (RandChoice == compPaper) {
-      myOutputValue =
-        compPaper +
-        "<br>" +
-        "You chose rock and therefore you have lost. :(" +
-        "<br>" +
-        "Try again?";
-    } else {
-      myOutputValue =
-        "You both have chosen rock." +
-        "<br>" +
-        "Its a draw!" +
-        "<br>" +
-        "Try again?";
-    }
+  var myOutputValue = "";
+  var outcome = `You picked ${input}.` + "<br>" + `${RandChoice}.`;
+  var winOutcome = outcome + "<br>" + "You won! Play again?";
+  var loseOutcome = outcome + "<br>" + "You lost! Play again?";
+  var drawOutcome = outcome + "<br>" + "You drew! Play again?";
+  if (
+    (input == "scissors" && RandChoice == compPaper) ||
+    (input == "paper" && RandChoice == compRock) ||
+    (input == "rock" && RandChoice == compScissors)
+  ) {
+    myOutputValue = winOutcome;
+  } else if (
+    (input == "scissors" && RandChoice == compRock) ||
+    (input == "paper" && RandChoice == compScissors) ||
+    (input == "rock" && RandChoice == compPaper)
+  ) {
+    myOutputValue = loseOutcome;
+  } else if (
+    (input == "scissors" && RandChoice == compScissors) ||
+    (input == "paper" && RandChoice == compPaper) ||
+    (input == "rock" && RandChoice == compRock)
+  ) {
+    myOutputValue = drawOutcome;
+  } else {
+    myOutputValue =
+      "Invalid input! Please only enter either rock, paper or scissors(small caps).";
   }
   return myOutputValue;
 };
