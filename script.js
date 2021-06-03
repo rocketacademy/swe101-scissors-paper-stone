@@ -33,6 +33,28 @@ var main = function (input) {
     // draw
     var myOutputValue = "It is a draw";
   }
+  //REVERSE MODE
+  if (
+    (input == "Reversed Stone" && actionThrown == "Paper") ||
+    (input == "Reversed Paper" && actionThrown == "Scissors") ||
+    (input == "Reversed Scissors" && "Stone")
+  ) {
+    var myOutputValue = "User Win";
+  }
+  if (
+    (input == "Reversed Stone" && actionThrown == "Scissors") ||
+    (input == "Reversed Paper" && actionThrown == "Stone") ||
+    (input == "Reversed Scissors" && actionThrown == "Paper")
+  ) {
+    var myOutputValue = "Program Win";
+  }
+  if (
+    (input == "Reversed Stone" && actionThrown == "Stone") ||
+    (input == "Reversed Paper" && actionThrown == "Paper") ||
+    (input == "Reversed Scissors" && actionThrown == "Scissors")
+  ) {
+    var myOutputValue = "It is a draw";
+  }
   return myOutputValue;
 };
 //create random action
