@@ -8,17 +8,21 @@ var randomChoice = function () {
 var main = function (input) {
   // input = scissors, paper or stone
   // output = user won, program won or it's a draw
-
   var choiceNumber = randomChoice();
   console.log(choiceNumber);
 
   var myOutputValue = "It's a draw!";
 
-  if (input == "Scissors") inputNumber = 1;
+  if (input != "Scissors" || input != "Paper" || input != "Stone") {
+    myOutputValue =
+      "Error <br> <br> Please input 'Scissors' 'Paper' or 'Stone'";
+  }
 
-  if (input == "Paper") inputNumber = 2;
+  if (input == "Scissors") var inputNumber = 1;
 
-  if (input == "Stone") inputNumber = 3;
+  if (input == "Paper") var inputNumber = 2;
+
+  if (input == "Stone") var inputNumber = 3;
 
   if (choiceNumber == 1) choice = "Scissors";
 
@@ -35,9 +39,9 @@ var main = function (input) {
     myOutputValue =
       "Wrong! The computer chose " +
       choice +
-      " <br> You chose " +
+      " <br> <br> You chose " +
       input +
-      " <br> You lose! Bummer. <br> Now you can type 'Scissors' 'Paper' or 'Stone' to play another round!";
+      " <br> <br> You lose! Bummer. <br> <br> Now you can type 'Scissors' 'Paper' or 'Stone' to play another round!";
   }
 
   // scenarios when player wins program
