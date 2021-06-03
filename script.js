@@ -1,6 +1,8 @@
 var main = function (input) {
   // 1 = Scissors, 2 = Paper, 3 = Stone
   var randomAction = randomSPS();
+  myOutputValue =
+    'Error. Please input only "Scissors", "Paper" or "Stone". Try agin!';
   if (randomAction == 1) {
     actionThrown = "Scissors";
   }
