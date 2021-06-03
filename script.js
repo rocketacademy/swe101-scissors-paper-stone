@@ -10,22 +10,22 @@ var main = function (input) {
   // output = user won, program won or it's a draw
   var choiceNumber = randomChoice();
 
-  var myOutputValue = "It's a draw!";
-
   var inputNumber;
 
   var choice;
 
   if (
-    input != "Scissors" ||
-    input != "Paper" ||
-    input != "Stone" ||
-    input != "Reversed Scissors" ||
-    input != "Reversed Paper" ||
-    input != "Reversed Stone"
+    !(
+      input == "Scissors" ||
+      input == "Paper" ||
+      input == "Stone" ||
+      input == "Reversed Scissors" ||
+      input == "Reversed Paper" ||
+      input == "Reversed Stone"
+    )
   ) {
-    myOutputValue =
-      "Error <br> <br> Please input 'Scissors' 'Paper' 'Stone' or <br> <br> For reverse game <br> <br> Please input 'Reversed Scissors' 'Reversed Paper' 'Reversed Stone";
+    console.log(input);
+    return "Error <br> <br> Please input 'Scissors' 'Paper' 'Stone' or <br> <br> For reverse game <br> <br> Please input 'Reversed Scissors' 'Reversed Paper' 'Reversed Stone";
   }
 
   // Scissors = 1, Paper = 2, Stone = 3
@@ -35,68 +35,64 @@ var main = function (input) {
 
   if (input == "Stone") inputNumber = 3;
 
+  if (input == "Reversed Scissors") inputNumber = 4;
+
+  if (input == "Reversed Paper") inputNumber = 5;
+
+  if (input == "Reversed Stone") inputNumber = 6;
+
   if (choiceNumber == 1) choice = "Scissors";
 
   if (choiceNumber == 2) choice = "Paper";
 
   if (choiceNumber == 3) choice = "Stone";
 
-  // scenarios when player loses to program
-  if (
-    (inputNumber == 1 && choiceNumber == 3) ||
-    (inputNumber == 2 && choiceNumber == 1) ||
-    (inputNumber == 3 && choiceNumber == 2)
-  ) {
-    myOutputValue =
+  var winner = checkWinner(inputNumber, choiceNumber);
+  console.log(inputNumber, choiceNumber);
+
+  if (winner == "Program") {
+    return (
       "Wrong! The computer chose " +
       choice +
       " <br> <br> You chose " +
       input +
-      " <br> <br> You lose! Bummer. <br> <br> Now you can type 'Scissors' 'Paper' or 'Stone' to play another round!";
+      " <br> <br> You lose! Bummer. <br> <br> Now you can type 'Scissors' 'Paper' or 'Stone' to play another round!"
+    );
+  }
+
+  if (winner == "Player") {
+    return "You Win!";
+  }
+
+  if (winner == "Draw") {
+    return "It's a draw!";
+  }
+};
+
+var checkWinner = function (inputNumber, choiceNumber) {
+  // scenarios when player loses to program
+  if (
+    (inputNumber == 1 && choiceNumber == 3) ||
+    (inputNumber == 2 && choiceNumber == 1) ||
+    (inputNumber == 3 && choiceNumber == 2) ||
+    (inputNumber == 4 && choiceNumber == 2) ||
+    (inputNumber == 5 && choiceNumber == 3) ||
+    (inputNumber == 6 && choiceNumber == 1)
+  ) {
+    return "Program";
   }
 
   // scenarios when player wins program
   if (
     (inputNumber == 1 && choiceNumber == 2) ||
     (inputNumber == 2 && choiceNumber == 3) ||
-    (inputNumber == 3 && choiceNumber == 1)
+    (inputNumber == 3 && choiceNumber == 1) ||
+    (inputNumber == 4 && choiceNumber == 3) ||
+    (inputNumber == 5 && choiceNumber == 1) ||
+    (inputNumber == 6 && choiceNumber == 2)
   ) {
-    myOutputValue = "You Win!";
+    return "Player";
+  } else {
+    return "Draw";
   }
-
-  // Reverse Mode
-  if (input == "Reversed Scissors") inputNumber = 1;
-
-  if ((input = "Reversed Paper")) inputNumber = 2;
-
-  if ((input = "Reversed Stone")) inputNumber = 3;
-
-  // scenarios when player loses to program
-  if (
-    (inputNumber == 1 && choiceNumber == 2) ||
-    (inputNumber == 2 && choiceNumber == 3) ||
-    (inputNumber == 3 && choiceNumber == 1)
-  ) {
-    myOutputValue =
-      "Wrong! The computer chose " +
-      choice +
-      " <br> <br> You chose " +
-      input +
-      " <br> <br> You lose! Bummer. <br> <br> Now you can type 'Scissors' 'Paper' or 'Stone' to play another round!";
-    console.log(myOutputValue);
-  }
-
-  // scenarios when player wins program
-  if (
-    (inputNumber == 1 && choiceNumber == 3) ||
-    (inputNumber == 2 && choiceNumber == 1) ||
-    (inputNumber == 3 && choiceNumber == 2)
-  ) {
-    myOutputValue = "You Win!";
-    console.log(myOutputValue);
-  }
-
-  console.log("Action thrown by program: " + choice);
-
-  return myOutputValue;
 };
