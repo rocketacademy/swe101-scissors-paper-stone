@@ -34,9 +34,47 @@ var main = function (input) {
     );
   }
 
-  if (input != "Scissors" && input != "Rock" && input != "Paper") {
+  if (
+    input != "Scissors" &&
+    input != "Rock" &&
+    input != "Paper" &&
+    input != "Reversed scissors" &&
+    input != "Reversed rock" &&
+    input != "Reversed paper"
+  ) {
     return "Please only input Scissors, Paper, or Rock. Try again!";
   }
+
+  // Reverse game starts here
+
+  if (
+    (input == "Reversed scissors" && output == "Paper") ||
+    (input == "Reversed rock" && output == "Scissors") ||
+    (input == "Reversed paper" && output == "Rock")
+  ) {
+    return (
+      "The computer chose " + output + ". You chose " + input + ". You lose."
+    );
+  }
+
+  if (
+    (input == "Reversed scissors" && output == "Rock") ||
+    (input == "Reversed rock" && output == "Paper") ||
+    (input == "Reversed paper" && output == "Scissors")
+  ) {
+    return (
+      "The computer chose " +
+      output +
+      ". You chose " +
+      input +
+      ". You win! Great! Now you can type 'Scissors', 'Paper', or 'Stone' to play another round!"
+    );
+  }
+
+  if (input == "Reversed scissors" && output == "Scissors") {
+    return "It's a tie!";
+  }
+
   return output;
 };
 
