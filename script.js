@@ -4,14 +4,14 @@ var main = function (input) {
   console.log(output);
 
   if (input == output) {
-    return "it's a tie!";
+    return "It's a tie!";
   }
   if (
     (input == "Scissors" && output == "Rock") ||
     (input == "Rock" && output == "Paper") ||
     (input == "Paper" && output == "Scissors")
   ) {
-    return "you lose!";
+    return "You lose";
   }
 
   if (
@@ -19,7 +19,11 @@ var main = function (input) {
     (input == "Rock" && output == "Scissors") ||
     (input == "Paper" && output == "Rock")
   ) {
-    return "you win!";
+    return "You win!";
+  }
+
+  if (input != "Scissors" && input != "Rock" && input != "Paper") {
+    return "Please only input Scissors, Paper, or Rock. Try again!";
   }
   return output;
 };
