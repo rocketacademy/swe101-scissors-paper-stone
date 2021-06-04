@@ -1,8 +1,7 @@
 // creating random numbers for tagging to SPS
 var sPS = function () {
   var randomDecimal = Math.random() * 3;
-  var randomInteger = Math.floor(randomDecimal);
-  var diceNum = randomInteger + 1;
+  var diceNum = Math.ceil(randomDecimal);
 
   // allocating a number to each SPS and showing the object as output
   if (diceNum == 1) {
@@ -19,8 +18,9 @@ var sPS = function () {
 };
 
 var main = function (input) {
-  // validation to inform user can only choose SPS
-  var myOutputValue = `pls select: scissors, paper or stone!`;
+  // validation to inform user can only input SPS
+  var myOutputValue = `pls input: scissors, paper or stone!`;
+
   var progChoice = sPS();
   // defining win conditions
   if (
@@ -28,7 +28,7 @@ var main = function (input) {
     (input == `paper` && progChoice == `stone`) ||
     (input == `stone` && progChoice == `scissors`)
   ) {
-    myOutputValue = `Congrats, you won! You chose ${input} vs ${progChoice}!`;
+    myOutputValue = `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br> Congrats, you won!<br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${progChoice} <br><br>Cheers! <br><br> Pls input: scissors, paper or stone for next roll`;
   }
   // defining lose conditions
   if (
@@ -36,11 +36,11 @@ var main = function (input) {
     (input == `paper` && progChoice == `scissors`) ||
     (input == `stone` && progChoice == `paper`)
   ) {
-    myOutputValue = `Oops, you lost! You chose ${input} vs ${progChoice}!`;
+    myOutputValue = `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br> Oops, you lost! <br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${progChoice} <br><br> Better luck next time!<br><br> Pls input: scissors, paper or stone for next roll`;
   }
   // defining draw condition
   if (input == progChoice) {
-    myOutputValue = `It's a DRAW! ${input} vs ${progChoice}! Pls try again`;
+    myOutputValue = `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br>It's a DRAW! <br><br> Your choice: ${input} <br> vs <br> Computer choice: ${progChoice} <br><br><br>Pls try again <br><br> Pls input: scissors, paper or stone for next roll`;
   }
 
   return myOutputValue;
