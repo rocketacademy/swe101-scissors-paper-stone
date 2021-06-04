@@ -59,7 +59,7 @@ var main = function (choice) {
       var myOutputValue = `The computer chose 🗿 <br> You chose 📄  <br><br> ${defaultLoseMessage} <br><br>${defaultPlayAgainMessage}`;
     }
   }
-    
+
   if (playerChoice == 5){
     var playerChoice = 2;
     if (playerChoice == compChoice){
@@ -76,8 +76,8 @@ var main = function (choice) {
 };
 //Random number for the computer generated choice
 var randomNumber = function(){
-  var randomInt = Math.random() * 3
-  var randomNum = Math.floor(randomInt)
+  var randomInt = Math.random() * 3;
+  var randomNum = Math.floor(randomInt);
   return randomNum
 }
 
@@ -85,20 +85,20 @@ var randomNumber = function(){
 var userChoice = function(userInput){
   if (userInput == 'scissors'){
     return 0
-  }
+  };
   if (userInput =='paper'){
     return 1
-  } 
+  };
   if (userInput == 'stone'){
     return 2
-  }
+  };
   if (userInput == 'reversed scissors'){
     return 3
-  }
+  };
   if (userInput =='reversed paper'){
     return 4
-  }
+  };
   if (userInput == 'reversed stone'){
   return 5
-  }
+  };
 };
