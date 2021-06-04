@@ -6,7 +6,7 @@ var main = function (choice) {
   console.log(playerChoice);
 
   var myOutputValue = 'Please type only the following: "scissors", "paper", "stone"';
-  //make default messages
+  // Default messages to avoid retyping 
   var defaultWinMessage = 'You won! 💪💪💪 '
   var defaultPlayAgainMessage = 'Have a go again? type "scissors", "paper", "stone" and click submit'
   var defaultLoseMessage = 'You lose! 👎 '
@@ -33,7 +33,7 @@ var main = function (choice) {
     var myOutputValue = `The computer chose 📄  <br> You chose 🗿 <br><br> ${defaultLoseMessage} <br><br>${defaultPlayAgainMessage}`;  
   }
 
-  //reverse default messages win to lose and vise versa, 3 = reversed scissors, 4 = reversed paper, 5= reversed stone
+  //Reverse default messages, win to lose and vise versa, 3 = reversed scissors, 4 = reversed paper, 5= reversed stone
   if (playerChoice == 3){
     var playerChoice = 0
     if (playerChoice == compChoice){
@@ -74,14 +74,14 @@ var main = function (choice) {
   }
   return myOutputValue;
 };
-//random number for the computer choice
+//Random number for the computer generated choice
 var randomNumber = function(){
   var randomInt = Math.random() * 3
   var randomNum = Math.floor(randomInt)
   return randomNum
 }
 
-// assign user choice to number 0= scissors , 1 = paper , 2 = stone, reversed will be from 3 to 5
+// Assigning user choice to number 0= scissors , 1 = paper , 2 = stone, reversed will be from 3 to 5
 var userChoice = function(userInput){
   if (userInput == 'scissors'){
     return 0
