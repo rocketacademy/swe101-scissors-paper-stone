@@ -1,3 +1,5 @@
+// Project 1: Scissors Paper Stone (Part 1)
+
 // Define constants to use in multiple functions to avoid bugs due to typos.
 var SCISSORS = "scissors";
 var PAPER = "paper";
@@ -9,7 +11,7 @@ var R_STONE = "reversed stone";
 var main = function (input) {
   var comOutput = generateComputerMove();
 
-  //draw when choose same object
+  //Computer and User draw when they choose the same object
   if (
     input == comOutput ||
     (input == R_SCISSORS && comOutput == SCISSORS) ||
@@ -22,7 +24,7 @@ var main = function (input) {
   //scissors beats paper, paper beats stone, and stone beats scissors.
   //reversed: scissors beat stone, stone beats paper, and paper beats scissors
 
-  //computer wins user loses; first 3 normal SPS, last 3 reverse SPS
+  //Computer wins and user loses; first 3 normal SPS, last 3 reversed SPS
   if (
     (comOutput == SCISSORS && input == PAPER) ||
     (comOutput == PAPER && input == STONE) ||
@@ -31,10 +33,10 @@ var main = function (input) {
     (comOutput == PAPER && input == R_SCISSORS) ||
     (comOutput == STONE && input == R_PAPER)
   ) {
-    return `The computer chose ${comOutput}. <br> You chose ${input}. <br> You lose! Bummer! :( <br> Now you can type "scissors", "paper" or "stone" to play another round!`;
+    return `The computer chose ${comOutput}. <br> You chose ${input}. <br> You lost! Bummer! :( <br> Now you can type "scissors", "paper" or "stone" to play another round!`;
   }
 
-  // computer loses user wins; first 3 normal SPS, last 3 reveser SPS
+  //Computer loses and user wins; first 3 normal SPS, last 3 reversed SPS
   if (
     (input == SCISSORS && comOutput == PAPER) ||
     (input == PAPER && comOutput == STONE) ||
@@ -43,10 +45,10 @@ var main = function (input) {
     (input == R_PAPER && comOutput == SCISSORS) ||
     (input == R_STONE && comOutput == PAPER)
   ) {
-    return `The computer chose ${comOutput}. <br> You chose ${input}. <br> You win!!! Hurray! :) <br> Now you can type "scissors", "paper" or "stone" to play another round!`;
+    return `The computer chose ${comOutput}. <br> You chose ${input}. <br> You won!!! Hurray! :) <br> Now you can type "scissors", "paper" or "stone" to play another round!`;
   }
 
-  // input validation
+  //Input validation
   if (
     !(
       input == SCISSORS ||
@@ -61,17 +63,16 @@ var main = function (input) {
   }
 };
 
-// Generate a random integer from 1 to 3 inclusive; 3 because only scissors, paper or stone
+//Generate a random integer from 1 to 3 inclusive; 3 because only scissors, paper or stone
 var generateRandomInteger = function () {
   var randomDecimal = Math.random() * 3;
   var randomInteger = Math.floor(randomDecimal) + 1;
   return randomInteger;
 };
 
-// This function outputs a random move by the computer
+//This function outputs a random move by the computer
 var generateComputerMove = function () {
   var computerMove = generateRandomInteger();
-  return SCISSORS;
   if (computerMove == 1) {
     return SCISSORS;
   }
