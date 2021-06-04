@@ -4,7 +4,7 @@
 // if user chooses stone AND programme chooses scissors -> user wins
 // if user AND programme chooses same -> draw
 // input validation: if user chooses NOT SPS -> text output
-
+// comment
 // 1. define function for programme randomly choosing SPS
 var generateSystemNumber = function () {
   var randomDecimal = Math.random() * 3;
