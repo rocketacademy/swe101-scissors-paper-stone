@@ -11,7 +11,13 @@ var main = function (input) {
     (input == "Rock" && output == "Paper") ||
     (input == "Paper" && output == "Scissors")
   ) {
-    return "You lose";
+    return (
+      "The computer chose " +
+      output +
+      ". You chose " +
+      input +
+      ". You lose! Bummer. Now you can type 'Scissors', 'Paper', or 'Stone' to play another round!"
+    );
   }
 
   if (
@@ -19,7 +25,13 @@ var main = function (input) {
     (input == "Rock" && output == "Scissors") ||
     (input == "Paper" && output == "Rock")
   ) {
-    return "You win!";
+    return (
+      "The computer chose " +
+      output +
+      ". You chose " +
+      input +
+      ". You win! Great! Now you can type 'Scissors', 'Paper', or 'Stone' to play another round!"
+    );
   }
 
   if (input != "Scissors" && input != "Rock" && input != "Paper") {
