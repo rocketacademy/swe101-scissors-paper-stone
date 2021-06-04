@@ -41,8 +41,25 @@ var main = function (input) {
   }
 
   // Inform user there are only 3 input options
-  if (input != 'stone' && input != 'scissors' && input != 'paper') {
+  if (
+    input != 'stone' &&
+    input != 'scissors' &&
+    input != 'paper' &&
+    input != 'reversed stone' &&
+    input != 'reversed scissors' &&
+    input != 'reversed paper'
+  ) {
     myOutputValue = 'There are only 3 input options, please try again.';
   }
+
+  // If user types "reversed", user wins if input is stone and hand is paper, or if input is scissors and hand is stone, or if input is paper and hand is scissors
+  if (
+    (input == 'reversed stone' && progHand == 'paper') ||
+    (input == 'reversed scissors' && progHand == 'stone') ||
+    (input == 'reversed paper' && progHand == 'scissors')
+  ) {
+    myOutputValue = 'You win. You chose ' + input + ' but I chose ' + progHand;
+  }
+
   return myOutputValue;
 };
