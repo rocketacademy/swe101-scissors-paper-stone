@@ -1,76 +1,124 @@
-var compPaper = "The computer chose paper";
-var compRock = "The computer chose rock";
-var compScissors = "The computer chose scissors";
 var win = 0;
 var loss = 0;
 var currentMode = "Waiting for username";
 var username = "";
+var lastroundWinner = "";
 var main = function (input) {
-  var compChoice = RandRoll();
-  console.log(compChoice);
   var myOutputValue = "";
-  var outcome = `You picked ${input}.` + "<br>" + `${compChoice}.`;
-  var winOutcome = outcome + "<br>" + `You won, ${username}! Play again?`;
-  var loseOutcome = outcome + "<br>" + `You lost, ${username}! Play again?`;
-  var drawOutcome = outcome + "<br>" + `You drew, ${username}! Play again?`;
   if (currentMode == "Waiting for username") {
     username = input;
-    currentMode = "dicegame";
-    return `Welcome to the game, ${username}.`;
+    currentMode = "gameSelection";
+    return `Welcome to the game, ${username}. Please enter either 'RPS' to play normal Rock Paper Scissors, or enter 'Korean RPS' to play muk-jji-ppa.`;
   }
-  if (currentMode == "dicegame") {
+  if (currentMode == "gameSelection") {
+    if (input == "Korean RPS") {
+      currentMode = "koreanRPS";
+      return `You have selected Korean RPS - muk-jji-ppa, ${username}.`;
+    }
+    if (input == "RPS") {
+      currentMode = "normalRPS";
+      return `You have selected normal RPS, ${username}.`;
+    }
+  }
+  var compChoice = RandRoll();
+  console.log(compChoice);
+  var outcome =
+    `You picked ${input}.` + "<br>" + `The computer chose ${compChoice}`;
+  var winOutcome =
+    outcome + "<br>" + `You won this round, ${username}! Play again?`;
+  var loseOutcome =
+    outcome + "<br>" + `You lost this round, ${username}! Play again?`;
+  var drawOutcome = outcome + "<br>" + `You drew, ${username}! Play again?`;
+  if (currentMode == "normalRPS") {
     if (
-      (input == "scissors" && compChoice == compPaper) ||
-      (input == "paper" && compChoice == compRock) ||
-      (input == "rock" && compChoice == compScissors) ||
-      (input == "reverse scissors" && compChoice == compRock) ||
-      (input == "reverse paper" && compChoice == compScissors) ||
-      (input == "reverse rock" && compChoice == compPaper)
+      (input == "scissors" && compChoice == "paper") ||
+      (input == "paper" && compChoice == "rock") ||
+      (input == "rock" && compChoice == "scissors") ||
+      (input == "reverse scissors" && compChoice == "rock") ||
+      (input == "reverse paper" && compChoice == "scissors") ||
+      (input == "reverse rock" && compChoice == "paper")
     ) {
       win = win + 1;
       var winrate = `Your current winrate is ${(win / (win + loss)) * 100}%`;
       myOutputValue = winOutcome + "<br>" + winrate;
     } else if (
-      (input == "scissors" && compChoice == compRock) ||
-      (input == "paper" && compChoice == compScissors) ||
-      (input == "rock" && compChoice == compPaper) ||
-      (input == "reverse scissors" && compChoice == compPaper) ||
-      (input == "reverse paper" && compChoice == compRock) ||
-      (input == "reverse rock" && compChoice == compScissors)
+      (input == "scissors" && compChoice == "rock") ||
+      (input == "paper" && compChoice == "scissors") ||
+      (input == "rock" && compChoice == "paper") ||
+      (input == "reverse scissors" && compChoice == "paper") ||
+      (input == "reverse paper" && compChoice == "rock") ||
+      (input == "reverse rock" && compChoice == "scissors")
     ) {
       loss = loss + 1;
       var winrate = `Your current winrate is ${(win / (win + loss)) * 100}%`;
       myOutputValue = loseOutcome + "<br>" + winrate;
     } else if (
-      (input == "scissors" && compChoice == compScissors) ||
-      (input == "paper" && compChoice == compPaper) ||
-      (input == "rock" && compChoice == compRock) ||
-      (input == "reverse scissors" && compChoice == compScissors) ||
-      (input == "reverse paper" && compChoice == compPaper) ||
-      (input == "reverse rock" && compChoice == compRock)
+      input == compChoice ||
+      (input == "reverse scissors" && compChoice == "scissors") ||
+      (input == "reverse paper" && compChoice == "paper") ||
+      (input == "reverse rock" && compChoice == "rock")
     ) {
-      myOutputValue = drawOutcome;
+      myOutputValue = drawOutcome + "<br>" + winrate;
     } else {
       myOutputValue =
         "Invalid input! Please only enter either rock, paper or scissors(small caps). To play reverse mode, you can type reverse in front of your choice.";
     }
-    return myOutputValue;
   }
+  if (currentMode == "koreanRPS") {
+    if (
+      (input == "scissors" && compChoice == "paper") ||
+      (input == "paper" && compChoice == "rock") ||
+      (input == "rock" && compChoice == "scissors")
+    ) {
+      lastroundWinner = "player";
+      myOutputValue =
+        winOutcome +
+        "<br>" +
+        "You need to draw the next round in order to be declared the winner of muk-jji-ppa!";
+    } else if (
+      (input == "scissors" && compChoice == "rock") ||
+      (input == "paper" && compChoice == "scissors") ||
+      (input == "rock" && compChoice == "paper")
+    ) {
+      lastroundWinner = "comp";
+      myOutputValue =
+        loseOutcome +
+        "<br>" +
+        "The computer will muk-jji-ppa if it is a draw next round!";
+    } else if (input == compChoice) {
+      if (lastroundWinner == "player") {
+        lastroundWinner = "";
+        myOutputValue =
+          drawOutcome +
+          "<br>" +
+          "You won the last round and therefore you win muk-jji-ppa!";
+      } else if (lastroundWinner == "comp") {
+        myOutputValue =
+          drawOutcome +
+          "<br>" +
+          "You lost the last round and therefore you have lost muk-jji-ppa.";
+      } else {
+        myOutputValue =
+          drawOutcome +
+          "<br>" +
+          "No one won the previous round, so no one is declared the winner.";
+      }
+    }
+  }
+  return myOutputValue;
 };
 
 var RandRoll = function () {
-  var compOutcome;
   var randomDecimal = Math.random() * 3;
   var randomInteger = Math.floor(randomDecimal);
   var RandNumber = randomInteger + 1;
   console.log(RandNumber);
   //1 is paper, 2 is rock, and 3 is scissors
   if (RandNumber == 1) {
-    compOutcome = compPaper;
+    return "paper";
   } else if (RandNumber == 2) {
-    compOutcome = compRock;
+    return "rock";
   } else {
-    compOutcome = compScissors;
+    return "scissors";
   }
-  return compOutcome;
 };
