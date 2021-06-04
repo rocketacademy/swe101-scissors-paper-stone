@@ -1,6 +1,8 @@
 var compPaper = "The computer chose paper";
 var compRock = "The computer chose rock";
 var compScissors = "The computer chose scissors";
+var win = 0;
+var loss = 0;
 var main = function (input) {
   var compChoice = RandRoll();
   console.log(compChoice);
@@ -17,7 +19,9 @@ var main = function (input) {
     (input == "reverse paper" && compChoice == compScissors) ||
     (input == "reverse rock" && compChoice == compPaper)
   ) {
-    myOutputValue = winOutcome;
+    win = win + 1;
+    var winrate = `Your current winrate is ${(win / (win + loss)) * 100}%`;
+    myOutputValue = winOutcome + "<br>" + winrate;
   } else if (
     (input == "scissors" && compChoice == compRock) ||
     (input == "paper" && compChoice == compScissors) ||
@@ -26,7 +30,9 @@ var main = function (input) {
     (input == "reverse paper" && compChoice == compRock) ||
     (input == "reverse rock" && compChoice == compScissors)
   ) {
-    myOutputValue = loseOutcome;
+    loss = loss + 1;
+    var winrate = `Your current winrate is ${(win / (win + loss)) * 100}%`;
+    myOutputValue = loseOutcome + "<br>" + winrate;
   } else if (
     (input == "scissors" && compChoice == compScissors) ||
     (input == "paper" && compChoice == compPaper) ||
