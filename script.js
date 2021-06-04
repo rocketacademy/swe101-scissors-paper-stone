@@ -5,7 +5,7 @@
 
 var randomNumber = function () {
   // produces a decimal between 0 and 2
-  var randomDecimal = Math.random() * 2;
+  var randomDecimal = Math.random() * 3;
 
   // take off the decimal to get a number 0 - 2 ... add 1
   var randomInteger = Math.floor(randomDecimal) + 1;
