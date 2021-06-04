@@ -4,6 +4,7 @@
 // e.g 'if (randomDiceNumber = 1){computerAnswer = scissors };'
 // Each roll will be compared to User Input, and give out a corresponding string Output.
 // Let Scissors be 1, Paper be 2, and Stone be 3
+var playerScore = 0;
 
 var main = function (input) {
   var computerAnswer = rollTheDice();
@@ -13,82 +14,114 @@ var main = function (input) {
   //___________________If input is 'scissors'________________________________
   if (computerAnswer == 1 && input == "scissors") {
     myOutputValue =
-      "Draw! We both threw Scissors! <br> Ah! <br> Caterpie can't cut it!";
+      "Draw! We both threw Scissors! <br> Ah! <br> Caterpie can't cut it! <br> Your Score is: " +
+      playerScore;
   }
   if (computerAnswer == 2 && input == "scissors") {
     myOutputValue =
-      "Win! Scissors beats paper<br> Awesome mate! <br> You cut that paper like Mr Himura";
+      "Win! Scissors beats paper<br> Awesome mate! <br> You cut that paper like Mr Himura<br> Your Score is: " +
+      (playerScore + 1);
+    playerScore = playerScore + 1;
   }
   if (computerAnswer == 3 && input == "scissors") {
     myOutputValue =
-      "Loss! Stone beats Scissors <br> Hulk(stone) SMASH puny scissors";
+      "Loss! Stone beats Scissors <br> Hulk(stone) SMASH puny scissors<br> Your Score is: " +
+      (playerScore - 1);
+    playerScore = playerScore - 1;
   }
   //__________________If input is 'paper'_______________________________
   if (computerAnswer == 1 && input == "paper") {
     myOutputValue =
-      "Loss! Scissors beats Paper <br> You got sliced in two. <br> Don't worry, i used the back of my blade";
+      "Loss! Scissors beats Paper <br> You got sliced in two. <br> Don't worry, i used the back of my blade <br> Your Score is: " +
+      (playerScore - 1);
+    playerScore = playerScore - 1;
   }
   if (computerAnswer == 2 && input == "paper") {
     myOutputValue =
-      "Draw! We both threw Paper! <br> Both of us used paper, so i guess the game's over. <br> That's a wrap people!";
+      "Draw! We both threw Paper! <br> Both of us used paper, so i guess the game's over. <br> That's a wrap people! <br> Your Score is: " +
+      playerScore;
   }
   if (computerAnswer == 3 && input == "paper") {
     myOutputValue =
-      "Win! Paper beats Stone <br> You can call me a kid, cos you just wrapped my stone like a mummy";
+      "Win! Paper beats Stone <br> You can call me a kid, cos you just wrapped my stone like a mummy<br> Your Score is: " +
+      (playerScore + 1);
+    playerScore = playerScore + 1;
   }
   //__________________If input is 'stone'_______________________________
   if (computerAnswer == 1 && input == "stone") {
     myOutputValue =
-      "Win! Stone beats Scissors<br> That doesn't make any sense! <br> How can rock beat metal!?";
+      "Win! Stone beats Scissors<br> That doesn't make any sense! <br> How can rock beat metal!?<br> Your Score is: " +
+      (playerScore + 1);
+    playerScore = playerScore + 1;
   }
   if (computerAnswer == 2 && input == "stone") {
     myOutputValue =
-      "Loss! Paper beats Stone <br> Are you a sweet? Cos i'm your wrapper";
+      "Loss! Paper beats Stone <br> Are you a sweet? Cos i'm your wrapper <br> Your Score is: " +
+      (playerScore - 1);
+    playerScore = playerScore - 1;
   }
   if (computerAnswer == 3 && input == "stone") {
     myOutputValue =
-      "Draw! We both threw Stone!<br> Ah well, two rocks don't make a right";
+      "Draw! We both threw Stone!<br> Ah well, two rocks don't make a right <br> Your Score is: " +
+      playerScore;
   }
   //__________________If input is 'reversed scissors'_____________________
 
   if (computerAnswer == 1 && input == "reversed scissors") {
     myOutputValue =
-      "Draw! We both threw Scissors!<br> Ah! <br> Caterpie can't cut it!";
+      "Draw! We both threw Scissors!<br> Ah! <br> Caterpie can't cut it!<br> Your Score is: " +
+      playerScore;
   }
   if (computerAnswer == 2 && input == "reversed scissors") {
     myOutputValue =
-      "Loss! Paper beats Scissors in this twisted game..<br> That.. is some thick-a** paper";
+      "Loss! Paper beats Scissors in this twisted game..<br> That.. is some thick-a** paper<br> Your Score is: " +
+      (playerScore - 1);
+    playerScore = playerScore - 1;
   }
   if (computerAnswer == 3 && input == "reversed scissors") {
     myOutputValue =
-      "Win! Scissors beats Stone in this twisted game..<br> What!? <br> Did ghosts of demon-killed anime kids teach you to do that";
+      "Win! Scissors beats Stone in this twisted game..<br> What!? <br> Did ghosts of demon-killed anime kids teach you to do that<br> Your Score is: " +
+      (playerScore + 1);
+    playerScore = playerScore + 1;
   }
   //__________________If input is 'reversed paper'_______________________________
   if (computerAnswer == 1 && input == "reversed paper") {
     myOutputValue =
-      "Win! Paper beats Scissors in this twisted game..<br> Your paper wrapped my scissors for Christmas";
+      "Win! Paper beats Scissors in this twisted game..<br> Your paper wrapped my scissors for Christmas<br> Your Score is: " +
+      (playerScore + 1);
+    playerScore = playerScore + 1;
   }
   if (computerAnswer == 2 && input == "reversed paper") {
     myOutputValue =
-      "Draw! We both threw Paper!<br> Both of us used paper, so i guess the game's over. <br> That's a wrap people!";
+      "Draw! We both threw Paper!<br> Both of us used paper, so i guess the game's over. <br> That's a wrap people!<br> Your Score is: " +
+      playerScore;
   }
   if (computerAnswer == 3 && input == "reversed paper") {
     myOutputValue =
-      "Loss! Stone beats Paper in this twisted game..<br> My Rock Throw got through your paper thin defences";
+      "Loss! Stone beats Paper in this twisted game..<br> My Rock Throw got through your paper thin defences<br> Your Score is: " +
+      (playerScore - 1);
+    playerScore = playerScore - 1;
   }
   //__________________If input is 'reversed stone'_______________________________
   if (computerAnswer == 1 && input == "reversed stone") {
     myOutputValue =
-      "Loss! Scissors beats Stone in this twisted game..<br> Pikachu used rock cut!";
+      "Loss! Scissors beats Stone in this twisted game..<br> Pikachu used rock cut!<br> Your Score is: " +
+      (playerScore - 1);
+    playerScore = playerScore - 1;
   }
   if (computerAnswer == 2 && input == "reversed stone") {
     myOutputValue =
-      "Win! Stone beats Paper in this twisted game..<br> Im-Impossibru!";
+      "Win! Stone beats Paper in this twisted game..<br> Im-Impossibru!<br> Your Score is: " +
+      (playerScore + 1);
+    ("<br> Now add 1");
+    playerScore = playerScore + 1;
   }
   if (computerAnswer == 3 && input == "reversed stone") {
     myOutputValue =
-      "Draw! We both threw Stone!<br> Ah well, two rocks don't make a right";
+      "Draw! We both threw Stone!<br> Ah well, two rocks don't make a right<br> Your Score is: " +
+      playerScore;
   }
+  console.log(playerScore);
   //__________________End of Conditions_______________________________
   return myOutputValue;
 };
