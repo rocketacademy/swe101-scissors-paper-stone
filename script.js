@@ -134,6 +134,7 @@ var main = function (input) {
           "<br>" +
           "You won the last round and therefore you win muk-jji-ppa!";
       } else if (lastroundWinner == "comp") {
+        lastroundWinner = "";
         myOutputValue =
           drawOutcome +
           "<br>" +
@@ -188,6 +189,7 @@ var main = function (input) {
           "<br>" +
           "You won the last round and therefore you win muk-jji-ppa!";
       } else if (lastroundWinner == "comp") {
+        lastroundWinner = "";
         myOutputValue =
           drawOutcome +
           "<br>" +
