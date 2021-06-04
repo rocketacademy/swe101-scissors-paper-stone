@@ -3,50 +3,59 @@ var compRock = "The computer chose rock";
 var compScissors = "The computer chose scissors";
 var win = 0;
 var loss = 0;
+var currentMode = "Waiting for username";
+var username = "";
 var main = function (input) {
   var compChoice = RandRoll();
   console.log(compChoice);
   var myOutputValue = "";
   var outcome = `You picked ${input}.` + "<br>" + `${compChoice}.`;
-  var winOutcome = outcome + "<br>" + "You won! Play again?";
-  var loseOutcome = outcome + "<br>" + "You lost! Play again?";
-  var drawOutcome = outcome + "<br>" + "You drew! Play again?";
-  if (
-    (input == "scissors" && compChoice == compPaper) ||
-    (input == "paper" && compChoice == compRock) ||
-    (input == "rock" && compChoice == compScissors) ||
-    (input == "reverse scissors" && compChoice == compRock) ||
-    (input == "reverse paper" && compChoice == compScissors) ||
-    (input == "reverse rock" && compChoice == compPaper)
-  ) {
-    win = win + 1;
-    var winrate = `Your current winrate is ${(win / (win + loss)) * 100}%`;
-    myOutputValue = winOutcome + "<br>" + winrate;
-  } else if (
-    (input == "scissors" && compChoice == compRock) ||
-    (input == "paper" && compChoice == compScissors) ||
-    (input == "rock" && compChoice == compPaper) ||
-    (input == "reverse scissors" && compChoice == compPaper) ||
-    (input == "reverse paper" && compChoice == compRock) ||
-    (input == "reverse rock" && compChoice == compScissors)
-  ) {
-    loss = loss + 1;
-    var winrate = `Your current winrate is ${(win / (win + loss)) * 100}%`;
-    myOutputValue = loseOutcome + "<br>" + winrate;
-  } else if (
-    (input == "scissors" && compChoice == compScissors) ||
-    (input == "paper" && compChoice == compPaper) ||
-    (input == "rock" && compChoice == compRock) ||
-    (input == "reverse scissors" && compChoice == compScissors) ||
-    (input == "reverse paper" && compChoice == compPaper) ||
-    (input == "reverse rock" && compChoice == compRock)
-  ) {
-    myOutputValue = drawOutcome;
-  } else {
-    myOutputValue =
-      "Invalid input! Please only enter either rock, paper or scissors(small caps). To play reverse mode, you can enter reverse in front of your choice.";
+  var winOutcome = outcome + "<br>" + `You won, ${username}! Play again?`;
+  var loseOutcome = outcome + "<br>" + `You lost, ${username}! Play again?`;
+  var drawOutcome = outcome + "<br>" + `You drew, ${username}! Play again?`;
+  if (currentMode == "Waiting for username") {
+    username = input;
+    currentMode = "dicegame";
+    return `Welcome to the game, ${username}.`;
   }
-  return myOutputValue;
+  if (currentMode == "dicegame") {
+    if (
+      (input == "scissors" && compChoice == compPaper) ||
+      (input == "paper" && compChoice == compRock) ||
+      (input == "rock" && compChoice == compScissors) ||
+      (input == "reverse scissors" && compChoice == compRock) ||
+      (input == "reverse paper" && compChoice == compScissors) ||
+      (input == "reverse rock" && compChoice == compPaper)
+    ) {
+      win = win + 1;
+      var winrate = `Your current winrate is ${(win / (win + loss)) * 100}%`;
+      myOutputValue = winOutcome + "<br>" + winrate;
+    } else if (
+      (input == "scissors" && compChoice == compRock) ||
+      (input == "paper" && compChoice == compScissors) ||
+      (input == "rock" && compChoice == compPaper) ||
+      (input == "reverse scissors" && compChoice == compPaper) ||
+      (input == "reverse paper" && compChoice == compRock) ||
+      (input == "reverse rock" && compChoice == compScissors)
+    ) {
+      loss = loss + 1;
+      var winrate = `Your current winrate is ${(win / (win + loss)) * 100}%`;
+      myOutputValue = loseOutcome + "<br>" + winrate;
+    } else if (
+      (input == "scissors" && compChoice == compScissors) ||
+      (input == "paper" && compChoice == compPaper) ||
+      (input == "rock" && compChoice == compRock) ||
+      (input == "reverse scissors" && compChoice == compScissors) ||
+      (input == "reverse paper" && compChoice == compPaper) ||
+      (input == "reverse rock" && compChoice == compRock)
+    ) {
+      myOutputValue = drawOutcome;
+    } else {
+      myOutputValue =
+        "Invalid input! Please only enter either rock, paper or scissors(small caps). To play reverse mode, you can type reverse in front of your choice.";
+    }
+    return myOutputValue;
+  }
 };
 
 var RandRoll = function () {
