@@ -1,0 +1,5 @@
+1. user chooses scissors, paper, or stone
+2. program randomly chooses S P or S
+  - how? through a function that does this randomly, given 3 options
+3. program decides outcome using IF-OR conditional
+  - through a function that determines outcome of game taking two inputs (one is computer's, one is user's)
