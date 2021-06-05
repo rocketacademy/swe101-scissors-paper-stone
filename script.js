@@ -1,11 +1,12 @@
-// 1. define function for programme randomly choosing SPS
+// define function for programme randomly choosing SPS
+// no input: if no user input -> empty input message
+// input validation: if user chooses NOT SPS -> text output
 // if user chooses scissors AND programme chooses paper -> user wins
 // if user chooses paper AND programme chooses stone -> user wins
 // if user chooses stone AND programme chooses scissors -> user wins
 // if user AND programme chooses same -> draw
-// input validation: if user chooses NOT SPS -> text output
-// comment
-// 1. define function for programme randomly choosing SPS
+
+// define function for programme randomly choosing SPS
 var generateSystemNumber = function () {
   var randomDecimal = Math.random() * 3;
   var randomInteger = Math.floor(randomDecimal);
@@ -28,8 +29,6 @@ var generateSystemChoice = function () {
 
 var main = function (input) {
   var systemChoice = generateSystemChoice();
-  var myOutputValue =
-    "You lose! <br><br> The system chose " + systemChoice + ".";
 
   // condition debugging
   console.log("user choice");
@@ -45,29 +44,78 @@ var main = function (input) {
   console.log("user and system chose same");
   console.log(input == systemChoice);
 
+  console.log("user reverse scissors system stone is win");
+  console.log(input == "reverse scissors" && systemChoice == "stone");
+  console.log("user reverse stone system paper is win");
+  console.log(input == "reverse stone" && systemChoice == "paper");
+  console.log("user reverse paper system scissors is win");
+  console.log(input == "reverse paper" && systemChoice == "scissors");
+
+  //no input: if no input -> empty input message
+  if (input == "") {
+    return "Invalid entry!";
+  }
+  //input invalidation: if it's not banana, chisel or faucet -> invalid input message.
+  if (
+    input != "scissors" &&
+    input != "paper" &&
+    input != "stone" &&
+    input != "reverse scissors" &&
+    input != "reverse paper" &&
+    input != "reverse stone"
+  ) {
+    return "Please enter scissors/paper/stone into box.";
+  }
+
   // if user chooses scissors AND programme chooses paper -> user wins
   // if user chooses paper AND programme chooses stone -> user wins
   // if user chooses stone AND programme chooses scissors -> user wins
-  // check console - see if systemchoice == name instead
   if (
     (input == "scissors" && systemChoice == "paper") ||
     (input == "paper" && systemChoice == "stone") ||
     (input == "stone" && systemChoice == "scissors")
   ) {
     console.log("win!");
-    myOutputValue = "You win! <br><br> The system chose " + systemChoice + ".";
+    return "You win! <br><br> The system chose " + systemChoice + ".";
   }
-  // if user AND programme chooses same -> draw
+  // if user and programme choose same -> draw
   if (input == systemChoice) {
     console.log("draw!");
-    myOutputValue = "You drew! <br><br> The system chose " + systemChoice + ".";
+    return "You drew! <br><br> The system chose " + systemChoice + ".";
   }
-  // input validation: if user chooses NOT SPS -> text output
-  // output only shows when i hit submit with an empty field. doesnt work when i actually input something
-  if (input == !("scissors" || "paper" || "stone")) {
-    console.log("wrong input");
-    myOutputValue =
-      "There are only 3 input options: scissors, paper, stone. <br><br> Try again!";
+  // reverse game: win scenario
+  // if user chooses reverse scissors AND programme chooses stone -> user wins
+  // if user chooses reverse stone AND programme chooses paper -> user wins
+  // if user chooses reverse paper AND programme chooses scissors -> user wins
+  if (
+    (input == "reverse scissors" && systemChoice == "stone") ||
+    (input == "reverse stone" && systemChoice == "paper") ||
+    (input == "reverse paper" && systemChoice == "scissors")
+  ) {
+    console.log("winning reverse game!");
+    return (
+      "You win at the reverse game! <br><br> The system chose " +
+      systemChoice +
+      "."
+    );
   }
-  return myOutputValue;
+  // reverse game: draw scenario
+  // if user chooses reverse scissors AND programme chooses scissors -> user wins
+  // if user chooses reverse stone AND programme chooses stone -> user wins
+  // if user chooses reverse paper AND programme chooses paper -> user wins
+  if (
+    (input == "reverse scissors" && systemChoice == "scissors") ||
+    (input == "reverse stone" && systemChoice == "stone") ||
+    (input == "reverse paper" && systemChoice == "paper")
+  ) {
+    console.log("drawing reverse game!");
+    return (
+      "You drew at the reverse game! <br><br> The system chose " +
+      systemChoice +
+      "."
+    );
+  }
+
+  // if it is any other combination -> user loses
+  return "You lose! <br><br> The system chose " + systemChoice + ".";
 };
