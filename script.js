@@ -1,3 +1,8 @@
+var reverseModeStatus = false;
+var userWinCount = 0;
+var computerWinCount = 0;
+var drawCount = 0;
+
 var RandomSPS = function () {
   randomDecimal = Math.random();
   randomInteger0to2 = Math.floor(randomDecimal * 3);
@@ -15,8 +20,6 @@ var RandomSPS = function () {
     return "Stone";
   }
 };
-
-var reverseModeStatus = false;
 
 var main = function (input) {
   SPS = RandomSPS();
@@ -44,14 +47,17 @@ var main = function (input) {
   if (!reverseModeStatus) {
     if (SPS == "Scissors") {
       if (input == "Scissors") {
+        drawCount = drawCount + 1;
         yourChoiceMsg = "You chose Scissors!";
         result = "It is a draw!";
       }
       if (input == "Paper") {
+        computerWinCount = computerWinCount + 1;
         yourChoiceMsg = "You chose Paper!";
         result = "You lose!";
       }
       if (input == "Stone") {
+        userWinCount = userWinCount + 1;
         yourChoiceMsg = "You chose Stone!";
         result = "You win!";
       }
@@ -59,14 +65,17 @@ var main = function (input) {
 
     if (SPS == "Paper") {
       if (input == "Paper") {
+        drawCount = drawCount + 1;
         yourChoiceMsg = "You chose Paper!";
         result = "It is a draw!";
       }
       if (input == "Stone") {
+        computerWinCount = computerWinCount + 1;
         yourChoiceMsg = "You chose Stone!";
         result = "You lose!";
       }
       if (input == "Scissors") {
+        userWinCount = userWinCount + 1;
         yourChoiceMsg = "You chose Scissors!";
         result = "You win!";
       }
@@ -74,14 +83,17 @@ var main = function (input) {
 
     if (SPS == "Stone") {
       if (input == "Stone") {
+        drawCount = drawCount + 1;
         yourChoiceMsg = "You chose Stone!";
         result = "It is a draw!";
       }
       if (input == "Scissors") {
+        computerWinCount = computerWinCount + 1;
         yourChoiceMsg = "You chose Scissors!";
         result = "You lose!";
       }
       if (input == "Paper") {
+        userWinCount = userWinCount + 1;
         yourChoiceMsg = "You chose Paper!";
         result = "You win!";
       }
@@ -135,8 +147,20 @@ var main = function (input) {
     }
   }
 
+  winCountMessage =
+    "You have won " +
+    userWinCount +
+    " times. The computer has won " +
+    computerWinCount +
+    " times.";
   myOutputValue =
-    computerChoiceMsg + "<br><br>" + yourChoiceMsg + "<br><br>" + result;
+    computerChoiceMsg +
+    "<br><br>" +
+    yourChoiceMsg +
+    "<br><br>" +
+    result +
+    "<br><br>" +
+    winCountMessage;
 
   return myOutputValue;
 };
