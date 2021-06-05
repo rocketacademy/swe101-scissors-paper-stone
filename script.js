@@ -45,6 +45,36 @@ var main = function (input) {
   }
 
   gameOutcome = displayGameOutcome(computerOutcome, input);
+<<<<<<< HEAD
   myOutputValue = `${gameOutcome} You chose ${input} and the computer chose ${computerOutcome}.`;
+=======
+
+  // putting emojis after 'scissors', 'paper', and 'stone
+  if (input == `scissors`) {
+    var input = `scissors ✂️`;
+  }
+
+  if (input == `paper`) {
+    var input = `paper 🧻`;
+  }
+
+  if (input == `stone`) {
+    var input = `stone 🗿`;
+  }
+
+  if (computerOutcome == `scissors`) {
+    var computerOutcome = `scissors ✂️`;
+  }
+
+  if (computerOutcome == `paper`) {
+    var computerOutcome = `paper 🧻`;
+  }
+
+  if (computerOutcome == `stone`) {
+    var computerOutcome = `stone 🗿`;
+  }
+
+  myOutputValue = `${gameOutcome} <br> You chose ${input} and the computer chose ${computerOutcome}. <br><br> Now you can type "scissors", "paper", or "stone" to play another round!`;
+>>>>>>> 321fa3d2ea955ec40240ec2694f10729143b773e
   return myOutputValue;
 };
