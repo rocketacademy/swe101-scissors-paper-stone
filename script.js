@@ -14,7 +14,12 @@ var getComputerOutcome = function () {
 
 var displayGameOutcome = function (computerOutcome, userInput) {
   // outcome: draw
-  if (computerOutcome == userInput) {
+  if (
+    computerOutcome == userInput ||
+    (computerOutcome == `scissors` && userInput == `reversed scissors`) ||
+    (computerOutcome == `paper` && userInput == `reversed paper`) ||
+    (computerOutcome == `stone` && userInput == `reversed stone`)
+  ) {
     return `It's a draw.`;
   }
   // outcome: user loses
@@ -33,6 +38,25 @@ var displayGameOutcome = function (computerOutcome, userInput) {
   ) {
     return `You win.`;
   }
+
+  // REVERSE OUTCOMES
+  // user loses
+  if (
+    (computerOutcome == `paper` && userInput == `reversed scissors`) ||
+    (computerOutcome == `scissors` && userInput == `reversed stone`) ||
+    (computerOutcome == `stone` && userInput == `reversed paper`)
+  ) {
+    return `You lose.`;
+  }
+
+  // user wins
+  if (
+    (computerOutcome == `scissors` && userInput == `reversed paper`) ||
+    (computerOutcome == `stone` && userInput == `reversed scissors`) ||
+    (computerOutcome == `paper` && userInput == `reversed stone`)
+  ) {
+    return `You win.`;
+  }
 };
 
 var main = function (input) {
@@ -40,25 +64,29 @@ var main = function (input) {
   console.log(`You chose: ${input}`);
   console.log(`The computer chose: ${computerOutcome}`);
 
-  if (input != `scissors` && input != `paper` && input != `stone`) {
+  if (
+    input != `scissors` &&
+    input != `paper` &&
+    input != `stone` &&
+    input != `reversed scissors` &&
+    input != `reversed paper` &&
+    input != `reversed stone`
+  ) {
     return `There are only 3 options. Try again. `;
   }
 
   gameOutcome = displayGameOutcome(computerOutcome, input);
-<<<<<<< HEAD
-  myOutputValue = `${gameOutcome} You chose ${input} and the computer chose ${computerOutcome}.`;
-=======
 
   // putting emojis after 'scissors', 'paper', and 'stone
-  if (input == `scissors`) {
+  if (input == `scissors` || input == `reversed scissors`) {
     var input = `scissors ✂️`;
   }
 
-  if (input == `paper`) {
+  if (input == `paper` || input == `reversed paper`) {
     var input = `paper 🧻`;
   }
 
-  if (input == `stone`) {
+  if (input == `stone` || input == `reversed stone`) {
     var input = `stone 🗿`;
   }
 
@@ -75,6 +103,5 @@ var main = function (input) {
   }
 
   myOutputValue = `${gameOutcome} <br> You chose ${input} and the computer chose ${computerOutcome}. <br><br> Now you can type "scissors", "paper", or "stone" to play another round!`;
->>>>>>> 321fa3d2ea955ec40240ec2694f10729143b773e
   return myOutputValue;
 };
