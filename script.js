@@ -1,4 +1,5 @@
 var getProgramOutcome = function () {
+  // randomly assigns 1, 2, or 3 to variable 'randomNumber'. function returns one of these strings: 'scissors', 'paper', 'stone'.
   var randomNumber = Math.floor(Math.random() * 3) + 1;
   if (randomNumber == 1) {
     return `scissors`;
@@ -13,11 +14,7 @@ var getProgramOutcome = function () {
 
 var displayGameOutcome = function (programOutcome, userInput) {
   // outcome: draw
-  if (
-    (programOutcome == `scissors` && userInput == `scissors`) ||
-    (programOutcome == `paper` && userInput == `paper`) ||
-    (programOutcome == `stone` && userInput == `stone`)
-  ) {
+  if (programOutcome == userInput) {
     return `It's a draw.`;
   }
   // outcome: user loses
@@ -43,5 +40,6 @@ var main = function (input) {
   console.log(`You chose: ${input}`);
   console.log(`The computer chose: ${programOutcome}`);
   gameOutcome = displayGameOutcome(programOutcome, input);
-  return gameOutcome;
+  myOutputValue = `${gameOutcome} You chose ${input} and the computer chose ${programOutcome}.`;
+  return myOutputValue;
 };
