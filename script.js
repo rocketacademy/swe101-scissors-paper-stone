@@ -14,12 +14,18 @@ var main = function (input) {
     console.log("scissors runs");
     if (userVComputer(input, "✂️")) {
       return (
-        "You win! '<br>' You guessed: " +
+        "You win! <br> You guessed: " +
         input +
         " <br> While the computer guessed: ✂️ <br> Now you can type scissors, paper or stone to play another round"
       );
     }
-
+    if (input == "scissors") {
+      return (
+        "It's a draw! <br> You guessed: " +
+        input +
+        "<br> While the computer guessed: ✂️ <br> Now you can type scissors, paper or stone to play another round!"
+      );
+    }
     return (
       "You lose! <br> You guessed: " +
       input +
@@ -32,9 +38,17 @@ var main = function (input) {
     console.log("paper runs");
     if (userVComputer(input, "🗒")) {
       return (
-        "You win! '<br>' You guessed: " +
+        "You win! <br> You guessed: " +
         input +
         " <br> While the computer guessed: 🗒 <br> Now you can type scissors, paper or stone to play another round"
+      );
+    }
+
+    if (input == "paper") {
+      return (
+        "It's a draw! <br> You guessed: " +
+        input +
+        "<br> While the computer guessed: 🗒 <br> Now you can type scissors, paper or stone to play another round!"
       );
     }
 
@@ -44,16 +58,25 @@ var main = function (input) {
       "<br> While the computer guessed: 🗒 <br> Now you can type scissors, paper or stone to play another round!"
     );
   }
-  if (randomObject != 0 || randomObject !== 1) {
+  if (randomObject != 0 || randomObject != 1) {
     console.log(stone);
     console.log("stone runs");
     if (userVComputer(input, "stone")) {
       return (
-        "You win! '<br>' You guessed: " +
+        "You win! <br> You guessed: " +
         input +
         " <br> While the computer guessed: stone <br> Now you can type scissors, paper or stone to play another round"
       );
     }
+
+    if (input == "stone") {
+      return (
+        "It's a draw! <br> You guessed: " +
+        input +
+        "<br> While the computer guessed: stone <br> Now you can type scissors, paper or stone to play another round!"
+      );
+    }
+
     return (
       "You lose! <br> You guessed: " +
       input +
