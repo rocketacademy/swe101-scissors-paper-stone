@@ -2,6 +2,7 @@ var reverseModeStatus = false;
 var userWinCount = 0;
 var computerWinCount = 0;
 var drawCount = 0;
+var userName = "";
 
 var RandomSPS = function () {
   randomDecimal = Math.random();
@@ -23,6 +24,20 @@ var RandomSPS = function () {
 
 var main = function (input) {
   SPS = RandomSPS();
+
+  while (userName == "") {
+    userName = input;
+    if (userName == "") {
+      myOutputValue = "Please enter a valid username and click submit.";
+      return myOutputValue;
+    }
+    myOutputValue =
+      "Hi " +
+      userName +
+      ", play the game by entering either Scissors, Paper, or Stone and click submit!";
+    return myOutputValue;
+  }
+
   if (input == "Reverse") {
     reverseModeStatus = true;
     return "Secret Reverse Mode On!";
@@ -154,6 +169,9 @@ var main = function (input) {
     computerWinCount +
     " times.";
   myOutputValue =
+    "Hi " +
+    userName +
+    "!<br><br>" +
     computerChoiceMsg +
     "<br><br>" +
     yourChoiceMsg +
