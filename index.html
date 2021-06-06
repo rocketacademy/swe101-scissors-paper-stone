@@ -52,7 +52,7 @@
   <body>
     <h1 id="header">Basics: Scissors Paper Stone 🚀</h1>
     <div id="container">
-      <p>Input:</p>
+      <p>Please start by entering your name first.<br />Input:</p>
       <input id="input-field" />
       <button id="submit-button">Submit</button>
       <p>Output:</p>
@@ -62,18 +62,18 @@
     <script src="script.js"></script>
     <!-- Define button click functionality -->
     <script>
-      var button = document.querySelector("#submit-button");
-      button.addEventListener("click", function () {
+      var button = document.querySelector('#submit-button');
+      button.addEventListener('click', function () {
         // Set result to input value
-        var input = document.querySelector("#input-field");
+        var input = document.querySelector('#input-field');
         var result = main(input.value);
 
         // Display result in output element
-        var output = document.querySelector("#output-div");
+        var output = document.querySelector('#output-div');
         output.innerHTML = result;
 
         // Reset input value
-        input.value = "";
+        input.value = '';
       });
     </script>
   </body>
