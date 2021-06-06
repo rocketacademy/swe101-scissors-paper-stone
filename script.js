@@ -145,10 +145,12 @@ var main = function (input) {
         outcome = lose;
         games = games + 1;
         loss = loss + 1;
+        previousWinner = "No one";
       } else if (previousWinner == playerName) {
         outcome = win;
         games = games + 1;
         wins = wins + 1;
+        previousWinner = "No one";
       } else {
         outcome = tie;
       }
