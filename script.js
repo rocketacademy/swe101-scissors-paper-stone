@@ -1,5 +1,6 @@
 var UserNumOfCorrectGuess = 0;
 var CompNumOfCorrectGuess = 0;
+var userName = "";
 
 var main = function (input) {
   var randomObject = GenerateRandomHand();
@@ -7,6 +8,20 @@ var main = function (input) {
   var scissors = "scissors";
   var paper = "paper";
   var stone = "stone";
+
+  if (!input) {
+    if (!userName) {
+      return "Please enter your username before attempting the game.";
+    }
+    userName = input;
+    // console.log(userName);
+    // console.log("userName runs");
+    return (
+      "Welcome " +
+      userName +
+      "! Let us begin. Please type scissors, paper or stone to play"
+    );
+  }
 
   if (input != paper && input != stone && input != scissors) {
     return myOutputValue;
