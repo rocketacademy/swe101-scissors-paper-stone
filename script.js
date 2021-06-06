@@ -5,6 +5,11 @@ var generateOutcome = function () {
   return outcome;
 };
 
+// Count wins and losses, but ignore invalid inputs
+var wins = 0;
+var loss = 0;
+var games = 0;
+
 var main = function (input) {
   // create outcome variables
   var win = "Congratulations, you win! Want a rematch?";
@@ -30,14 +35,19 @@ var main = function (input) {
       (userChoice == "stone" && computerOutcome == "paper")
     ) {
       outcome = win;
+      wins = wins + 1;
+      games = games + 1;
     } else if (userChoice == computerOutcome) {
       outcome = tie;
+      games = games + 1;
     } else if (
       (userChoice == "scissors" && computerOutcome == "paper") ||
       (userChoice == "paper" && computerOutcome == "stone") ||
       (userChoice == "stone" && computerOutcome == "scissors")
     ) {
       outcome = lose;
+      loss = loss + 1;
+      games = games + 1;
     } else {
       outcome = invalid;
     }
@@ -50,14 +60,19 @@ var main = function (input) {
       (userChoice == "stone" && computerOutcome == "paper")
     ) {
       outcome = lose;
+      loss = loss + 1;
+      games = games + 1;
     } else if (userChoice == computerOutcome) {
       outcome = tie;
+      games = games + 1;
     } else if (
       (userChoice == "scissors" && computerOutcome == "paper") ||
       (userChoice == "paper" && computerOutcome == "stone") ||
       (userChoice == "stone" && computerOutcome == "scissors")
     ) {
       outcome = win;
+      wins = wins + 1;
+      games = games + 1;
     } else {
       outcome = invalid;
     }
@@ -65,6 +80,11 @@ var main = function (input) {
   myOutputValue =
     `You chose ${input}. <br>The computer generated ${computerOutcome}<br><br>` +
     outcome +
-    `<br><br>Now you can type "scissors" "paper" or "stone" to play another round!`;
+    `<br><br>Your current record is as follows<br>
+    Games: ${games}<br>
+    Wins: ${wins}<br>
+    Loss: ${loss}<br>
+    Draw: ${games - wins - loss}<br><br>
+    Now you can type "scissors", "paper", or "stone" to play another round!`;
   return myOutputValue;
 };
