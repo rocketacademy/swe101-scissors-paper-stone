@@ -1,45 +1,83 @@
+var compwin = 0;
+var userwin = 0;
+var draw = 0;
+
+var currentGameMode = "waiting for user name";
+var userName = "";
+
 var main = function (input) {
-  var randomnumber = number();
-  var SorPorS = numbertoSPS(randomnumber);
+  var myOutputValue = "";
 
-  console.log(SorPorS);
+  // do this if game mode is waiting for username
+  if (currentGameMode == "waiting for user name") {
+    //set the name
+    userName = input;
 
-  var myOutputValue =
-    "The computer chose " +
-    SorPorS +
-    ". <br > You chose " +
-    input +
-    ". <br >You lose! Bummer!";
+    // Once username is inputted, switch mode
+    currentGameMode = "SPS mode";
 
-  // define the winning conditions and draw conditions. If it isn't then the user loses.
-  if (input == SorPorS) {
+    myOutputValue =
+      "Hello " +
+      userName +
+      "! You can start playing the game by entering one of the 3 objects: scissors, paper or stone";
+  } else if (currentGameMode == "SPS mode") {
+    var randomnumber = number();
+    var SorPorS = numbertoSPS(randomnumber);
+
+    console.log(SorPorS);
+
+    compwin = compwin + 1;
     myOutputValue =
       "The computer chose " +
       SorPorS +
       ". <br > You chose " +
       input +
-      ". <br >It is a draw! Try again!";
-  }
-  if (
-    (input == "scissors" && SorPorS == "paper") ||
-    (input == "paper" && SorPorS == "stone") ||
-    (input == "stone" && SorPorS == "scissors")
-  ) {
-    myOutputValue =
-      "The computer chose " +
-      SorPorS +
-      ". <br > You chose " +
-      input +
-      ". <br >You win! Congratulation!";
-  }
+      ". <br >You lose! Bummer " +
+      userName +
+      "! The computer won " +
+      compwin +
+      " times against you!";
 
-  //Inputvalidation, user can only type 3 input options
+    // define the winning conditions and draw conditions. If it isn't then the user loses.
+    if (input == SorPorS) {
+      draw = draw + 1;
+      myOutputValue =
+        "The computer chose " +
+        SorPorS +
+        ". <br > You chose " +
+        input +
+        ". <br >It is a draw! Try again " +
+        userName +
+        "! You drawed " +
+        draw +
+        " times with the computer";
+    }
+    if (
+      (input == "scissors" && SorPorS == "paper") ||
+      (input == "paper" && SorPorS == "stone") ||
+      (input == "stone" && SorPorS == "scissors")
+    ) {
+      userwin = userwin + 1;
 
-  if (!(input == "scissors" || input == "paper" || input == "stone")) {
-    myOutputValue =
-      "Please input again, there are only 3 input options: scissors, paper and stone. Thank you!";
+      myOutputValue =
+        "The computer chose " +
+        SorPorS +
+        ". <br > You chose " +
+        input +
+        ". <br >You win! Congratulation " +
+        userName +
+        "! You won " +
+        userwin +
+        " times!";
+    }
+
+    //Inputvalidation, user can only type 3 input options
+
+    if (!(input == "scissors" || input == "paper" || input == "stone")) {
+      myOutputValue =
+        "Please input again, there are only 3 input options: scissors, paper and stone. Thank you!";
+    }
   }
-
   return myOutputValue;
 };
 
