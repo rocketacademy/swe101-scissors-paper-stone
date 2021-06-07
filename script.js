@@ -20,8 +20,20 @@ var sPS = function () {
 };
 
 var main = function (input) {
+  var myOutputValue = ``;
+
   // validation to inform user can only input SPS
-  var myOutputValue = `pls input: scissors, paper or stone!`;
+  if (
+    !(
+      input == `scissors` ||
+      input == `paper` ||
+      input == `stone` ||
+      input == `xscissorsx` ||
+      input == `xpaperx` ||
+      input == `xstonex`
+    )
+  )
+    return `Pls enter scissors, paper or stone!`;
 
   var progChoice = sPS();
 
