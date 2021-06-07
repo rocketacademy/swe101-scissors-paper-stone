@@ -78,6 +78,93 @@ var compareInputWithRandom = function (inputGuess) {
     );
   }
 
+  //Setting reverse SPS conditions
+  if (inputGuess == "Scissors reverse" && randomThrow == "Paper") {
+    numberOfTries = numberOfTries + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      randomThrow +
+      "🧻. You Lost." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  if (inputGuess == "Scissors reverse" && randomThrow == "Stone") {
+    numberOfTries = numberOfTries + 1;
+    winTracker = winTracker + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      "💎. You Won." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  if (inputGuess == "Paper reverse" && randomThrow == "Scissors") {
+    numberOfTries = numberOfTries + 1;
+    winTracker = winTracker + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      randomThrow +
+      "✂️. You Won." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  if (inputGuess == "Paper reverse" && randomThrow == "Stone") {
+    numberOfTries = numberOfTries + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      "💎. You Lost." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  if (inputGuess == "Stone reverse" && randomThrow == "Scissors") {
+    numberOfTries = numberOfTries + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      randomThrow +
+      "✂️. You Lost." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  if (inputGuess == "Stone reverse" && randomThrow == "Paper") {
+    numberOfTries = numberOfTries + 1;
+    winTracker = winTracker + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      randomThrow +
+      "🧻. You Won." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  //Setting normal SPS conditions
   if (inputGuess == "Scissors" && randomThrow == "Paper") {
     console.log("Sci vs P = win");
     numberOfTries = numberOfTries + 1;
