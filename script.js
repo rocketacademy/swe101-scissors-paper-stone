@@ -1,11 +1,9 @@
-//Win-Loss Record
-//Add state to your program such that it keeps track of the number of times the user has won and the number of times the computer has won. Output this win-loss record in a format you like in the program output. You can also output the number of draws and/or each party's winning percentage if you'd like.
-
-//User Name
-//To make this game more personal, add a feature to collect the user's name as the first input after the page loads. We can prompt the user to enter their name first by adding to the page's HTML. Once the user submits their name, the program can return output to prompt the user to start playing Scissors Paper Stone by entering one of the 3 objects. Use the user's name to personalise win-loss record and other relevant output.
+//Base Done
 
 var currentGameMode = "waiting for name";
 var userName = "";
+var totalGamesPlayed = 0;
+var totalGamesWon = 0;
 
 var main = function (input) {
   var myOutputValue = "";
@@ -14,12 +12,14 @@ var main = function (input) {
     // switch game mode to Scissors Paper Stone once name is given
     currentGameMode = "scissors paper stone game";
     myOutputValue =
-      "hello " + input + ", you are now playing scissors paper stone!";
+      "hello " +
+      input +
+      ", you are now playing scissors paper stone! Please only choose the following:<br>✂️scissors<br>🧻paper<br><b>or</b> 🪨stone";
     return myOutputValue;
   } else if (currentGameMode == "scissors paper stone game") {
     // scissors paper stone logic added here
     var computerRandom = generateRandomOutcome();
-    var myOutputValue = `You chose ${input},<br>the computer chose ${computerRandom}`;
+    var myOutputValue = `${userName}, you chose ${input},<br>the computer chose ${computerRandom}`;
     console.log("Computer Chose: " + computerRandom);
     console.log(`User Chose: ${input}`);
     if (
@@ -27,21 +27,37 @@ var main = function (input) {
       (input == "paper" && computerRandom == "stone") ||
       (input == "stone" && computerRandom == "scissors")
     ) {
-      return `🎉 Congratulations! <br> You won! 🤗<br>You chose ${input} and the computer chose ${computerRandom}!`;
+      totalGamesPlayed = totalGamesPlayed + 1;
+      totalGamesWon = totalGamesWon + 1;
+      if (totalGamesWon / totalGamesPlayed >= 0.5) {
+        return `🎉 Congratulations! <br> ${userName}, you won! 🤗<br>You chose ${input} and the computer chose ${computerRandom}! <br> You have been winning ${totalGamesWon} out of ${totalGamesPlayed} rounds! It's looking good!`;
+      } else {
+        return `🎉 Congratulations! <br> ${userName}, you won! 🤗<br>You chose ${input} and the computer chose ${computerRandom}! <br> You have been winning ${totalGamesWon} out of ${totalGamesPlayed} rounds! Try harder!`;
+      }
     }
     if (
       (input == "scissors" && computerRandom == "stone") ||
       (input == "paper" && computerRandom == "scissors") ||
       (input == "stone" && computerRandom == "paper")
     ) {
-      return `You lost! 😟<br>You chose ${input} and the computer chose ${computerRandom}! Let's try again.`;
+      totalGamesPlayed = totalGamesPlayed + 1;
+      if (totalGamesWon / totalGamesPlayed >= 0.5) {
+        return `${userName}, you lost! 😟<br>You chose ${input} and the computer chose ${computerRandom}! Let's try again. <br> You have been winning ${totalGamesWon} out of ${totalGamesPlayed} rounds! It's looking good!`;
+      } else {
+        return `${userName}, you lost! 😟<br>You chose ${input} and the computer chose ${computerRandom}! Let's try again. <br> You have been winning ${totalGamesWon} out of ${totalGamesPlayed} rounds! Try harder!`;
+      }
     }
     if (
       (input == "scissors" && computerRandom == "scissors") ||
       (input == "paper" && computerRandom == "paper") ||
       (input == "stone" && computerRandom == "stone")
     ) {
-      return `It's a tie! 🤝<br>You both chose ${input}!`;
+      totalGamesPlayed = totalGamesPlayed + 1;
+      if (totalGamesWon / totalGamesPlayed >= 0.5) {
+        return `It's a tie! 🤝<br>${userName} and the computer both chose ${input}! <br> You have been winning ${totalGamesWon} out of ${totalGamesPlayed} rounds! It's looking good!`;
+      } else {
+        return `It's a tie! 🤝<br>${userName} and the computer both chose ${input}! <br> You have been winning ${totalGamesWon} out of ${totalGamesPlayed} rounds! Try harder!`;
+      }
     }
 
     if (
@@ -52,7 +68,7 @@ var main = function (input) {
       input != "reversed paper" &&
       input != "reversed stone"
     ) {
-      return "Invalid input! Please only choose the following:<br>✂️scissors<br>🧻paper<br><b>or</b> 🪨stone";
+      return `Invalid input, ${userName},! Please only choose the following:<br>✂️scissors<br>🧻paper<br><b>or</b> 🪨stone`;
     }
 
     if (
@@ -60,21 +76,21 @@ var main = function (input) {
       (input == "reversed paper" && computerRandom == "stone") ||
       (input == "reversed stone" && computerRandom == "scissors")
     ) {
-      return `You lost! 😟<br>You chose ${input} and the computer chose ${computerRandom}! Let's try again.`;
+      return `You lost! 😟<br>${userName}, you chose ${input} and the computer chose ${computerRandom}! Let's try again.`;
     }
     if (
       (input == "reversed scissors" && computerRandom == "stone") ||
       (input == "reversed paper" && computerRandom == "scissors") ||
       (input == "reversed stone" && computerRandom == "paper")
     ) {
-      return `🎉 Congratulations! <br> You won! 🤗<br>You chose ${input} and the computer chose ${computerRandom}!`;
+      return `🎉 Congratulations! <br> ${userName}, you won! 🤗<br>You chose ${input} and the computer chose ${computerRandom}!`;
     }
     if (
       (input == "reversed scissors" && computerRandom == "scissors") ||
       (input == "reversed paper" && computerRandom == "paper") ||
       (input == "reversed stone" && computerRandom == "stone")
     ) {
-      return `It's a tie! 🤝<br>You both chose ${input}!`;
+      return `It's a tie! 🤝<br>${userName}, you & the computer both chose ${input}!`;
     }
   }
 };
