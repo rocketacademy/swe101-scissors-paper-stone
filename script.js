@@ -1,104 +1,84 @@
 var main = function (choice) {
-  compChoice = randomNumber()
-  playerChoice = userChoice(choice)
-//0 = scissors, , 1 = paper , 2 = stone
+  compChoice = compRandomChoice()
+  playerChoice = choice
+
   console.log(compChoice);
   console.log(playerChoice);
 
   var myOutputValue = 'Please type only the following: "scissors", "paper", "stone"';
-  // Default messages to avoid retyping 
-  var defaultWinMessage = 'You won! 💪💪💪 '
-  var defaultPlayAgainMessage = 'Have a go again? type "scissors", "paper", "stone" and click submit'
-  var defaultLoseMessage = 'You lose! 👎 '
+  // Default messages
+  var winMessage = 'You won! 💪💪💪 '
+  var playAgainMessage = 'Have a go again? type "scissors", "paper", "stone" and click submit'
+  var loseMessage = 'You lose! 👎 '
+
+  var SCISSORS = 'scissors'
+  var PAPER = 'paper'
+  var STONE = 'stone'
+  var REVERSED_SCISSORS = 'reversed scissors'
+  var REVERSED_PAPER = 'reversed paper'
+  var REVERSED_STONE = 'reversed stone'
 
   if (playerChoice == compChoice){
-    var myOutputValue = `It's a draw! 😃 <br> ${defaultPlayAgainMessage}`
-  }
-  if (playerChoice == 0 && compChoice == 1){
-    var myOutputValue = `The computer chose 📄 <br> You chose ✂ <br><br> ${defaultWinMessage} <br><br>${defaultPlayAgainMessage}`;
-  }
-  if (playerChoice == 0 && compChoice == 2){
-    var myOutputValue = `The computer chose 🗿 <br> You chose ✂ <br><br> ${defaultLoseMessage} <br><br>${defaultPlayAgainMessage}`;
-  }
-  if (playerChoice == 1 && compChoice == 0 ){
-    var myOutputValue = `The computer chose ✂ <br> You chose 📄  <br><br> ${defaultLoseMessage} <br><br>${defaultPlayAgainMessage}`;
-  }
-  if (playerChoice == 1 && compChoice == 2 ){
-    var myOutputValue = `The computer chose 🗿 <br> You chose 📄  <br><br> ${defaultWinMessage} <br><br>${defaultPlayAgainMessage}`;
-  }
-  if (playerChoice == 2 && compChoice == 0 ){
-    var myOutputValue = `The computer chose ✂ <br> You chose 🗿 <br><br> ${defaultWinMessage}  <br><br>${defaultPlayAgainMessage}`;
-  }
-  if (playerChoice == 2 && compChoice == 1 ){
-    var myOutputValue = `The computer chose 📄  <br> You chose 🗿 <br><br> ${defaultLoseMessage} <br><br>${defaultPlayAgainMessage}`;  
+    playerChoiceFormatted = formatToObject(playerChoice)
+    compChoiceFormatted = formatToObject(compChoice)
+    var myOutputValue = `It's a draw! 😃 <br> You chose ${playerChoiceFormatted} <br> The Computer chose ${compChoiceFormatted}<br>${defaultPlayAgainMessage}`
   }
 
-  //Reverse default messages, win to lose and vise versa, 3 = reversed scissors, 4 = reversed paper, 5= reversed stone
-  if (playerChoice == 3){
-    var playerChoice = 0
-    if (playerChoice == compChoice){
-      var myOutputValue = `It's a draw! 😃 <br> ${defaultPlayAgainMessage}`
-    }
-    if (playerChoice == 0 && compChoice == 1){
-      var myOutputValue = `The computer chose 📄 <br> You chose ✂ <br><br> ${defaultLoseMessage} <br><br>${defaultPlayAgainMessage}`;
-    }
-    if (playerChoice == 0 && compChoice == 2){
-      var myOutputValue = `The computer chose 🗿 <br> You chose ✂ <br><br> ${defaultWinMessage} <br><br>${defaultPlayAgainMessage}`;
-    }
+  if ((playerChoice == SCISSORS && compChoice == PAPER) || (playerChoice == PAPER && compChoice == STONE) || (playerChoice == STONE && compChoice == SCISSORS )){
+    //win
+    playerChoiceFormatted = formatToObject(playerChoice)
+    compChoiceFormatted = formatToObject(compChoice)
+    var myOutputValue = `The computer chose ${compChoiceFormatted}<br> You chose ${playerChoiceFormatted}<br><br>${winMessage}<br><br>${playAgainMessage}`
+  }
+  if ((playerChoice == SCISSORS && compChoice == STONE)|| (playerChoice == PAPER && compChoice == SCISSORS) || (playerChoice == STONE && compChoice == PAPER) ){
+    playerChoiceFormatted = formatToObject(playerChoice)
+    compChoiceFormatted = formatToObject(compChoice)
+    var myOutputValue = `The computer chose ${compChoiceFormatted}<br> You chose ${playerChoiceFormatted}<br><br>${loseMessage}<br><br>${playAgainMessage}`
   }
 
-  if (playerChoice == 4){
-    var playerChoice = 1;
-    if (playerChoice == compChoice){
-      var myOutputValue = `It's a draw! 😃 <br> ${defaultPlayAgainMessage}`
-    }
-    if (playerChoice == 1 && compChoice == 0 ){
-      var myOutputValue = `The computer chose ✂ <br> You chose 📄  <br><br> ${defaultWinMessage} <br><br>${defaultPlayAgainMessage}`;
-    }
-    if (playerChoice == 1 && compChoice == 2 ){
-      var myOutputValue = `The computer chose 🗿 <br> You chose 📄  <br><br> ${defaultLoseMessage} <br><br>${defaultPlayAgainMessage}`;
-    }
-  }
+  //Reverse game mode
 
-  if (playerChoice == 5){
-    var playerChoice = 2;
-    if (playerChoice == compChoice){
-      var myOutputValue = `It's a draw! 😃 <br> ${defaultPlayAgainMessage}`
-    }
-    if (playerChoice == 2 && compChoice == 0 ){
-      var myOutputValue = `The computer chose ✂ <br> You chose 🗿 <br><br> ${defaultLoseMessage}  <br><br>${defaultPlayAgainMessage}`;
-    }
-    if (playerChoice == 2 && compChoice == 1){
-      var myOutputValue = `The computer chose 📄  <br> You chose 🗿 <br><br> ${defaultWinMessage} <br><br>${defaultPlayAgainMessage}`;  
-    }
+  if ((playerChoice == REVERSED_SCISSORS && compChoice == PAPER) || (playerChoice == REVERSED_PAPER && compChoice == STONE) || (playerChoice == REVERSED_STONE && compChoice == SCISSORS )){
+    //win
+    playerChoiceFormatted = formatToObject(playerChoice)
+    compChoiceFormatted = formatToObject(compChoice)
+    var myOutputValue = `The computer chose ${compChoiceFormatted}<br> You chose ${playerChoiceFormatted}<br><br>${loseMessage}<br><br>${playAgainMessage}`
+  }
+  if ((playerChoice == REVERSED_SCISSORS && compChoice == STONE)|| (playerChoice == REVERSED_PAPER && compChoice == SCISSORS) || (playerChoice == REVERSED_STONE && compChoice == PAPER) ){
+    playerChoiceFormatted = formatToObject(playerChoice)
+    compChoiceFormatted = formatToObject(compChoice)
+    var myOutputValue = `The computer chose ${compChoiceFormatted}<br> You chose ${playerChoiceFormatted}<br><br>${winMessage}<br><br>${playAgainMessage}`
   }
   return myOutputValue;
 };
-//Random number for the computer generated choice
-var randomNumber = function(){
+
+
+//Function for Random number for the computer generated choice
+var compRandomChoice = function(){
   var randomInt = Math.random() * 3;
   var randomNum = Math.floor(randomInt);
-  return randomNum
+  if (randomNum == 0){
+    return 'scissors'
+  }
+  if (randomNum == 1){
+    return 'paper'
+  }
+
+  if (randomNum == 2){
+    return 'stone'
+  }
 }
 
-// Assigning user choice to number 0= scissors , 1 = paper , 2 = stone, reversed will be from 3 to 5
-var userChoice = function(userInput){
-  if (userInput == 'scissors'){
-    return 0
+// function to format the choices to emoji
+var formatToObject = function(userInput){
+  if (userInput == 'scissors' || userInput == 'reversed scissors'){
+    return '✂'
   };
-  if (userInput =='paper'){
-    return 1
+  if (userInput =='paper' || userInput == 'reversed paper'){
+    return '📃'
   };
-  if (userInput == 'stone'){
-    return 2
-  };
-  if (userInput == 'reversed scissors'){
-    return 3
-  };
-  if (userInput =='reversed paper'){
-    return 4
-  };
-  if (userInput == 'reversed stone'){
-  return 5
+  if (userInput == 'stone' || 'reversed stone'){
+    return '🪨'
   };
 };
+
