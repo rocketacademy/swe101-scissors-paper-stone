@@ -1,3 +1,15 @@
+//global variables
+var countGames = 0;
+var countWins = 0;
+var countLosses = 0;
+var gameMode = "waiting for name";
+var userName = "";
+var gameOption = "";
+var koreanMode = "";
+var previousWinner = "no game yet";
+var previousWinnerActual = "no game yet";
+var ultimateWinner = "";
+
 //assigning an integer to the user's guess to make it comparable to the computer's guess
 var difference = function (input) {
   console.log("input");
@@ -48,52 +60,241 @@ var difference = function (input) {
 };
 //comparing computer guess to input and determining outcome
 var main = function (input) {
-  differenceValueOutput = difference(input);
-  var myOutputValue =
-    "Try again: you need to chose between scissors, paper and rock!";
-  if (input.includes("reversed")) {
-    if (differenceValueOutput == -1) {
-      myOutputValue = "You lose";
-    }
-    if (differenceValueOutput == 1) {
-      myOutputValue = "You win";
-    }
-    if (differenceValueOutput == 2) {
-      myOutputValue = "You lose";
-    }
-    if (differenceValueOutput == -2) {
-      myOutputValue = "You win";
-    }
-    if (differenceValueOutput == 0) {
-      myOutputValue = "Draw...";
-    }
-  } else {
-    if (differenceValueOutput == 1) {
-      myOutputValue = "You lose";
-    }
-    if (differenceValueOutput == -1) {
-      myOutputValue = "You win";
-    }
-    if (differenceValueOutput == -2) {
-      myOutputValue = "You lose";
-    }
-    if (differenceValueOutput == 2) {
-      myOutputValue = "You win";
-    }
-    if (differenceValueOutput == 0) {
-      myOutputValue = "Draw...";
-    }
+  //game mode for end of game
+  if (gameMode === "finished") {
+    return "Game is finished, please refresh the page to play again";
   }
-  console.log("myoutput");
-  console.log(myOutputValue);
-  return (
-    "The computer chose " +
-    computerGuessString +
-    ".<br>" +
-    "And you chose " +
-    input +
-    ".<br>" +
-    myOutputValue +
-    ".<br><br> Type 'scissors' 'paper' or 'stone' to play another round!"
-  );
+  //game mode for user name input
+  if (gameMode === "waiting for name") {
+    userName = input;
+    gameMode = "waiting for normal or reverse game mode";
+    return (
+      "Hello " +
+      userName +
+      "! To start off please decide whether you want to play the normal or reverse mode, by typing in one of these two options. Good luck!"
+    );
+  }
+  //game mode for reverse/normal game
+  if (gameMode === "waiting for normal or reverse game mode") {
+    gameOption = input;
+    console.log("gameoption");
+    console.log(gameOption);
+    if (input === "reverse" || input === "normal") {
+      gameMode = "waiting for korean mode";
+      return (
+        "Hello " +
+        userName +
+        "! You have chosen the " +
+        gameOption +
+        " option of the game. Please now decide whether you want to play the korean version of the game or the normal one!"
+      );
+    } else
+      return "Try again, you need to chose between normal and reverse game play!";
+  }
+  //game mode for korean mode
+  if (gameMode === "waiting for korean mode") {
+    koreanMode = input;
+    console.log("koreanMode");
+    console.log(koreanMode);
+    if (input === "korean" || input === "normal") {
+      gameMode = "ready to go";
+      return (
+        "Hello " +
+        userName +
+        "! You have chosen the " +
+        koreanMode +
+        " option of the game. Good luck!"
+      );
+    } else
+      return "Try again, you need to chose between korean and normal game play!";
+  }
+  //normal mode not korean
+  if (gameMode === "ready to go" && koreanMode === "normal") {
+    console.log("gameoption");
+    console.log(gameOption);
+    countGames = countGames + 1;
+    differenceValueOutput = difference(input);
+    var myOutputValue =
+      "Try again: you need to chose between scissors, paper and rock!";
+    if (gameOption === "reverse") {
+      if (differenceValueOutput == -1) {
+        myOutputValue = "You lose";
+      }
+      if (differenceValueOutput == 1) {
+        myOutputValue = "You win";
+      }
+      if (differenceValueOutput == 2) {
+        myOutputValue = "You lose";
+      }
+      if (differenceValueOutput == -2) {
+        myOutputValue = "You win";
+      }
+      if (differenceValueOutput == 0) {
+        myOutputValue = "Draw...";
+      }
+    } else {
+      if (differenceValueOutput == 1) {
+        myOutputValue = "You lose";
+      }
+      if (differenceValueOutput == -1) {
+        myOutputValue = "You win";
+      }
+      if (differenceValueOutput == -2) {
+        myOutputValue = "You lose";
+      }
+      if (differenceValueOutput == 2) {
+        myOutputValue = "You win";
+      }
+      if (differenceValueOutput == 0) {
+        myOutputValue = "Draw...";
+      }
+    }
+    console.log("myoutput");
+    console.log(myOutputValue);
+    if (myOutputValue === "You win") {
+      countWins = countWins + 1;
+    }
+    if (myOutputValue === "You lose") {
+      countLosses = countLosses + 1;
+    }
+    return (
+      "Hi " +
+      userName +
+      "! The computer chose " +
+      computerGuessString +
+      ".<br>" +
+      "And you chose " +
+      input +
+      ".<br>" +
+      myOutputValue +
+      ".<br><br> Type 'scissors' 'paper' or 'stone' to play another round!" +
+      "<br><br>You have played " +
+      countGames +
+      " " +
+      (countGames === 1 ? "game" : "games") +
+      "<br><br>You have won " +
+      countWins +
+      " " +
+      (countWins === 1 ? "game" : "games") +
+      "<br><br>You have lost " +
+      countLosses +
+      " " +
+      (countLosses === 1 ? "game" : "games") +
+      "<br><br>Your winning percentage is " +
+      ((countWins / countGames) * 100).toFixed(2) +
+      "%" +
+      (((countWins / countGames) * 100).toFixed(2) > 50
+        ? "<br>You are doing well!"
+        : "<br>You can still improve!")
+    );
+  }
+  //korean mode
+  if (gameMode === "ready to go" && koreanMode === "korean") {
+    console.log("gameoption");
+    console.log(gameOption);
+    countGames = countGames + 1;
+    previousWinnerActual = previousWinner;
+    differenceValueOutput = difference(input);
+    var myOutputValue =
+      "Try again: you need to chose between scissors, paper and rock!";
+    if (gameOption === "reverse") {
+      if (differenceValueOutput == -1) {
+        myOutputValue = "You lose";
+        previousWinner = myOutputValue;
+      }
+      if (differenceValueOutput == 1) {
+        myOutputValue = "You win";
+        previousWinner = myOutputValue;
+      }
+      if (differenceValueOutput == 2) {
+        myOutputValue = "You lose";
+        previousWinner = myOutputValue;
+      }
+      if (differenceValueOutput == -2) {
+        myOutputValue = "You win";
+        previousWinner = myOutputValue;
+      }
+      if (differenceValueOutput == 0) {
+        myOutputValue = "Draw...";
+        previousWinner = myOutputValue;
+      }
+    } else {
+      if (differenceValueOutput == 1) {
+        myOutputValue = "You lose";
+        previousWinner = myOutputValue;
+      }
+      if (differenceValueOutput == -1) {
+        myOutputValue = "You win";
+        previousWinner = myOutputValue;
+      }
+      if (differenceValueOutput == -2) {
+        myOutputValue = "You lose";
+        previousWinner = myOutputValue;
+      }
+      if (differenceValueOutput == 2) {
+        myOutputValue = "You win";
+        previousWinner = myOutputValue;
+      }
+      if (differenceValueOutput == 0) {
+        myOutputValue = "Draw...";
+        previousWinner = myOutputValue;
+      }
+    }
+    console.log("myoutput");
+    console.log(myOutputValue);
+    if (myOutputValue === "You win") {
+      countWins = countWins + 1;
+      previousWinner = myOutputValue;
+    }
+    if (myOutputValue === "You lose") {
+      countLosses = countLosses + 1;
+      previousWinner = myOutputValue;
+    }
+    if (previousWinnerActual === "You win" && myOutputValue === "Draw...") {
+      gameMode = "finished";
+      return (
+        myOutputValue +
+        "Muk-jji-ppa! You are the ultimate winner, congratulations!"
+      );
+    }
+    if (previousWinnerActual === "You lose" && myOutputValue === "Draw...") {
+      gameMode = "finished";
+      return (
+        myOutputValue +
+        "Muk-jji-ppa! The computer is the ultimate winner, try again!"
+      );
+    } else
+      return (
+        "Hi " +
+        userName +
+        "! <br>Previous round status: " +
+        previousWinnerActual +
+        "<br>The computer chose " +
+        computerGuessString +
+        ".<br>" +
+        "And you chose " +
+        input +
+        ".<br>" +
+        myOutputValue +
+        ".<br><br> Type 'scissors' 'paper' or 'stone' to play another round!" +
+        "<br><br>You have played " +
+        countGames +
+        " " +
+        (countGames === 1 ? "game" : "games") +
+        "<br><br>You have won " +
+        countWins +
+        " " +
+        (countWins === 1 ? "game" : "games") +
+        "<br><br>You have lost " +
+        countLosses +
+        " " +
+        (countLosses === 1 ? "game" : "games") +
+        "<br><br>Your winning percentage is " +
+        ((countWins / countGames) * 100).toFixed(2) +
+        "%" +
+        (((countWins / countGames) * 100).toFixed(2) > 50
+          ? "<br>You are doing well!"
+          : "<br>You can still improve!")
+      );
+  }
 };
