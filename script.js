@@ -137,7 +137,8 @@ var main = function (input) {
   } else {
     //return finalString;
   }
-  var finalString = `The computer chose ${compChoice}. <br> <br> ${userName}, you chose ${input}. <br> <br> ${myOutputValue} <br> You have won ${userWins} times. <br> The computer has won ${compWins} times. <br> Do you want to play again? Enter 'scissors', 'paper', or 'stone' to play again!`;
+  var totalGamesPlayed = compWins + userWins + drawCount;
+  var finalString = `The computer chose ${compChoice}. <br> <br> ${userName}, you chose ${input}. <br> <br> ${myOutputValue} <br> You have won ${userWins}/${totalGamesPlayed} times. <br> The computer has won ${compWins}/${totalGamesPlayed} times. <br>  There have been ${drawCount}/${totalGamesPlayed} draws. <br> Do you want to play again? Enter 'scissors', 'paper', or 'stone' to play again!`;
   return finalString;
 };
 
