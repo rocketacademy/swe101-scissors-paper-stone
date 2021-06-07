@@ -76,21 +76,38 @@ var main = function (input) {
       (input == "reversed paper" && computerRandom == "stone") ||
       (input == "reversed stone" && computerRandom == "scissors")
     ) {
-      return `You lost! 😟<br>${userName}, you chose ${input} and the computer chose ${computerRandom}! Let's try again.`;
+      totalGamesPlayed = totalGamesPlayed + 1;
+      if (totalGamesWon / totalGamesPlayed >= 0.5) {
+        return `${userName}, you lost! 😟<br>You chose ${input} and the computer chose ${computerRandom}! Let's try again. <br> You have been winning ${totalGamesWon} out of ${totalGamesPlayed} rounds! It's looking good!`;
+      } else {
+        return `${userName}, you lost! 😟<br>You chose ${input} and the computer chose ${computerRandom}! Let's try again. <br> You have been winning ${totalGamesWon} out of ${totalGamesPlayed} rounds! Try harder!`;
+      }
     }
+
     if (
       (input == "reversed scissors" && computerRandom == "stone") ||
       (input == "reversed paper" && computerRandom == "scissors") ||
       (input == "reversed stone" && computerRandom == "paper")
     ) {
-      return `🎉 Congratulations! <br> ${userName}, you won! 🤗<br>You chose ${input} and the computer chose ${computerRandom}!`;
+      totalGamesPlayed = totalGamesPlayed + 1;
+      totalGamesWon = totalGamesWon + 1;
+      if (totalGamesWon / totalGamesPlayed >= 0.5) {
+        return `🎉 Congratulations! <br> ${userName}, you won! 🤗<br>You chose ${input} and the computer chose ${computerRandom}!<br> You have been winning ${totalGamesWon} out of ${totalGamesPlayed} rounds! It's looking good!`;
+      } else {
+        return `🎉 Congratulations! <br> ${userName}, you won! 🤗<br>You chose ${input} and the computer chose ${computerRandom}! <br> You have been winning ${totalGamesWon} out of ${totalGamesPlayed} rounds! Try harder!`;
+      }
     }
     if (
       (input == "reversed scissors" && computerRandom == "scissors") ||
       (input == "reversed paper" && computerRandom == "paper") ||
       (input == "reversed stone" && computerRandom == "stone")
     ) {
-      return `It's a tie! 🤝<br>${userName}, you & the computer both chose ${input}!`;
+      totalGamesPlayed = totalGamesPlayed + 1;
+      if (totalGamesWon / totalGamesPlayed >= 0.5) {
+        return `It's a tie! 🤝<br>${userName} and the computer both chose ${input}! <br> You have been winning ${totalGamesWon} out of ${totalGamesPlayed} rounds! It's looking good!`;
+      } else {
+        return `It's a tie! 🤝<br>${userName} and the computer both chose ${input}! <br> You have been winning ${totalGamesWon} out of ${totalGamesPlayed} rounds! Try harder!`;
+      }
     }
   }
 };
