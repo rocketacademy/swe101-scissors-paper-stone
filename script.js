@@ -1,4 +1,4 @@
-// Project 1: Scissors Paper Stone (Part 1)
+// Project 1: Scissors Paper Stone
 
 // Define constants to use in multiple functions to avoid bugs due to typos.
 var SCISSORS = "scissors";
@@ -7,9 +7,17 @@ var STONE = "stone";
 var R_SCISSORS = "reversed scissors";
 var R_PAPER = "reversed paper";
 var R_STONE = "reversed stone";
+var numRolls = 0;
+var numWins = 0;
+var numComWins = 0;
+var winningPercent = "";
+var comWinningPercent = "";
 
 var main = function (input) {
   var comOutput = generateComputerMove();
+  var standardMessage = `You chose ${input} <br> The computer chose ${comOutput} <br>`;
+  var endMessage = `Now you can type "scissors", "paper" or "stone" to play another round!`;
+  numRolls = numRolls + 1;
 
   //Computer and User draw when they choose the same object
   if (
@@ -18,7 +26,10 @@ var main = function (input) {
     (input == R_PAPER && comOutput == PAPER) ||
     (input == R_STONE && comOutput == STONE)
   ) {
-    return `The computer chose ${comOutput} <br> You chose ${input} <br> You draw! <br> Now you can type "scissors", "paper" or "stone" to play another round!`;
+    winningPercent = (numWins / numRolls) * 100;
+    comWinningPercent = (numComWins / numRolls) * 100;
+
+    return `${standardMessage} You draw! <br> Your winning percentage: ${winningPercent} <br> Computer's winning percentage: ${comWinningPercent} <br> ${endMessage}`;
   }
 
   //scissors beats paper, paper beats stone, and stone beats scissors.
@@ -33,7 +44,11 @@ var main = function (input) {
     (comOutput == PAPER && input == R_SCISSORS) ||
     (comOutput == STONE && input == R_PAPER)
   ) {
-    return `The computer chose ${comOutput}. <br> You chose ${input}. <br> You lost! Bummer! :( <br> Now you can type "scissors", "paper" or "stone" to play another round!`;
+    numComWins = numComWins + 1;
+    winningPercent = (numWins / numRolls) * 100;
+    comWinningPercent = (numComWins / numRolls) * 100;
+
+    return `${standardMessage} You lost! Bummer! :( <br> Your winning percentage: ${winningPercent} <br> Computer's winning percentage: ${comWinningPercent} <br> ${endMessage}`;
   }
 
   //Computer loses and user wins; first 3 normal SPS, last 3 reversed SPS
@@ -45,7 +60,11 @@ var main = function (input) {
     (input == R_PAPER && comOutput == SCISSORS) ||
     (input == R_STONE && comOutput == PAPER)
   ) {
-    return `The computer chose ${comOutput}. <br> You chose ${input}. <br> You won!!! Hurray! :) <br> Now you can type "scissors", "paper" or "stone" to play another round!`;
+    numWins = numWins + 1;
+    winningPercent = (numWins / numRolls) * 100;
+    comWinningPercent = (numComWins / numRolls) * 100;
+
+    return `${standardMessage} You won!!! Hurray! :) <br> Your winning percentage: ${winningPercent} <br> Computer's winning percentage: ${comWinningPercent} <br> ${endMessage}`;
   }
 
   //Input validation
