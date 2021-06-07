@@ -14,7 +14,7 @@ var winningPercent = "";
 var comWinningPercent = "";
 
 var main = function (input) {
-  var comOutput = generateComputerMove();
+  var comOutput = generateComOutput();
   var standardMessage = `You chose ${input} <br> The computer chose ${comOutput} <br>`;
   var endMessage = `Now you can type "scissors", "paper" or "stone" to play another round!`;
   numRolls = numRolls + 1;
@@ -29,7 +29,7 @@ var main = function (input) {
     winningPercent = (numWins / numRolls) * 100;
     comWinningPercent = (numComWins / numRolls) * 100;
 
-    return `${standardMessage} You draw! <br> Your winning percentage: ${winningPercent} <br> Computer's winning percentage: ${comWinningPercent} <br> ${endMessage}`;
+    return `${standardMessage} You draw! <br> Your winning percentage: ${winningPercent}% <br> Computer's winning percentage: ${comWinningPercent}% <br> ${endMessage}`;
   }
 
   //scissors beats paper, paper beats stone, and stone beats scissors.
@@ -48,7 +48,7 @@ var main = function (input) {
     winningPercent = (numWins / numRolls) * 100;
     comWinningPercent = (numComWins / numRolls) * 100;
 
-    return `${standardMessage} You lost! Bummer! :( <br> Your winning percentage: ${winningPercent} <br> Computer's winning percentage: ${comWinningPercent} <br> ${endMessage}`;
+    return `${standardMessage} You lost! Bummer! :( <br> Your winning percentage: ${winningPercent}% <br> Computer's winning percentage: ${comWinningPercent}% <br> ${endMessage}`;
   }
 
   //Computer loses and user wins; first 3 normal SPS, last 3 reversed SPS
@@ -64,7 +64,7 @@ var main = function (input) {
     winningPercent = (numWins / numRolls) * 100;
     comWinningPercent = (numComWins / numRolls) * 100;
 
-    return `${standardMessage} You won!!! Hurray! :) <br> Your winning percentage: ${winningPercent} <br> Computer's winning percentage: ${comWinningPercent} <br> ${endMessage}`;
+    return `${standardMessage} You won!!! Hurray! :) <br> Your winning percentage: ${winningPercent}% <br> Computer's winning percentage: ${comWinningPercent}% <br> ${endMessage}`;
   }
 
   //Input validation
@@ -83,22 +83,19 @@ var main = function (input) {
 };
 
 //Generate a random integer from 1 to 3 inclusive; 3 because only scissors, paper or stone
-var generateRandomInteger = function () {
+var generateComOutput = function () {
   var randomDecimal = Math.random() * 3;
   var randomInteger = Math.floor(randomDecimal) + 1;
-  return randomInteger;
-};
 
-//This function outputs a random move by the computer
-var generateComputerMove = function () {
-  var computerMove = generateRandomInteger();
-  if (computerMove == 1) {
+  if (randomInteger == 1) {
     return SCISSORS;
   }
-  if (computerMove == 2) {
+
+  if (randomInteger == 2) {
     return PAPER;
   }
-  if (computerMove == 3) {
+
+  if (randomInteger == 3) {
     return STONE;
   }
 };
