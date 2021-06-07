@@ -163,11 +163,8 @@ var main = function (input) {
   }
 
   winCountMessage =
-    "You have won " +
-    userWinCount +
-    " times. The computer has won " +
-    computerWinCount +
-    " times.";
+    userName + " " + userWinCount + " - " + computerWinCount + " Computer";
+
   myOutputValue =
     "Hi " +
     userName +
