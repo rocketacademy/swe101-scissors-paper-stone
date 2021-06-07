@@ -12,11 +12,24 @@ var numWins = 0;
 var numComWins = 0;
 var winningPercent = "";
 var comWinningPercent = "";
+var userName = "";
+var gameMode = `waiting for username`;
 
 var main = function (input) {
+  if (gameMode == "waiting for username") {
+    userName = input;
+    gameMode = "normal";
+    return `Hello ${userName}! You can start playing by entering "scissors", "paper" or "stone". `;
+  } else if (gameMode == "normal") {
+    return sspGame(userName, input);
+  }
+};
+
+// Game Logic
+var sspGame = function (userName, input) {
   var comOutput = generateComOutput();
-  var standardMessage = `You chose ${input} <br> The computer chose ${comOutput} <br>`;
-  var endMessage = `Now you can type "scissors", "paper" or "stone" to play another round!`;
+  var standardMessage = `${userName}, you chose ${input} <br> The computer chose ${comOutput} <br>`;
+  var endMessage = `<br> Now you can type "scissors", "paper" or "stone" to play another round!`;
   numRolls = numRolls + 1;
 
   //Computer and User draw when they choose the same object
@@ -29,7 +42,7 @@ var main = function (input) {
     winningPercent = (numWins / numRolls) * 100;
     comWinningPercent = (numComWins / numRolls) * 100;
 
-    return `${standardMessage} You draw! <br> Your winning percentage: ${winningPercent}% <br> Computer's winning percentage: ${comWinningPercent}% <br> ${endMessage}`;
+    return `${standardMessage} You draw! <br> ${userName}'s winning percentage: ${winningPercent}% <br> Computer's winning percentage: ${comWinningPercent}% <br> ${endMessage}`;
   }
 
   //scissors beats paper, paper beats stone, and stone beats scissors.
@@ -48,7 +61,7 @@ var main = function (input) {
     winningPercent = (numWins / numRolls) * 100;
     comWinningPercent = (numComWins / numRolls) * 100;
 
-    return `${standardMessage} You lost! Bummer! :( <br> Your winning percentage: ${winningPercent}% <br> Computer's winning percentage: ${comWinningPercent}% <br> ${endMessage}`;
+    return `${standardMessage} You lost! Bummer! :( <br> ${userName}'s winning percentage: ${winningPercent}% <br> Computer's winning percentage: ${comWinningPercent}% <br> ${endMessage}`;
   }
 
   //Computer loses and user wins; first 3 normal SPS, last 3 reversed SPS
@@ -64,7 +77,7 @@ var main = function (input) {
     winningPercent = (numWins / numRolls) * 100;
     comWinningPercent = (numComWins / numRolls) * 100;
 
-    return `${standardMessage} You won!!! Hurray! :) <br> Your winning percentage: ${winningPercent}% <br> Computer's winning percentage: ${comWinningPercent}% <br> ${endMessage}`;
+    return `${standardMessage} You won!!! Hurray! :) <br> ${userName}'s winning percentage: ${winningPercent}% <br> Computer's winning percentage: ${comWinningPercent}% <br> ${endMessage}`;
   }
 
   //Input validation
