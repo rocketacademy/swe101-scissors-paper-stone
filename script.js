@@ -4,65 +4,6 @@
 // system generates random option
 //output -- wins if SPS logic makes sense + tells user if they won/lost/draw
 
-var main = function (input) {
-  var myOutputValue = compareInputWithRandom(input);
-  console.log("checking of compareInputWithRandom");
-  return myOutputValue;
-};
-
-// here we merge both random number & respective choice + compare it against input to produce outcome
-var compareInputWithRandom = function (inputGuess) {
-  var randomThrow = getRandomChoice(inputGuess);
-  var standardOutput = "Your guess was " + inputGuess + ".";
-
-  if (inputGuess == randomThrow) {
-    console.log("returns a draw");
-    return (
-      standardOutput + "The system generated " + randomThrow + ". It is a Draw."
-    );
-  }
-
-  if (inputGuess == "Scissors" && randomThrow == "Paper") {
-    console.log("Sci vs P = win");
-    return (
-      standardOutput + "The system generated " + randomThrow + "🧻. You Won."
-    );
-  }
-
-  if (inputGuess == "Scissors" && randomThrow == "Stone") {
-    console.log("Sci vs St = lose");
-    return standardOutput + "The system generated " + "💎. You Lost.";
-  }
-
-  if (inputGuess == "Paper" && randomThrow == "Scissors") {
-    console.log("P vs Sci = lose");
-    return (
-      standardOutput + "The system generated " + randomThrow + "✂️. You Lost."
-    );
-  }
-
-  if (inputGuess == "Paper" && randomThrow == "Stone") {
-    console.log("P vs St = win");
-    return standardOutput + "The system generated " + "💎. You Won.";
-  }
-
-  if (inputGuess == "Stone" && randomThrow == "Scissors") {
-    console.log("St vs Sci = win");
-    return (
-      standardOutput + "The system generated " + randomThrow + "✂️. You Won."
-    );
-  }
-
-  if (inputGuess == "Stone" && randomThrow == "Paper") {
-    console.log("St vs P = lose");
-    return (
-      standardOutput + "The system generated " + randomThrow + "🧻. You Won."
-    );
-  }
-
-  return "Oops, please enter a valid selection - Scissors, Paper or Stone. (caps sensitive)";
-};
-
 // build code for the 3 options
 var getRandomChoice = function () {
   var choiceCount = 3;
@@ -92,4 +33,141 @@ var getRandomNumber = function () {
   var randomNumber = getInteger + 1;
   console.log("random number generated");
   return randomNumber;
+};
+
+// adding state to track no of times user wins
+var winTracker = 0;
+var numberOfTries = 0;
+var userName = "";
+var currentGameMode = "waiting for player";
+
+var main = function (input) {
+  var myOutputValue = compareInputWithRandom(input);
+  console.log("checking of compareInputWithRandom");
+
+  // To set code for Username input first before Dice game starts
+  if (currentGameMode == "waiting for player") {
+    userName = input;
+    currentGameMode = "game start";
+    myOutputValue =
+      "Welcome " +
+      userName +
+      ", the game starts now. Please input Scissors, Paper or Stone to play.";
+  }
+
+  return myOutputValue;
+};
+
+// here we merge both random number & respective choice + compare it against input to produce outcome
+var compareInputWithRandom = function (inputGuess) {
+  var randomThrow = getRandomChoice(inputGuess);
+  var standardOutput = userName + ", your guess was " + inputGuess + ".";
+
+  if (inputGuess == randomThrow) {
+    console.log("returns a draw");
+    numberOfTries = numberOfTries + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      randomThrow +
+      ". It is a Draw." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  if (inputGuess == "Scissors" && randomThrow == "Paper") {
+    console.log("Sci vs P = win");
+    numberOfTries = numberOfTries + 1;
+    winTracker = winTracker + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      randomThrow +
+      "🧻. You Won." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  if (inputGuess == "Scissors" && randomThrow == "Stone") {
+    console.log("Sci vs St = lose");
+    numberOfTries = numberOfTries + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      "💎. You Lost." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  if (inputGuess == "Paper" && randomThrow == "Scissors") {
+    console.log("P vs Sci = lose");
+    numberOfTries = numberOfTries + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      randomThrow +
+      "✂️. You Lost." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  if (inputGuess == "Paper" && randomThrow == "Stone") {
+    console.log("P vs St = win");
+    numberOfTries = numberOfTries + 1;
+    winTracker = winTracker + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      "💎. You Won." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  if (inputGuess == "Stone" && randomThrow == "Scissors") {
+    console.log("St vs Sci = win");
+    numberOfTries = numberOfTries + 1;
+    winTracker = winTracker + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      randomThrow +
+      "✂️. You Won." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  if (inputGuess == "Stone" && randomThrow == "Paper") {
+    console.log("St vs P = lose");
+    numberOfTries = numberOfTries + 1;
+    return (
+      standardOutput +
+      " The system generated " +
+      randomThrow +
+      "🧻. You Lost." +
+      " Current win count is " +
+      winTracker +
+      ". Total no. of tries: " +
+      numberOfTries
+    );
+  }
+
+  return "Oops, please enter a valid selection - Scissors, Paper or Stone. (caps sensitive)";
 };
