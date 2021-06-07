@@ -1,3 +1,6 @@
+//set global variable for userName
+var userName = "";
+
 //set global variable for number of times computer won
 var numComputerWins = 0;
 
@@ -76,6 +79,14 @@ var getObjectIcon = function (object) {
 /* =================================================================MAIN================================================================
  */
 var main = function (input) {
+  if (userName == "") {
+    userName = input;
+    return (
+      "Welcome " +
+      userName +
+      " to the scissors paper stone game. Please key in scissors, paper or stone to play."
+    );
+  }
   // validate input
   if (
     input != SCISSORS &&
@@ -112,7 +123,7 @@ var main = function (input) {
   return `${winner}! <br>
   You chose ${userObject} ${userObjectIcon}. <br>
   The computer chose ${computerObject} ${computerObjectIcon}. <br> 
-  Wins: ${numUserWins}, Losses: ${numComputerWins}, Draws: ${numUserDraws}
+  ${userName}'s wins: ${numUserWins}, Losses: ${numComputerWins}, Draws: ${numUserDraws}
   <br>
   Now you can type 'scissors', 'paper' or 'stone' to play another round!`;
 };
