@@ -2,8 +2,9 @@
 var sPS = function () {
   // generate random num from 0 to 2.99
   var randomDecimal = Math.random() * 3;
-  // round up random decimal to integer
-  var diceNum = Math.ceil(randomDecimal);
+  // round down random decimal to integer and plus 1 for 1 to 3
+
+  var diceNum = Math.floor(randomDecimal) + 1;
 
   // allocating a number to each SPS and showing the object as output
   if (diceNum == 1) {
@@ -18,7 +19,8 @@ var sPS = function () {
     return `stone`;
   }
 };
-
+var totalTries = 0;
+var winRecord = 0;
 var main = function (input) {
   var myOutputValue = ``;
 
@@ -35,56 +37,60 @@ var main = function (input) {
   )
     return `Pls enter scissors, paper or stone!`;
 
-  var progChoice = sPS();
+  totalTries = totalTries + 1;
+
+  var computerChoice = sPS();
 
   // defining win conditions for usual SPS
   if (
-    (input == `scissors` && progChoice == `paper`) ||
-    (input == `paper` && progChoice == `stone`) ||
-    (input == `stone` && progChoice == `scissors`)
+    (input == `scissors` && computerChoice == `paper`) ||
+    (input == `paper` && computerChoice == `stone`) ||
+    (input == `stone` && computerChoice == `scissors`)
   ) {
-    myOutputValue = `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br> Congrats, you won!<br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${progChoice} <br><br><br>Cheers! <br><br> Pls input: scissors, paper or stone for next round<br><br><br> ===  Alternatively, you can input xscissorsx, xpaperx or xstonex for a special round!  === `;
+    winRecord = winRecord + 1;
+    return `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br> Congrats, you won!<br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice} <br> You are right ${winRecord}/${totalTries} turns<br><br><br>Cheers! <br><br> Pls input: scissors, paper or stone for next round<br><br><br> ===  Alternatively, you can input xscissorsx, xpaperx or xstonex for a special round!  === `;
   }
 
   // defining lose conditions for usual SPS
   if (
-    (input == `scissors` && progChoice == `stone`) ||
-    (input == `paper` && progChoice == `scissors`) ||
-    (input == `stone` && progChoice == `paper`)
+    (input == `scissors` && computerChoice == `stone`) ||
+    (input == `paper` && computerChoice == `scissors`) ||
+    (input == `stone` && computerChoice == `paper`)
   ) {
-    myOutputValue = `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br> Oops, you lost! <br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${progChoice} <br><br><br> Better luck next time!<br><br> Pls input: scissors, paper or stone for next round<br><br><br> ===  Alternatively, you can input xscissorsx, xpaperx or xstonex for a special round!  ===`;
+    return `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br> Oops, you lost! <br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice}<br> You are right ${winRecord}/${totalTries} turns <br><br><br> Better luck next time!<br><br> Pls input: scissors, paper or stone for next round<br><br><br> ===  Alternatively, you can input xscissorsx, xpaperx or xstonex for a special round!  ===`;
   }
 
   // defining draw condition for usual SPS
-  if (input == progChoice) {
-    myOutputValue = `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br>It's a DRAW! <br><br> Your choice: ${input} <br> vs <br> Computer choice: ${progChoice} <br><br><br>Pls try again <br><br> Pls input: scissors, paper or stone for next round<br><br><br> ===  Alternatively, you can input xscissorsx, xpaperx or xstonex for a special round!  ===`;
+  if (input == computerChoice) {
+    return `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br>It's a DRAW! <br><br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice} <br> You are right ${winRecord}/${totalTries} turns<br><br><br>Pls try again <br><br> Pls input: scissors, paper or stone for next round<br><br><br> ===  Alternatively, you can input xscissorsx, xpaperx or xstonex for a special round!  ===`;
   }
 
   // defining lose conditions for revered SPS
   if (
-    (input == `xscissorsx` && progChoice == `paper`) ||
-    (input == `xpaperx` && progChoice == `stone`) ||
-    (input == `xstonex` && progChoice == `scissors`)
+    (input == `xscissorsx` && computerChoice == `paper`) ||
+    (input == `xpaperx` && computerChoice == `stone`) ||
+    (input == `xstonex` && computerChoice == `scissors`)
   ) {
-    myOutputValue = `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br> Oops, you lost! <br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${progChoice} <br><br><br> Its different this time! HEHEHE <br><br> Pls input: scissors, paper or stone for next round<br><br><br> ===  Alternatively, you can input xscissorsx, xpaperx or xstonex for a special round!  ===`;
+    return `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br> Oops, you lost! <br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice}<br> You are right ${winRecord}/${totalTries} turns <br><br><br> Its different this time! HEHEHE <br><br> Pls input: scissors, paper or stone for next round<br><br><br> ===  Alternatively, you can input xscissorsx, xpaperx or xstonex for a special round!  ===`;
   }
 
   // defining win conditions for reversed SPS
   if (
-    (input == `xscissorsx` && progChoice == `stone`) ||
-    (input == `xpaperx` && progChoice == `scissors`) ||
-    (input == `xstonex` && progChoice == `paper`)
+    (input == `xscissorsx` && computerChoice == `stone`) ||
+    (input == `xpaperx` && computerChoice == `scissors`) ||
+    (input == `xstonex` && computerChoice == `paper`)
   ) {
-    myOutputValue = `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br> Congrats, you won!<br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${progChoice} <br><br><br>You got lucky! <br><br> Pls input: scissors, paper or stone for next round<br><br><br> ===  Alternatively, you can input xscissorsx, xpaperx or xstonex for a special round!  === `;
+    winRecord = winRecord + 1;
+    return `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br> Congrats, you won!<br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice} <br> You are right ${winRecord}/${totalTries} turns<br><br><br>You got lucky! <br><br> Pls input: scissors, paper or stone for next round<br><br><br> ===  Alternatively, you can input xscissorsx, xpaperx or xstonex for a special round!  === `;
   }
 
   // defining draw condition for reversed SPS
   if (
-    (input == `xscissorsx` && progChoice == `scissors`) ||
-    (input == `xpaperx` && progChoice == `paper`) ||
-    (input == `xstonex` && progChoice == `stone`)
+    (input == `xscissorsx` && computerChoice == `scissors`) ||
+    (input == `xpaperx` && computerChoice == `paper`) ||
+    (input == `xstonex` && computerChoice == `stone`)
   ) {
-    myOutputValue = `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br>It's a DRAW! <br><br> Your choice: ${input} <br> vs <br> Computer choice: ${progChoice} <br><br><br>Pls try again <br><br> Pls input: scissors, paper or stone for next round<br><br><br> ===  Alternatively, you can input xscissorsx, xpaperx or xstonex for a special round!  ===`;
+    return `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br>It's a DRAW! <br><br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice} <br> You are right ${winRecord}/${totalTries} turns<br><br><br>Pls try again <br><br> Pls input: scissors, paper or stone for next round<br><br><br> ===  Alternatively, you can input xscissorsx, xpaperx or xstonex for a special round!  ===`;
   }
 
   return myOutputValue;
