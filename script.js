@@ -53,46 +53,28 @@ var playSPSGame = function (userName, userGuess) {
   // 1. scissors beats paper
   // 2. paper beats stone
   // 3. stone beats scissors
-  var itemName = generateSPS();
-  var message2 = `Now you can type "scissors", "paper", "stone", "reversed scissors", reversed paper" or "reversed stone" to play another round!`;
-  if (
-    (userGuess == "scissors" && itemName == "paper") ||
-    (userGuess == "paper" && itemName == "stone") ||
-    (userGuess == "stone" && itemName == "scissors")
-  ) {
-    playCount = playCount + 1;
-    userWinCount = userWinCount + 1;
-    var winningRate = (userWinCount / playCount) * 100;
-    if (winningRate >= 50) {
-      message = `${userName}, the computer chose ${itemName}.<br> You chose ${userGuess}. <br> <br> You win! <br> <br> Games played: ${playCount} <br> Games won: ${userWinCount} <br> Games lost: ${computerWinCount} <br> Number of draws: ${drawCount} <br> Win rate: ${winningRate}% <br> You're doing well, ${userName}! <br> <br> ${message2}`;
-    } else {
-      message = `${userName}, the computer chose ${itemName}.<br> You chose ${userGuess}. <br> <br> You win! <br> <br> Games played: ${playCount} <br> Games won: ${userWinCount} <br> Games lost: ${computerWinCount} <br> Number of draws: ${drawCount} <br> Win rate: ${winningRate}% <br> You're not doing so well, ${userName}!  <br> <br> ${message2}`;
-    }
-    return message;
-  }
-
-  // (part 1) Reverse Scissors Paper Stone where the rules are reversed:
+  // Reverse Scissors Paper Stone where the rules are reversed:
   // 1. scissors beats stone
   // 2. stone beats paper
   // 3. paper beats scissors
+  var itemName = generateSPS();
+  var endingMessage = `Now you can type "scissors", "paper", "stone", "reversed scissors", reversed paper" or "reversed stone" to play another round!`;
   if (
+    (userGuess == "scissors" && itemName == "paper") ||
+    (userGuess == "paper" && itemName == "stone") ||
+    (userGuess == "stone" && itemName == "scissors") ||
     (userGuess == "reversed scissors" && itemName == "stone") ||
     (userGuess == "reversed stone" && itemName == "paper") ||
     (userGuess == "reversed paper" && itemName == "scissors")
   ) {
     playCount = playCount + 1;
     userWinCount = userWinCount + 1;
-    winningRate = (userWinCount / playCount) * 100;
-    if (winningRate >= 50) {
-      message = `${userName}, the computer chose ${itemName}.<br> You chose ${userGuess}. <br> <br> You win! <br> <br> Games played: ${playCount} <br> Games won: ${userWinCount} <br> Games lost: ${computerWinCount} <br> Number of draws: ${drawCount} <br> Win rate: ${winningRate}% <br> You're doing well, ${userName}! <br> <br> ${message2}`;
-    } else {
-      message = `${userName}, the computer chose ${itemName}.<br> You chose ${userGuess}. <br> <br> You win! <br> <br> Games played: ${playCount} <br> Games won: ${userWinCount} <br> Games lost: ${computerWinCount} <br> Number of draws: ${drawCount} <br> Win rate: ${winningRate}% <br> You're not doing so well, ${userName}!  <br> <br> ${message2}`;
-    }
-    return message;
+    var winningRate = (userWinCount / playCount) * 100;
+    var outcomeMessage = `You win!`;
   }
 
   // 4. if both parties choose the same object, it's a draw.
-  if (
+  else if (
     itemName == userGuess ||
     (itemName == "scissors" && userGuess == "reversed scissors") ||
     (itemName == "paper" && userGuess == "reversed paper") ||
@@ -101,21 +83,22 @@ var playSPSGame = function (userName, userGuess) {
     playCount = playCount + 1;
     drawCount = drawCount + 1;
     winningRate = (userWinCount / playCount) * 100;
-    if (winningRate >= 50) {
-      message = `${userName}, the computer chose ${itemName}.<br> You chose ${userGuess}. <br> <br> It's a draw! <br> <br> Games played: ${playCount} <br> Games won: ${userWinCount} <br> Games lost: ${computerWinCount} <br> Number of draws: ${drawCount} <br> Win rate: ${winningRate}% <br> You're doing well, ${userName}! <br> <br> ${message2}`;
-    } else {
-      message = `${userName}, the computer chose ${itemName}.<br> You chose ${userGuess}. <br> <br> It's a draw! <br> <br> Games played: ${playCount} <br> Games won: ${userWinCount} <br> Games lost: ${computerWinCount} <br> Number of draws: ${drawCount} <br> Win rate: ${winningRate}% <br> You're not doing so well, ${userName}!  <br> <br> ${message2}`;
-    }
-    return message;
+    outcomeMessage = `It's a draw!`;
   }
 
-  playCount = playCount + 1;
-  computerWinCount = computerWinCount + 1;
-  winningRate = (userWinCount / playCount) * 100;
+  // if the above two statements are false then the user has lost
+  else {
+    playCount = playCount + 1;
+    computerWinCount = computerWinCount + 1;
+    winningRate = (userWinCount / playCount) * 100;
+    outcomeMessage = `You lose!`;
+  }
+  var beginningMessage = `${userName}, the computer chose ${itemName}.<br> You chose ${userGuess}. <br> <br> ${outcomeMessage} <br> <br> Games played: ${playCount} <br> Games won: ${userWinCount} <br> Games lost: ${computerWinCount} <br> Number of draws: ${drawCount} <br> Win rate: ${winningRate}%.`;
+
   if (winningRate >= 50) {
-    message = `${userName}, the computer chose ${itemName}.<br> You chose ${userGuess}. <br> <br> You lose! <br> <br> Games played: ${playCount} <br> Games won: ${userWinCount} <br> Games lost: ${computerWinCount} <br> Number of draws: ${drawCount} <br> Win rate: ${winningRate}% <br> You're doing well, ${userName}! <br> <br> ${message2}`;
+    message = `${beginningMessage} <br> You're doing well, ${userName}! <br> <br> ${endingMessage}`;
   } else {
-    message = `${userName}, the computer chose ${itemName}.<br> You chose ${userGuess}. <br> <br> You lose! <br> <br> Games played: ${playCount} <br> Games won: ${userWinCount} <br> Games lost: ${computerWinCount} <br> Number of draws: ${drawCount} <br> Win rate: ${winningRate}% <br> You're not doing so well, ${userName}!  <br> <br> ${message2}`;
+    message = `${beginningMessage} <br> You're not doing so well, ${userName}! <br> <br> ${endingMessage}`;
   }
   return message;
 };
@@ -132,12 +115,6 @@ var main = function (input) {
     myOutputValue = playSPSGame(userName, input);
     return myOutputValue;
   }
-
-  // if (currentGameMode == "waiting for user name" && userName == " ") {
-  //   myOutputValue = "Please enter your name.";
-  //   return myOutputValue;
-  // }
-
   return myOutputValue;
 };
 
