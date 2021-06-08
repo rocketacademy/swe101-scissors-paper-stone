@@ -1,24 +1,94 @@
-var main = function (input) {
+var Counter = 0;
+var winningCounter = 0;
+var myOutputvalue;
+var main = function (input, userID) {
+  Counter = Counter + 1;
+  console.log(
+    "hey " +
+      userID +
+      "! You have played " +
+      Counter +
+      "and you have been winning " +
+      winningCounter
+  );
+
   var human = input;
-  inputValidation(human);
+
+  if (inputValidation(human) != true) {
+    myOutputvalue = "please check your spelling";
+    return myOutputvalue;
+  }
   var machine = randomSelect();
-  console.log("machine:");
-  console.log(machine);
+  console.log("machine: " + machine);
 
   if (human == machine) {
-    myOutputvalue = "draw";
+    console.log("draw");
+    myOutputvalue =
+      "draw. <br>" + "So far " + userID + ", You have played " + Counter;
+    return myOutputvalue;
   } else if (human == "scissors" && machine == "stone") {
-    myOutputvalue = "human lost";
+    console.log("human lost");
+    myOutputvalue =
+      "The computer chose stone <br>" +
+      "You chose scissors <br> <br>" +
+      "You lost! Bummer. <br>" +
+      "So far " +
+      userID +
+      ", You have played " +
+      Counter;
   } else if (human == "stone" && machine == "scissors") {
-    myOutputvalue = "human won";
+    winningCounter = +1;
+    console.log("human won");
+    myOutputvalue =
+      "The computer chose scissors <br>" +
+      "You chose stone <br> <br>" +
+      "You won! <br>" +
+      "So far " +
+      userID +
+      ", You have played " +
+      Counter;
   } else if (human == "paper" && machine == "scissors") {
-    myOutputvalue == "human lost";
+    console.log("human lost");
+    myOutputvalue ==
+      "The computer chose scissors <br>" +
+        "You chose paper <br> <br>" +
+        "You lost! Bummer. <br>" +
+        "So far " +
+        userID +
+        ", You have played " +
+        Counter;
   } else if (human == "scissors" && machine == "paper") {
-    myOutputvalue == "human won";
+    winningCounter = +1;
+    console.log("human won");
+    myOutputvalue ==
+      "The computer chose paper <br>" +
+        "You chose scissors <br> <br>" +
+        "You won! <br>" +
+        "So far " +
+        userID +
+        ", You have played " +
+        Counter;
   } else if (human == "stone" && machine == "paper") {
-    myOutputvalue == "human lost";
+    console.log("human lost");
+    myOutputvalue ==
+      "The computer chose stone <br>" +
+        "You chose paper <br> <br>" +
+        "You lost! Bummer <br>" +
+        "So far " +
+        userID +
+        ", You have played " +
+        Counter;
   } else if (human == "paper" && machine == "stone") {
-    myOutputvalue == "human won";
+    winningCounter = +1;
+    console.log("human won");
+    myOutputvalue ==
+      "The computer chose paper <br>" +
+        "You chose stone <br> <br>" +
+        "You won. <br>" +
+        "hey " +
+        userID +
+        ", You have played " +
+        Counter;
   }
   return myOutputvalue;
 };
@@ -33,10 +103,10 @@ var randomSelect = function () {
 };
 
 var inputValidation = function (input) {
-  if (input != "scissors" || input != "paper" || input != "stone") {
-    myOutputvalue = "please check your spelling";
-  }
-  return myOutputvalue;
+  console.log("input validation: " + input);
+  if (input == "scissors" || input == "paper" || input == "stone") {
+    return true;
+  } else return false;
 };
 
 //hehe
