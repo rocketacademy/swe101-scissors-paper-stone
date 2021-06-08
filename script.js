@@ -110,6 +110,43 @@ var playReversedSPS = function (userName, input) {
   return myOutputValue;
 };
 
+// refactor korean SPS
+var playKoreanSPS = function (userName, input) {
+  var myOutputValue = ``;
+  var computerChoice = sPS();
+  // var winnerOfThisRound = ``;
+  // validation to inform user can only input SPS
+  if (!(input == SCISSORS || input == PAPER || input == STONE))
+    return `Pls enter scissors, paper or stone!`;
+
+  // defining win conditions for Korean SPS
+  if (
+    (input == SCISSORS && computerChoice == PAPER) ||
+    (input == PAPER && computerChoice == STONE) ||
+    (input == STONE && computerChoice == SCISSORS)
+  ) {
+    winnerOfThisRound = userName;
+    return `K<br>${defaultIntroMessage}K <br>Congrats ${userName}, you won!<br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice} <br><br><br>Cheers! <br>Most recent winner is ${winnerOfThisRound}<br> ${defaultClosingMessage}`;
+  }
+
+  // defining lose conditions for Korean SPS
+  if (
+    (input == SCISSORS && computerChoice == STONE) ||
+    (input == PAPER && computerChoice == SCISSORS) ||
+    (input == STONE && computerChoice == PAPER)
+  ) {
+    winnerOfThisRound = `computer`;
+    return `K<br>${defaultIntroMessage}K<br> Oops ${userName}, you lost! <br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice}<br><br><br> Better luck next time!<br> Most recent winner is ${winnerOfThisRound}<br> ${defaultClosingMessage}
+    `;
+  }
+  mostRecentWinner = winnerOfThisRound;
+  // defining draw condition for Korean SPS
+  if (input == computerChoice) {
+    return `K<br>${defaultIntroMessage}K<br>It's a DRAW, ${userName}! <br><br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice} <br><br><br>Pls try again <br> Winner of the game is ${mostRecentWinner}<br> ${defaultClosingMessage}`;
+  }
+
+  return myOutputValue;
+};
 var main = function (input) {
   var myOutputValue = ``;
 
@@ -145,44 +182,6 @@ var main = function (input) {
   }
   if (currentGameMode == `korean SPS`) {
     myOutputValue = playKoreanSPS(userName, input);
-  }
-
-  return myOutputValue;
-};
-
-// refactor SPS
-var playKoreanSPS = function (userName, input) {
-  var myOutputValue = ``;
-  var computerChoice = sPS();
-  // var winnerOfThisRound = ``;
-  // validation to inform user can only input SPS
-  if (!(input == SCISSORS || input == PAPER || input == STONE))
-    return `Pls enter scissors, paper or stone!`;
-
-  // defining win conditions for Korean SPS
-  if (
-    (input == SCISSORS && computerChoice == PAPER) ||
-    (input == PAPER && computerChoice == STONE) ||
-    (input == STONE && computerChoice == SCISSORS)
-  ) {
-    winnerOfThisRound = userName;
-    return `${defaultIntroMessage} Congrats ${userName}, you won!<br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice} <br><br><br>Cheers! <br>Most recent winner is ${winnerOfThisRound}<br> ${defaultClosingMessage}`;
-  }
-
-  // defining lose conditions for Korean SPS
-  if (
-    (input == SCISSORS && computerChoice == STONE) ||
-    (input == PAPER && computerChoice == SCISSORS) ||
-    (input == STONE && computerChoice == PAPER)
-  ) {
-    winnerOfThisRound = `computer`;
-    return `${defaultIntroMessage} Oops ${userName}, you lost! <br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice}<br><br><br> Better luck next time!<br> Most recent winner is ${winnerOfThisRound}<br> ${defaultClosingMessage}
-    `;
-  }
-  mostRecentWinner = winnerOfThisRound;
-  // defining draw condition for Korean SPS
-  if (input == computerChoice) {
-    return `${defaultIntroMessage}It's a DRAW, ${userName}! <br><br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice} <br><br><br>Pls try again <br> Winner of the game is ${mostRecentWinner}<br> ${defaultClosingMessage}`;
   }
 
   return myOutputValue;
