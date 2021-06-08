@@ -53,6 +53,7 @@
     <h1 id="header">Basics: Scissors Paper Stone 🚀</h1>
     <div id="container">
       <p id="title-text">What is your name?</p>
+
       <input id="input-field" />
       <button id="submit-button">Submit</button>
       <p>Output:</p>
@@ -64,8 +65,6 @@
     <script>
       var button = document.querySelector("#submit-button");
 
-      var titleText = getTitleText();
-      document.querySelector("#title-text").innerHTML = titleText;
       button.addEventListener("click", function () {
         // Set result to input value
         var input = document.querySelector("#input-field");
@@ -78,6 +77,7 @@
         // Reset input value
         input.value = "";
 
+        // Edit the title text to a new value
         document.querySelector("#title-text").innerHTML =
           "Scissors, Paper, Stone?";
       });
