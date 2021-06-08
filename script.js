@@ -7,7 +7,8 @@ var SCISSORS = `scissors`;
 var PAPER = `paper`;
 var STONE = `stone`;
 var defaultIntroMessage = `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br> `;
-var defaultClosingMessage = `Pls input: scissors, paper or stone for next round<br><br><br> `;
+var defaultClosingMessage = `Pls input: scissors, paper or stone for next round<br><br><br> Alternatively, pls key in normal, korean, reverse, secret to change game mode!`;
+
 var mostRecentWinner = ``;
 // creating random numbers from 1 to 3 for tagging to SPS
 var sPS = function () {
@@ -110,6 +111,24 @@ var playReversedSPS = function (userName, input) {
   return myOutputValue;
 };
 
+// Super Game MODE
+var playSuperGame = function (userName, input) {
+  var myOutputValue = ``;
+  var computerChoice = sPS();
+  // validation to inform user can only input SPS
+  if (!(input == SCISSORS || input == PAPER || input == STONE)) {
+    return `Pls enter scissors, paper or stone!`;
+  }
+  if (input == computerChoice) {
+    return `Congrats ${userName}, You Won! You chose ${input}, secret word is ${computerChoice}<br><br>${defaultClosingMessage}`;
+  }
+
+  if (!(input == computerChoice)) {
+    return `Sorry! ${userName}, You Lost! You chose ${input}, secret word is ${computerChoice}<br><br>${defaultClosingMessage}`;
+  }
+  return myOutputValue;
+};
+
 // refactor korean SPS
 var playKoreanSPS = function (userName, input) {
   var myOutputValue = ``;
@@ -126,7 +145,7 @@ var playKoreanSPS = function (userName, input) {
     (input == STONE && computerChoice == SCISSORS)
   ) {
     winnerOfThisRound = userName;
-    return `K<br>${defaultIntroMessage}K <br>Congrats ${userName}, you won!<br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice} <br><br><br>Cheers! <br>Most recent winner is ${winnerOfThisRound}<br> ${defaultClosingMessage}`;
+    return `K<br>${defaultIntroMessage}K <br>Congrats ${userName}, you won this turn!<br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice} <br><br><br>Cheers! <br>Most recent winner is ${winnerOfThisRound}<br> ${defaultClosingMessage}`;
   }
 
   // defining lose conditions for Korean SPS
@@ -136,17 +155,18 @@ var playKoreanSPS = function (userName, input) {
     (input == STONE && computerChoice == PAPER)
   ) {
     winnerOfThisRound = `computer`;
-    return `K<br>${defaultIntroMessage}K<br> Oops ${userName}, you lost! <br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice}<br><br><br> Better luck next time!<br> Most recent winner is ${winnerOfThisRound}<br> ${defaultClosingMessage}
+    return `K<br>${defaultIntroMessage}K<br> Oops ${userName}, you lost this turn! <br> <br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice}<br><br><br> Better luck next time!<br> Most recent winner is ${winnerOfThisRound}<br> ${defaultClosingMessage}
     `;
   }
   mostRecentWinner = winnerOfThisRound;
   // defining draw condition for Korean SPS
   if (input == computerChoice) {
-    return `K<br>${defaultIntroMessage}K<br>It's a DRAW, ${userName}! <br><br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice} <br><br><br>Pls try again <br> Winner of the game is ${mostRecentWinner}<br> ${defaultClosingMessage}`;
+    return `K<br>${defaultIntroMessage}K<br>It's a DRAW, ${userName}! <br><br> Your choice: ${input} <br> vs <br> Computer choice: ${computerChoice} <br><br><br>Pls try again <br> Ultimate winner of the round is +++${mostRecentWinner}+++<br> ${defaultClosingMessage}`;
   }
 
   return myOutputValue;
 };
+
 var main = function (input) {
   var myOutputValue = ``;
 
@@ -155,7 +175,7 @@ var main = function (input) {
     // set user name
     userName = input;
     currentGameMode = `SPS`;
-    return `Hello ${userName}! Good luck!`;
+    return `Hello ${userName}! Good luck! <br><br>Input scissors, paper or stone to start normal SPS. <br><br>Alternatively input any of the following to change game mode: korean, reverse, secret`;
   }
   if (currentGameMode == `SPS`) {
     myOutputValue = playSPS(userName, input);
@@ -166,6 +186,7 @@ var main = function (input) {
     winRecord = 0;
     drawRecord = 0;
     currentGameMode = `SPS`;
+    return `Welome to normal mode! Input scissors, paper or stone to start`;
   }
 
   if (input == `reverse`) {
@@ -173,15 +194,26 @@ var main = function (input) {
     winRecord = 0;
     drawRecord = 0;
     currentGameMode = `reversed SPS`;
+    return `Welome to reversed mode! Input scissors, paper or stone to start`;
   }
   if (currentGameMode == `reversed SPS`) {
     myOutputValue = playReversedSPS(userName, input);
   }
   if (input == `korean`) {
     currentGameMode = `korean SPS`;
+    return `Welome to korean mode! Input scissors, paper or stone to start`;
   }
   if (currentGameMode == `korean SPS`) {
     myOutputValue = playKoreanSPS(userName, input);
+  }
+
+  if (input == `secret`) {
+    currentGameMode = `Super Game Mode`;
+    return `Welome to secret mode! Input scissors, paper or stone to start`;
+  }
+
+  if (currentGameMode == `Super Game Mode`) {
+    myOutputValue = playSuperGame(userName, input);
   }
 
   return myOutputValue;
