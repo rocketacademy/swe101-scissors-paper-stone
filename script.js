@@ -112,12 +112,6 @@ var playReversedSPS = function (userName, input) {
 var main = function (input) {
   var myOutputValue = ``;
 
-  if (input == `reverse`) {
-    totalTries = 0;
-    winRecord = 0;
-    drawRecord = 0;
-    currentGameMode = `reversed SPS`;
-  }
   // set initial stage for user to input name
   if (currentGameMode == `waiting for user name`) {
     // set user name
@@ -129,6 +123,19 @@ var main = function (input) {
     myOutputValue = playSPS(userName, input);
   }
 
+  if (input == `normal`) {
+    totalTries = 0;
+    winRecord = 0;
+    drawRecord = 0;
+    currentGameMode = `SPS`;
+  }
+
+  if (input == `reverse`) {
+    totalTries = 0;
+    winRecord = 0;
+    drawRecord = 0;
+    currentGameMode = `reversed SPS`;
+  }
   if (currentGameMode == `reversed SPS`) {
     myOutputValue = playReversedSPS(userName, input);
   }
