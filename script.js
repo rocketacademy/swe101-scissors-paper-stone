@@ -1,44 +1,84 @@
+//user inputs their name
+var currentGameMode = `please enter your name`;
+
+var winScore = 0;
+var playerTries = 0;
+
 // user inputs scissors, paper or stone, output will determine win lose or draw or wrong spelling
 
 var main = function (input) {
+  var myOutputValue = ``;
+  playerTries = playerTries + 1;
+  //do this if game mode is waiting for enter your name
+  if (currentGameMode == `please enter your name`) {
+    //set the name
+    userName = input;
+
+    //now that we have the name, switch mode
+
+    currentGameMode = `SPS game`;
+    playerTries = playerTries - 1;
+
+    myOutputValue = `Welcome  ` + userName;
+  }
+  //if gamemode is sps game
+  else if (currentGameMode == `SPS game`) {
+  }
+
   var computerChoice = dice();
-  var myOutputValue = `please enter any of the following: scissors, paper, stone to proceed!`;
+  var myOutputValue =
+    `Hello ` +
+    userName +
+    `    please enter any of the following: scissors, paper, stone to proceed!`;
 
   //scissors =1 dice
   //paper = 2
   //stone =3
 
   if (input == `scissors` && computerChoice == 1) {
-    myOutputValue = `its a draw! the computer chose scissors too!`;
+    myOutputValue =
+      userName + `   ` + `<br> its a draw! the computer chose scissors too!`;
   }
   if (input == `scissors` && computerChoice == 2) {
-    myOutputValue = `you win! the computer chose paper!`;
+    winScore = winScore + 1;
+    myOutputValue =
+      userName + `   ` + `<br> you win! the computer chose paper!`;
   }
 
   if (input == `scissors` && computerChoice == 3) {
-    myOutputValue = `you lose! the computer chose stone!`;
+    myOutputValue =
+      userName + `   ` + `<br> you lose! the computer chose stone!`;
   }
   if (input == `paper` && computerChoice == 1) {
-    myOutputValue = `you lose! computer chose scissors!`;
+    myOutputValue =
+      userName + `   ` + `<br> you lose! computer chose scissors!`;
   }
 
   if (input == `paper` && computerChoice == 2) {
-    myOutputValue = `its a draw! the computer chose paper too!`;
+    myOutputValue =
+      userName + `   ` + `<br> its a draw! the computer chose paper too!`;
   }
 
   if (input == `paper` && computerChoice == 3) {
-    myOutputValue = `you win! computer chose stone!`;
+    winScore = winScore + 1;
+    myOutputValue = userName + `   ` + `<br> you win! computer chose stone!`;
   }
   if (input == `stone` && computerChoice == 1) {
-    myOutputValue = `you win! the computer chose scissors!`;
+    winScore = winScore + 1;
+    myOutputValue =
+      userName + `   ` + `<br> you win! the computer chose scissors!`;
   }
   if (input == `stone` && computerChoice == 2) {
-    myOutputValue = `you lose! the computer chose paper!`;
+    myOutputValue =
+      userName + `   ` + `<br> you lose! the computer chose paper!`;
   }
   if (input == `stone` && computerChoice == 3) {
-    myOutputValue = `its a draw! the computer chose stone too!`;
+    myOutputValue =
+      userName + `   ` + `<br> its a draw! the computer chose stone too!`;
   }
 
+  myOutputValue =
+    myOutputValue + Math.ceil((winScore / playerTries) * 100) + `%`;
   return myOutputValue;
 };
 
