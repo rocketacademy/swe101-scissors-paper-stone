@@ -1,6 +1,15 @@
+//input is either scissors, paper, or stone
 var SCISSORS = "scissors";
 var PAPER = "paper";
 var STONE = "stone";
+
+// number of player wins, computer wins, and draws
+
+var numPlayerWins = 0;
+var numComputerWins = 0;
+var numDraws = 0;
+
+//assign each input with a number to random choose
 var sps = function () {
   var randomNumber = Math.floor(Math.random() * 3);
 
@@ -18,11 +27,33 @@ var main = function (input) {
   console.log("computer input" + computerInput);
   var playerInput = input;
   console.log("player input" + playerInput);
-  var genericOutput =
-    "Your guess:" + playerInput + "Computer guess:" + computerInput;
-  var winOutput = "You win!";
-  var loseOutput = "Computer won!";
+
+  //output is whether the user won, the program won, or it's a draw
+  var getGenericOutput = function () {
+    return " Your guess: " + playerInput + " Computer guess: " + computerInput;
+  };
+
+  var getWinLossMessage = function () {
+    return (
+      " You won: " +
+      numPlayerWins +
+      " times | Computer won: " +
+      numComputerWins +
+      " times | Draws: " +
+      numDraws
+    );
+  };
+
+  var genericOutput = getGenericOutput(playerInput, computerInput);
+
+  var winLossMessage = getWinLossMessage();
+
   var myOutputValue = genericOutput;
+
+  var winOutput = " You win! ";
+  var loseOutput = " Computer won! ";
+  var drawOutput = " Its a draw! ";
+
   //input validation to let user know there are only 3 input options and ask them to try again
   if (input != SCISSORS && input != PAPER && input != STONE) {
     myOutputValue =
@@ -30,6 +61,7 @@ var main = function (input) {
 
     return myOutputValue;
   }
+  //scissors beats paper, paper beats stone, and stone beats scissors. If both parties choose the same object its a draw.
 
   if (
     (playerInput == SCISSORS && computerInput == PAPER) ||
@@ -37,7 +69,8 @@ var main = function (input) {
     (playerInput == PAPER && computerInput == STONE) ||
     (playerInput == STONE && computerInput == SCISSORS)
   ) {
-    myOutputValue = myOutputValue + winOutput;
+    numPlayerWins += 1;
+    myOutputValue = myOutputValue + winOutput + winLossMessage;
 
     return myOutputValue;
   }
@@ -47,16 +80,16 @@ var main = function (input) {
     (playerInput == STONE && computerInput == PAPER) ||
     (playerInput == SCISSORS && computerInput == STONE)
   ) {
-    myOutputValue = myOutputValue + loseOutput;
+    numComputerWins += 1;
+    myOutputValue = myOutputValue + loseOutput + winLossMessage;
+
+    return myOutputValue;
+  }
+
+  if (playerInput == computerInput) {
+    numDraws += 1;
+    myOutputValue = myOutputValue + drawOutput + winLossMessage;
 
     return myOutputValue;
   }
 };
-
-//input is either scissors, paper, or stone
-
-//assign each input with a number to random choose
-
-//output is whether the user won, the program won, or it's a draw
-
-//scissors beats paper, paper beats stone, and stone beats scissors. If both parties choose the same object its a draw.
