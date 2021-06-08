@@ -6,7 +6,6 @@ var drawRecord = 0;
 var SCISSORS = `scissors`;
 var PAPER = `paper`;
 var STONE = `stone`;
-var test = 0;
 var defaultIntroMessage = `Scissors<br>. <br>. <br>.<br> Paper<br>. <br>. <br>.<br> Stone <br>. <br>. <br>.<br> `;
 var defaultClosingMessage = `Pls input: scissors, paper or stone for next round<br><br><br> `;
 // creating random numbers from 1 to 3 for tagging to SPS
