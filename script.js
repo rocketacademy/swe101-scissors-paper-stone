@@ -2,7 +2,7 @@
 var totalMatches = 0;
 var timesPlayerWon = 0;
 var numberOfDraws = 0;
-var userName = ``;
+var userName = `you`;
 var message;
 var normal = `normal`;
 var korean = `korean`;
