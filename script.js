@@ -5,6 +5,10 @@ var randomChoice = function () {
   return choiceNumber;
 };
 
+var userRecord = 0;
+
+var programRecord = 0;
+
 var main = function (input) {
   // input = scissors, paper or stone
   // output = user won, program won or it's a draw
@@ -51,17 +55,23 @@ var main = function (input) {
   console.log(inputNumber, choiceNumber);
 
   if (winner == "Program") {
+    programRecord = programRecord + 1;
     return (
       "Wrong! The computer chose " +
       choice +
       " <br> <br> You chose " +
       input +
-      " <br> <br> You lose! Bummer. <br> <br> Now you can type 'Scissors' 'Paper' or 'Stone' to play another round!"
+      " <br> <br> You lose! Bummer. <br> <br> Now you can type 'Scissors' 'Paper' or 'Stone' to play another round! So far, program has won " +
+      programRecord +
+      " turns. Pretty Good!"
     );
   }
 
   if (winner == "Player") {
-    return "You Win!";
+    userRecord = userRecord + 1;
+    return (
+      "You Win! So far, you have won " + userRecord + " turns. Pretty good!"
+    );
   }
 
   if (winner == "Draw") {
