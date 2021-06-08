@@ -5,6 +5,8 @@ var randomChoice = function () {
   return choiceNumber;
 };
 
+var currentGameMode = "waiting for user name";
+
 var userRecord = 0;
 
 var programRecord = 0;
@@ -17,6 +19,15 @@ var main = function (input) {
   var inputNumber;
 
   var choice;
+
+  if (currentGameMode == "waiting for user name") {
+    //set user name as input
+    userName = input;
+
+    currentGameMode = "Scissors Paper Stone";
+
+    return "Hello " + userName;
+  }
 
   if (
     !(
@@ -61,16 +72,22 @@ var main = function (input) {
       choice +
       " <br> <br> You chose " +
       input +
-      " <br> <br> You lose! Bummer. <br> <br> Now you can type 'Scissors' 'Paper' or 'Stone' to play another round! So far, program has won " +
+      " <br> <br> You lose! Bummer. <br> <br> Now you can type 'Scissors' 'Paper' or 'Stone' to play another round! So far " +
+      userName +
+      ", program has won " +
       programRecord +
-      " turns. Pretty Good!"
+      " turns."
     );
   }
 
   if (winner == "Player") {
     userRecord = userRecord + 1;
     return (
-      "You Win! So far, you have won " + userRecord + " turns. Pretty good!"
+      "You Win! So far " +
+      userName +
+      ", you have won " +
+      userRecord +
+      " turns. Pretty good!"
     );
   }
 
