@@ -4,10 +4,37 @@ var Loss = 0;
 var Draw = 0;
 var Reverse = 0;
 var WINNER = "";
+var userName = "";
+var currentGameMode = "user name";
 
 var main = function (input) {
-  if (input != "scissors" && input != "papaer" && input != "stone" && input != "reverse") {
-    return "Please type 'scissors', 'paper' or 'stone' to play the game.";
+  var myOutputValue = "";
+
+  if (currentGameMode == "user name") {
+    // set the name
+    userName = input;
+
+    // now that we have the name, switch the mode
+    currentGameMode = "normal game";
+  } else if ((currentGameMode = "normal game")) {
+    myOutputValue = playNormalGame(userName, input);
+  }
+
+  return myOutputValue;
+};
+
+var playNormalGame = function (userName, input) {
+  Tries = Tries + 1;
+  if (
+    input != "scissors" &&
+    input != "paper" &&
+    input != "stone" &&
+    input != "reverse" &&
+    input != "changename"
+  ) {
+    return (
+      "Please type 'scissors', 'paper' or 'stone' to play the game, " + userName
+    );
   }
 
   var diceRoll = function () {
@@ -18,8 +45,8 @@ var main = function (input) {
   };
 
   var computernumber = diceRoll();
-  
-var A = 1;
+
+  var A = 1;
   var B = 2;
   var C = 3;
 
@@ -40,7 +67,6 @@ var A = 1;
       return "Computer chose stone 🗿.";
     }
   };
-
 
   var inputnumber = 0;
 
@@ -67,13 +93,13 @@ var A = 1;
       return "You chose stone 🗿.";
     }
   };
-  
-    var MOSTRECENTWINNER = function () {
+
+  var MOSTRECENTWINNER = function () {
     if (WINNER == 2) {
       return "The most recent winner is the computer.";
     }
     if (WINNER == 1) {
-      return "The most recent winner is you.";
+      return "The most recent winner is you, " + userName;
     }
     if (WINNER == 0) {
       return " ";
@@ -82,13 +108,18 @@ var A = 1;
 
   var GENERATEOUTCOMEDESCRIPTION = function (a, b) {
     console.log(a, b);
-    if (a == b || a == b + 2) {
+    if (a == b) {
+      Draw = Draw + 1;
       return "It is a draw.";
     }
     if (a == b + 1 || a + 2 == b) {
+      Loss = Loss + 1;
+      WINNER = 2;
       return "You lost.";
     }
-    if (a == b - 1) {
+    if (a == b - 1 || a == b + 2) {
+      Wins = Wins + 1;
+      WINNER = 1;
       return "You won. :>";
     }
   };
@@ -111,8 +142,7 @@ var A = 1;
       "."
     );
   };
-  
-  
+
   var ENCOURAGEMENT = function (Wins) {
     message = "You can do better. A lot better.";
     if (Wins / Tries >= 0.5) {
@@ -120,25 +150,24 @@ var A = 1;
     }
     return message;
   };
-  
+
   var myOutputValue =
     GENERATEUSERACTION(input) +
-    " <br>" +
+    " <br> <br>" +
     GENERATECOMPUTERACTION(computernumber) +
-    " <br>" +
-    STATISTICS() +
-    "<br>" +
-    ENCOURAGEMENT(Wins) +
-    "<br>" +
-    MOSTRECENTWINNER() +
-    "<br>" +
+    " <br> <br>" +
     GENERATEOUTCOMEDESCRIPTION(inputnumber, computernumber) +
+    "<br> <br>" +
+    STATISTICS() +
+    "<br> <br>" +
+    ENCOURAGEMENT(Wins) +
+    "<br> <br>" +
+    MOSTRECENTWINNER() +
     "<br> <br> Now you can type 'scissors', 'paper' or 'stone' to play another round!";
 
   if (input == "reverse") {
     Reverse = 1;
     return "Reverse mode activated";
   }
-  
   return myOutputValue;
 };
