@@ -1,28 +1,54 @@
 var UserNumOfCorrectGuess = 0;
 var CompNumOfCorrectGuess = 0;
+var currentGameMode = "waiting for user name";
 var userName = "";
+var login = false;
 
 var main = function (input) {
+  console.log(input);
   var randomObject = GenerateRandomHand();
-  var myOutputValue = "Kindly input only scissors, paper, or stone.";
+  var myOutputValue = "";
   var scissors = "scissors";
   var paper = "paper";
   var stone = "stone";
 
-  if (!input) {
-    if (!userName) {
-      return "Please enter your username before attempting the game.";
-    }
+  // if (!userName) {
+  //   if (input) {
+  //     return "Please type in your username!";
+  //   }
+  //   userName = input;
+  //   return (
+  //     "Thank you " +
+  //     userName +
+  //     " To start playing SPS, please type in scissors, paper, or stone."
+  //   );
+  // }
+
+  // if (input != userName) {
+  //   return "Please enter your username before attempting the game.";
+  // } else if (currentGameMode == "waiting for user name") {
+  //   userName = input;
+  //   currentGameMode = "sps game";
+  //   myOutputValue =
+  //     "Welcome " +
+  //     userName +
+  //     "! Let us begin. Please type scissors, paper or stone to play";
+  // }
+
+  if (input == "") {
+    return "Please enter your username before attempting the game.";
+  }
+
+  if (!login) {
     userName = input;
-    // console.log(userName);
-    // console.log("userName runs");
+    login = true;
     return (
       "Welcome " +
       userName +
       "! Let us begin. Please type scissors, paper or stone to play"
     );
   }
-
+  myOutputValue = "Kindly input only scissors, paper, or stone.";
   if (input != paper && input != stone && input != scissors) {
     return myOutputValue;
   }
