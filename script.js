@@ -1,6 +1,6 @@
 var Counter = 0;
 var winningCounter = 0;
-var myOutputvalue;
+//var myOutputvalue;
 var main = function (input, userID) {
   Counter = Counter + 1;
   console.log(
@@ -25,7 +25,6 @@ var main = function (input, userID) {
     console.log("draw");
     myOutputvalue =
       "draw. <br>" + "So far " + userID + ", You have played " + Counter;
-    return myOutputvalue;
   } else if (human == "scissors" && machine == "stone") {
     console.log("human lost");
     myOutputvalue =
@@ -49,46 +48,46 @@ var main = function (input, userID) {
       Counter;
   } else if (human == "paper" && machine == "scissors") {
     console.log("human lost");
-    myOutputvalue ==
+    myOutputvalue =
       "The computer chose scissors <br>" +
-        "You chose paper <br> <br>" +
-        "You lost! Bummer. <br>" +
-        "So far " +
-        userID +
-        ", You have played " +
-        Counter;
+      "You chose paper <br> <br>" +
+      "You lost! Bummer. <br>" +
+      "So far " +
+      userID +
+      ", You have played " +
+      Counter;
   } else if (human == "scissors" && machine == "paper") {
     winningCounter = +1;
     console.log("human won");
-    myOutputvalue ==
+    myOutputvalue =
       "The computer chose paper <br>" +
-        "You chose scissors <br> <br>" +
-        "You won! <br>" +
-        "So far " +
-        userID +
-        ", You have played " +
-        Counter;
+      "You chose scissors <br> <br>" +
+      "You won! <br>" +
+      "So far " +
+      userID +
+      ", You have played " +
+      Counter;
   } else if (human == "stone" && machine == "paper") {
     console.log("human lost");
-    myOutputvalue ==
+    myOutputvalue =
       "The computer chose stone <br>" +
-        "You chose paper <br> <br>" +
-        "You lost! Bummer <br>" +
-        "So far " +
-        userID +
-        ", You have played " +
-        Counter;
+      "You chose paper <br> <br>" +
+      "You lost! Bummer <br>" +
+      "So far " +
+      userID +
+      ", You have played " +
+      Counter;
   } else if (human == "paper" && machine == "stone") {
     winningCounter = +1;
     console.log("human won");
-    myOutputvalue ==
+    myOutputvalue =
       "The computer chose paper <br>" +
-        "You chose stone <br> <br>" +
-        "You won. <br>" +
-        "hey " +
-        userID +
-        ", You have played " +
-        Counter;
+      "You chose stone <br> <br>" +
+      "You won. <br>" +
+      "hey " +
+      userID +
+      ", You have played " +
+      Counter;
   }
   return myOutputvalue;
 };
