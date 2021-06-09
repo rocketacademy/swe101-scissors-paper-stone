@@ -74,7 +74,6 @@ var generateOutcome = function (inputGuess) {
       "<br><br>Total number of tries: " +
       numberOfTries;
     return standardOutput;
-    // (standardOutput +      +systemOutcome +      ". <br><br> It's a draw! <br><br>" +      winCountMessage +      winTracker +   gameCountMessage +      numberOfTries    );
   }
 
   // Win outcomes
