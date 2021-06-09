@@ -1,166 +1,195 @@
+var WinCounter = 0;
+var LoseCounter = 0;
+var DrawCounter = 0;
+var TotalTurns = 0;
+var Name = " ";
 var main = function (input) {
   var myArray = ["scissors", "paper", "stone"];
   var ComputerChoice = myArray[Math.floor(Math.random() * myArray.length)];
-  // Scissors lose to stone
   if (input == "scissors" && ComputerChoice == "stone") {
+    // Scissors lose to stone
+    LoseCounter = LoseCounter + 1;
+    TotalTurns = TotalTurns + 1;
     return (myOutputValue =
-      "Computer chooses " +
+      "Computer chose " +
       ComputerChoice +
+      "." +
       "<br>" +
-      "Sorry but you lose. Type the word reversed before your choice to get into the reversed game mode!");
+      "You chose " +
+      input +
+      "." +
+      "<br>" +
+      "Sorry but you lose!" +
+      "<br>" +
+      "So far,you've been losing " +
+      LoseCounter +
+      "/" +
+      TotalTurns +
+      " turns.");
   }
   // Scissors win paper
   if (input == "scissors" && ComputerChoice == "paper") {
+    WinCounter = WinCounter + 1;
+    TotalTurns = TotalTurns + 1;
     return (myOutputValue =
-      "Computer chooses " +
+      "Computer chose " +
       ComputerChoice +
+      "." +
       "<br>" +
-      "You win. Type the word reversed before your choice to get into the reversed game mode!");
+      "You chose " +
+      input +
+      "<br>" +
+      "You win!" +
+      "<br>" +
+      "So far,you've been winning " +
+      WinCounter +
+      "/" +
+      TotalTurns +
+      " turns.");
   }
   // Scissors draw scissors
   if (input == "scissors" && ComputerChoice == "scissors") {
+    DrawCounter = DrawCounter + 1;
+    TotalTurns = TotalTurns + 1;
     return (myOutputValue =
-      "Computer chooses " +
+      "Computer chose " +
       ComputerChoice +
+      "." +
       "<br>" +
-      "its a draw. Type the word reversed before your choice to get into the reversed game mode!");
+      "You chose " +
+      input +
+      "." +
+      "<br>" +
+      "Its a draw!" +
+      "<br>" +
+      "So far,you've been drawing " +
+      DrawCounter +
+      "/" +
+      TotalTurns +
+      " turns.");
   }
   // Paper lose to scissors
   if (input == "paper" && ComputerChoice == "scissors") {
+    LoseCounter = LoseCounter + 1;
+    TotalTurns = TotalTurns + 1;
     return (myOutputValue =
-      "Computer chooses " +
+      "Computer chose " +
       ComputerChoice +
+      "." +
       "<br>" +
-      "Sorry but you lose. Type the word reversed before your choice to get into the reversed game mode!");
+      "You chose " +
+      input +
+      "." +
+      "<br>" +
+      "Sorry but you lose!" +
+      "<br>" +
+      "So far,you've been losing " +
+      LoseCounter +
+      "/" +
+      TotalTurns +
+      " turns.");
   }
   // Paper win stone
   if (input == "paper" && ComputerChoice == "stone") {
+    WinCounter = WinCounter + 1;
+    TotalTurns = TotalTurns + 1;
     return (myOutputValue =
-      "Computer chooses " +
+      "Computer chose " +
       ComputerChoice +
+      "." +
       "<br>" +
-      "You win. Type the word reversed before your choice to get into the reversed game mode!");
+      "You chose " +
+      input +
+      "<br>" +
+      "You win!" +
+      "<br>" +
+      "So far,you've been winning " +
+      WinCounter +
+      "/" +
+      TotalTurns +
+      " turns.");
   }
   // Paper draw paper
   if (input == "paper" && ComputerChoice == "paper") {
+    DrawCounter = DrawCounter + 1;
+    TotalTurns = TotalTurns + 1;
     return (myOutputValue =
-      "Computer chooses " +
+      "Computer chose " +
       ComputerChoice +
+      "." +
       "<br>" +
-      "its a draw. Type the word reversed before your choice to get into the reversed game mode!");
+      "You chose " +
+      input +
+      "." +
+      "<br>" +
+      "Its a draw!" +
+      "<br>" +
+      "So far,you've been drawing " +
+      DrawCounter +
+      "/" +
+      TotalTurns +
+      " turns.");
   }
   // Stone lose to paper
   if (input == "stone" && ComputerChoice == "paper") {
+    LoseCounter = LoseCounter + 1;
+    TotalTurns = TotalTurns + 1;
     return (myOutputValue =
-      "Computer chooses " +
+      "Computer chose " +
       ComputerChoice +
+      "." +
       "<br>" +
-      "Sorry but you lose. Type the word reversed before your choice to get into the reversed game mode!");
+      "You chose " +
+      input +
+      "." +
+      "<br>" +
+      "Sorry but you lose!" +
+      "<br>" +
+      "So far,you've been losing " +
+      LoseCounter +
+      "/" +
+      TotalTurns +
+      " turns.");
   }
   // Stone win scissors
+  WinCounter = WinCounter + 1;
+  TotalTurns = TotalTurns + 1;
   if (input == "stone" && ComputerChoice == "scissors") {
     return (myOutputValue =
-      "Computer chooses " +
+      "Computer chose " +
       ComputerChoice +
+      "." +
       "<br>" +
-      "You win. Type the word reversed before your choice to get into the reversed game mode!");
+      "You chose " +
+      input +
+      "<br>" +
+      "You win!" +
+      "<br>" +
+      "So far,you've been winning " +
+      WinCounter +
+      "/" +
+      TotalTurns +
+      " turns.");
   }
   // Stone draw stone
   if (input == "stone" && ComputerChoice == "stone") {
+    DrawCounter = DrawCounter + 1;
+    TotalTurns = TotalTurns + 1;
     return (myOutputValue =
-      "Computer chooses " +
+      "Computer chose " +
       ComputerChoice +
+      "." +
       "<br>" +
-      "Its a draw. Type the word reversed before your choice to get into the reversed game mode!");
-  }
-  // reverse gamemode
-  //scissors beat stone
-  if (input == "reversed scissors" && ComputerChoice == "stone") {
-    return (myOutputValue =
-      "Computer chooses " +
-      ComputerChoice +
+      "You chose " +
+      input +
+      "." +
       "<br>" +
-      "You win. Type the word reversed before your choice to get into the reversed game mode!");
-  }
-  //scissors lose paper
-  if (input == "reversed scissors" && ComputerChoice == "paper") {
-    return (myOutputValue =
-      "Computer chooses " +
-      ComputerChoice +
+      "Its a draw!" +
       "<br>" +
-      "You lose. Type the word reversed before your choice to get into the reversed game mode!");
+      "So far,you've been drawing " +
+      DrawCounter +
+      "/" +
+      TotalTurns +
+      " turns.");
   }
-  //scissors & scissors
-  if (input == "reversed scissors" && ComputerChoice == "scissors") {
-    return (myOutputValue =
-      "Computer chooses " +
-      ComputerChoice +
-      ".The sky rains diamonds tmr!" +
-      "<br>" +
-      "Type the word reversed before your choice to get into the reversed game mode!");
-  }
-  //paper beat scissors
-  if (input == "reversed paper" && ComputerChoice == "scissors") {
-    return (myOutputValue =
-      "Computer chooses " +
-      ComputerChoice +
-      "<br>" +
-      "You win. Type the world reversed before your choice to get into the reversed game mode!");
-  }
-  //paper lose stone
-  if (input == "reversed paper" && ComputerChoice == "stone") {
-    return (myOutputValue =
-      "Computer chooses " +
-      ComputerChoice +
-      "<br>" +
-      "You lose. Type the word reversed before your choice to get into the reversed game mode!");
-  }
-  //paper & paper
-  if (input == "reversed paper" && ComputerChoice == "paper") {
-    return (myOutputValue =
-      "Computer chooses " +
-      ComputerChoice +
-      ".The sky rains silver tmr!" +
-      "<br>" +
-      "Type the word reversed before your choice to get into the reversed game mode!");
-  }
-  //stone beat paper
-  if (input == "reversed stone" && ComputerChoice == "paper") {
-    return (myOutputValue =
-      "Computer chooses " +
-      ComputerChoice +
-      "<br>" +
-      "You win. Type the word reversed before your choice to get into the reversed game mode!");
-  }
-  //stone lose scissors
-  if (input == "reversed stone" && ComputerChoice == "scissors") {
-    return (myOutputValue =
-      "Computer chooses " +
-      ComputerChoice +
-      "<br>" +
-      "You lose. Type the word reversed before your choice to get into the reversed game mode!");
-  }
-  //stone & stone
-  if (input == "reversed stone" && ComputerChoice == "stone") {
-    return (myOutputValue =
-      "Computer chooses " +
-      ComputerChoice +
-      ".The sky rains gold tmr!" +
-      "<br>" +
-      "Type the word reversed before your choice to get into the reversed game mode!");
-  }
-  if (
-    input !== "scissors" ||
-    "paper" ||
-    "stone" ||
-    "reversed scissors" ||
-    "reversed paper" ||
-    "reversed stone"
-  ) {
-    return (myOutputValue =
-      "You have entered an invalid input.Please enter scissors,paper,stone,reversed scissors,reversed paper or reversed stone." +
-      "<br>" +
-      "Case Sensitive!");
-  }
-  return myOutputValue;
 };
