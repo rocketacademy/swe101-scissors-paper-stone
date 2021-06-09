@@ -2,7 +2,6 @@ var WinCounter = 0;
 var LoseCounter = 0;
 var DrawCounter = 0;
 var TotalTurns = 0;
-var Name = " ";
 var main = function (input) {
   var myArray = ["scissors", "paper", "stone"];
   var ComputerChoice = myArray[Math.floor(Math.random() * myArray.length)];
