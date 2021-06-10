@@ -101,7 +101,7 @@ var main = function (input) {
     nameMode = 0;
     reversedMode = 0;
     normalMode = 1;
-    artifMode = 1;
+    artifMode = 0;
     myGloriousHand =
       "In normalMode, please enter either scissors, paper, or stone to play";
   }
@@ -146,7 +146,7 @@ var main = function (input) {
     nameMode = 0;
     reversedMode = 1;
     normalMode = 0;
-    artifMode = 1;
+    artifMode = 0;
     myGloriousHand =
       "In reversedMode, please enter either reverse scissors, reverse paper, or reverse stone to play";
   }
@@ -207,7 +207,6 @@ var main = function (input) {
     if (diceRoll() == 3) {
       loseOutcome();
     }
-    console.log(diceRoll());
   }
   // Reset Mode_______________________________
   if (input == "reset") {
