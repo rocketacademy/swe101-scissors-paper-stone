@@ -12,7 +12,7 @@ var drawCount = 0;
 var STONE = 'stone';
 var SCISSORS = 'scissors';
 var PAPER = 'paper';
-// Declare an array of the 3 possible game options for the user to choose from
+// Declare an array of the game options
 var gameOptions = [STONE, SCISSORS, PAPER];
 
 
@@ -58,9 +58,9 @@ var main = function (str) {
     console.log('==Invalid input: Request to reenter==');
     myOutputValue = `Please type either ${gameOptions[0]}, ${gameOptions[1]} or ${gameOptions[2]}` ;
   } 
-  // Where input is valid, generate a random draw of Scissors, Paper or Stone, and store the value in a new variable
+  // If the user input is valid, play the game
   else {
-    // Computer randomly draws an outcome
+    // Computer randomly draws an outcome (Scissors, Paper or Stone) that is stored in a new variable
     var comOutput = randomDraw();
     // Update the number of attempts
     attemptsCount += 1; 
