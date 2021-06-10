@@ -1,10 +1,11 @@
-var reverseModeStatus = false;
+var gameMode = "";
 var userWinCount = 0;
 var computerWinCount = 0;
 var drawCount = 0;
 var userName = "";
+var koreanWinner = "";
 
-var RandomSPS = function () {
+var randomSPS = function () {
   randomDecimal = Math.random();
   randomInteger0to2 = Math.floor(randomDecimal * 3);
   RandomInterger1to3 = randomInteger0to2 + 1;
@@ -23,29 +24,36 @@ var RandomSPS = function () {
 };
 
 var main = function (input) {
-  SPS = RandomSPS();
-
-  while (userName == "") {
+  computerChoice = randomSPS();
+  var yourChoiceMsg = "You chose " + input + "!";
+  // Enter username
+  if (userName == "") {
     userName = input;
     if (userName == "") {
       myOutputValue = "Please enter a valid username and click submit.";
       return myOutputValue;
     }
-    myOutputValue =
+    return (
       "Hi " +
       userName +
-      ", play the game by entering either Scissors, Paper, or Stone and click submit!";
-    return myOutputValue;
+      ", play the game by choosing a game mode. Then pick either Scissors, Paper, or Stone and click submit!"
+    );
   }
 
-  if (input == "Reverse") {
-    reverseModeStatus = true;
-    return "Secret Reverse Mode On!";
+  // For user to change game mode
+  if (input == "Normal" || input == "Reverse" || input == "Korean") {
+    koreanWinner = "";
+    gameMode = input;
+    return "You selected game mode " + input + ". Start playing!";
   }
 
-  if (input == "Reverse Off") {
-    reverseModeStatus = false;
-    return "Secret Reverse Mode Off!";
+  // Enter gameMode if game mode is blank
+  if (gameMode != "Normal" && gameMode != "Reverse" && gameMode != "Korean") {
+    if (input == "Normal" || input == "Reverse" || input == "Korean") {
+      gameMode = input;
+      return "You selected game mode " + input + ". Start playing!";
+    }
+    return "Please enter a game mode!<br>Normal, Reverse, or Korean";
   }
 
   if (
@@ -53,111 +61,151 @@ var main = function (input) {
     input != "Paper" &&
     input != "Stone" &&
     input != "Reverse" &&
-    input != "Reverse Off"
+    input != "Korean" &&
+    input != "Normal"
   ) {
-    yourChoiceMsg = "Please input either Scissors, Paper, or Stone.";
-    result = "You did not pick a valid option.";
+    return "Your input is invalid";
   }
 
-  if (!reverseModeStatus) {
-    if (SPS == "Scissors") {
-      if (input == "Scissors") {
-        drawCount = drawCount + 1;
-        yourChoiceMsg = "You chose Scissors!";
-        result = "It is a draw!";
-      }
-      if (input == "Paper") {
-        computerWinCount = computerWinCount + 1;
-        yourChoiceMsg = "You chose Paper!";
-        result = "You lose!";
-      }
-      if (input == "Stone") {
-        userWinCount = userWinCount + 1;
-        yourChoiceMsg = "You chose Stone!";
-        result = "You win!";
-      }
+  if (gameMode == "Normal") {
+    if (
+      (computerChoice == "Scissors" && input == "Stone") ||
+      (computerChoice == "Paper" && input == "Scissors") ||
+      (computerChoice == "Stone" && input == "Paper")
+    ) {
+      userWinCount = userWinCount + 1;
+      var result = "You win!";
     }
 
-    if (SPS == "Paper") {
-      if (input == "Paper") {
-        drawCount = drawCount + 1;
-        yourChoiceMsg = "You chose Paper!";
-        result = "It is a draw!";
-      }
-      if (input == "Stone") {
-        computerWinCount = computerWinCount + 1;
-        yourChoiceMsg = "You chose Stone!";
-        result = "You lose!";
-      }
-      if (input == "Scissors") {
-        userWinCount = userWinCount + 1;
-        yourChoiceMsg = "You chose Scissors!";
-        result = "You win!";
-      }
+    if (
+      (computerChoice == "Scissors" && input == "Paper") ||
+      (computerChoice == "Paper" && input == "Stone") ||
+      (computerChoice == "Stone" && input == "Scissors")
+    ) {
+      computerWinCount = computerWinCount + 1;
+      var result = "You lose!";
     }
 
-    if (SPS == "Stone") {
-      if (input == "Stone") {
-        drawCount = drawCount + 1;
-        yourChoiceMsg = "You chose Stone!";
-        result = "It is a draw!";
-      }
-      if (input == "Scissors") {
-        computerWinCount = computerWinCount + 1;
-        yourChoiceMsg = "You chose Scissors!";
-        result = "You lose!";
-      }
-      if (input == "Paper") {
-        userWinCount = userWinCount + 1;
-        yourChoiceMsg = "You chose Paper!";
-        result = "You win!";
-      }
+    if (computerChoice == input) {
+      drawCount = drawCount + 1;
+      var result = "It is a draw!";
     }
   }
 
-  if (reverseModeStatus) {
-    if (SPS == "Scissors") {
-      if (input == "Scissors") {
-        yourChoiceMsg = "You chose Scissors!";
-        result = "It is a draw!";
-      }
-      if (input == "Stone") {
-        yourChoiceMsg = "You chose Stone!";
-        result = "You lose!";
-      }
-      if (input == "Paper") {
-        yourChoiceMsg = "You chose Paper!";
-        result = "You win!";
-      }
+  if (gameMode == "Reverse") {
+    if (
+      (computerChoice == "Scissors" && input == "Paper") ||
+      (computerChoice == "Paper" && input == "Stone") ||
+      (computerChoice == "Stone" && input == "Scissors")
+    ) {
+      userWinCount = userWinCount + 1;
+      var result = "You win!";
     }
 
-    if (SPS == "Paper") {
-      if (input == "Paper") {
-        yourChoiceMsg = "You chose Paper!";
-        result = "It is a draw!";
-      }
-      if (input == "Scissors") {
-        yourChoiceMsg = "You chose Scissors!";
-        result = "You lose!";
-      }
-      if (input == "Stone") {
-        yourChoiceMsg = "You chose Stone!";
-        result = "You win!";
-      }
+    if (
+      (computerChoice == "Scissors" && input == "Stone") ||
+      (computerChoice == "Paper" && input == "Scissors") ||
+      (computerChoice == "Stone" && input == "Paper")
+    ) {
+      computerWinCount = computerWinCount + 1;
+      var result = "You lose!";
     }
 
-    if (SPS == "Stone") {
-      if (input == "Stone") {
-        yourChoiceMsg = "You chose Stone!";
-        result = "It is a draw!";
+    if (computerChoice == input) {
+      drawCount = drawCount + 1;
+      var result = "It is a draw!";
+    }
+  }
+
+  if (gameMode == "Korean") {
+    if (
+      (computerChoice == "Scissors" && input == "Stone") ||
+      (computerChoice == "Paper" && input == "Scissors") ||
+      (computerChoice == "Stone" && input == "Paper")
+    ) {
+      koreanWinner = "user";
+      return (
+        "You chose " +
+        input +
+        ". The computer chose " +
+        computerChoice +
+        ". Get a draw next to win!"
+      );
+    }
+
+    if (
+      (computerChoice == "Scissors" && input == "Paper") ||
+      (computerChoice == "Paper" && input == "Stone") ||
+      (computerChoice == "Stone" && input == "Scissors")
+    ) {
+      koreanWinner = "computer";
+      return (
+        "You chose " +
+        input +
+        ". The computer chose " +
+        computerChoice +
+        ". Get a draw next and the computer wins!"
+      );
+    }
+    if (computerChoice == input) {
+      if (koreanWinner == "user") {
+        koreanWinner = "";
+        userWinCount = +1;
+        return (
+          "Hi " +
+          userName +
+          "!<br><br>" +
+          computerChoiceMsg +
+          "<br><br>" +
+          yourChoiceMsg +
+          "<br><br>" +
+          "You win!<br>" +
+          userName +
+          " " +
+          userWinCount +
+          " - " +
+          computerWinCount +
+          " Computer"
+        );
       }
-      if (input == "Paper") {
-        yourChoiceMsg = "You chose Paper!";
-        result = "You lose!";
+      if (koreanWinner == "computer") {
+        koreanWinner = "";
+        computerWinCount += 1;
+        return (
+          "Hi " +
+          userName +
+          "!<br><br>" +
+          computerChoiceMsg +
+          "<br><br>" +
+          yourChoiceMsg +
+          "<br><br>" +
+          "The computer wins!<br>" +
+          userName +
+          " " +
+          userWinCount +
+          " - " +
+          computerWinCount +
+          " Computer"
+        );
       }
-      if (input == "Scissors") {
-        yourChoiceMsg = "You chose Scissors!";
-        result = "You win!";
+      if (koreanWinner == "") {
+        koreanWinner = "";
+        return (
+          "Hi " +
+          userName +
+          "!<br><br>" +
+          computerChoiceMsg +
+          "<br><br>" +
+          yourChoiceMsg +
+          "<br><br>" +
+          "It is a draw!<br>" +
+          userName +
+          " " +
+          userWinCount +
+          " - " +
+          computerWinCount +
+          " Computer"
+        );
       }
     }
   }
