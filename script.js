@@ -4,6 +4,7 @@
 var nameMode = 1;
 var normalMode = 0;
 var reversedMode = 0;
+var artifMode = 0;
 var playerWins = 0;
 var playerLoss = 0;
 var playerTries = 0;
@@ -76,9 +77,9 @@ var winOutcome = function () {
 //_______________________>> MAIN FUNCTION <<__________________________
 var main = function (input) {
   myGloriousHand = " Please follow the instructions";
-  if (nameMode || normalMode || reversedMode == 0) {
+  if (nameMode || normalMode || reversedMode || artifMode == 0) {
     myGloriousHand =
-      "please enter either normalMode or reversedMode, or nameMode to re-enter your name";
+      "please enter either normalMode, artifMode, reversedMode, or nameMode to re-enter your name";
   }
   // Naming Mode conditions_______________________________
   if (nameMode == 1) {
@@ -86,20 +87,21 @@ var main = function (input) {
     myGloriousHand =
       "Hello Player " +
       userName +
-      " <br> <br>Please enter normalMode or reversedMode, or nameMode to re-enter your name";
+      " <br> <br>Please enter normalMode, artifMode, reversedMode, or nameMode to re-enter your name";
     nameMode = 0;
   }
 
   if (input == "nameMode" && nameMode == 0) {
     nameMode = 1;
     myGloriousHand =
-      "Please input your name. <br><br>Followed by either normalMode or reversedMode, or nameMode to re-enter username";
+      "Please input your name. <br><br>Followed by either normalMode, artifMode, reversedMode, or nameMode to re-enter username";
   }
   // Normal Mode conditions_______________________________
   if (input == "normalMode") {
     nameMode = 0;
     reversedMode = 0;
     normalMode = 1;
+    artifMode = 1;
     myGloriousHand =
       "In normalMode, please enter either scissors, paper, or stone to play";
   }
@@ -144,6 +146,7 @@ var main = function (input) {
     nameMode = 0;
     reversedMode = 1;
     normalMode = 0;
+    artifMode = 1;
     myGloriousHand =
       "In reversedMode, please enter either reverse scissors, reverse paper, or reverse stone to play";
   }
@@ -185,7 +188,28 @@ var main = function (input) {
       loseOutcome();
     }
   }
-
+  // Artificial Mode conditions_______________________________
+  if (input == "artifMode") {
+    artifMode = 1;
+    normalMode = 0;
+    nameMode = 0;
+    reversedMode = 0;
+    myGloriousHand = "You may click to have the computer roll for you";
+  }
+  if (artifMode == 1) {
+    diceRoll();
+    if (diceRoll() == 1) {
+      drawOutcome();
+    }
+    if (diceRoll() == 2) {
+      winOutcome();
+    }
+    if (diceRoll() == 3) {
+      loseOutcome();
+    }
+    console.log(diceRoll());
+  }
+  // Reset Mode_______________________________
   if (input == "reset") {
     nameMode = 1;
     normalMode = 0;
