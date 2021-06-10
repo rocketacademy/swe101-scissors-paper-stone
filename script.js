@@ -1,227 +1,190 @@
-// User inputs choice of Scissors,Paper or Stone.
-// Script will roll 3-sided dice upon input.
-// randomDiceNumber will correspond to a variable output name
-// e.g 'if (randomDiceNumber = 1){computerAnswer = scissors };'
-// Each roll will be compared to User Input, and give out a corresponding string Output.
-// Let Scissors be 1, Paper be 2, and Stone be 3
-
-// Script has a trigger (playerNameTrigger)
-// if(playerName == input){ }
-
-var playerScore = 0;
-var playerTries = 0;
-var playerLosses = 0;
-var playerNameTrigger = 0;
-var playerName = "";
+// Script to Run DiceRoll
+// Script to take input to dictate which mode starts.
+// 3 modes = nameMode, normalMode, reversedMode. If user were to type in any of their names, the corresponding mode will take its place. Each mode is set up in the main function.
+var nameMode = 1;
+var normalMode = 0;
+var reversedMode = 0;
 var playerWins = 0;
+var playerLoss = 0;
+var playerTries = 0;
+var myGloriousHand = "";
 
-var main = function (input) {
-  var computerAnswer = rollTheDice();
-  var myOutputValue =
-    "Please enter the correct spelling of either: scissors, paper, or stone. Thanks a bunch playa!";
+var scoringPercentage = function () {
+  var playerDecimal = playerWins / playerTries;
+  var playerPercentage = Math.ceil(playerDecimal * 100);
+  return playerPercentage;
+};
+
+//______________________________________________;
+var scissors = "scissors";
+var paper = "paper";
+var stone = "stone";
+var reversedScissors = "reversed scissors";
+var reversedPaper = "reversed paper";
+var reversedStone = "reversed stone";
+//_____________________________________________________
+// Let 1 be scissors/reversed scissors, 2 be paper/reversed paper, 3 be stone/reversed stone
+
+var diceRoll = function () {
+  randomMathNumber = Math.random() * 3;
+  var basicDiceRoll = Math.ceil(randomMathNumber);
+  return basicDiceRoll;
+};
+//Outcome Functions__________________________________
+var drawOutcome = function () {
   playerTries = playerTries + 1;
-  if (
-    playerNameTrigger == 0 &&
-    input !=
-      ("scissors" ||
-        "paper" ||
-        "stone" ||
-        "reversed scissors" ||
-        "reversed paper" ||
-        "reversed stone")
-  ) {
-    playerName = input;
-    playerTries = playerTries - 1;
-    playerNameTrigger = 1;
-    myOutputValue = "Lets have a good game, Player " + playerName;
-  }
-  console.log(playerName);
-
-  if (
-    input == "scissors" ||
-    "paper" ||
-    "stone" ||
-    "reversed scissors" ||
-    "reversed paper" ||
-    "reversed stone"
-  ) {
-    playerNameTrigger = 1;
-  }
-  if (computerAnswer == 1 && input == "scissors") {
-    //___________________If input is 'scissors'________________________________
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Draw! We both threw Scissors! <br> Ah! <br> Caterpie can't cut it! <br> Your Score is: " +
-      playerScore;
-  }
-  if (computerAnswer == 2 && input == "scissors") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Win! Scissors beats paper<br> Awesome mate! <br> You cut that paper like Mr Himura<br> Your Score is: " +
-      (playerScore + 1);
-    playerScore = playerScore + 1;
-    playerWins = playerWins + 1;
-  }
-  if (computerAnswer == 3 && input == "scissors") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Loss! Stone beats Scissors <br> Hulk(stone) SMASH puny scissors<br> Your Score is: " +
-      (playerScore - 1);
-    playerScore = playerScore - 1;
-    playerLosses = playerLosses + 1;
-  }
-  //__________________If input is 'paper'_______________________________
-  if (computerAnswer == 1 && input == "paper") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Loss! Scissors beats Paper <br> You got sliced in two. <br> Don't worry, i used the back of my blade <br> Your Score is: " +
-      (playerScore - 1);
-    playerScore = playerScore - 1;
-    playerLosses = playerLosses + 1;
-  }
-  if (computerAnswer == 2 && input == "paper") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Draw! We both threw Paper! <br> Both of us used paper, so i guess the game's over. <br> That's a wrap people! <br> Your Score is: " +
-      playerScore;
-  }
-  if (computerAnswer == 3 && input == "paper") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Win! Paper beats Stone <br> You can call me a kid, cos you just wrapped my stone like a mummy<br> Your Score is: " +
-      (playerScore + 1);
-    playerScore = playerScore + 1;
-    playerWins = playerWins + 1;
-  }
-  //__________________If input is 'stone'_______________________________
-  if (computerAnswer == 1 && input == "stone") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Win! Stone beats Scissors<br> That doesn't make any sense! <br> How can rock beat metal!?<br> Your Score is: " +
-      (playerScore + 1);
-    playerScore = playerScore + 1;
-    playerWins = playerWins + 1;
-  }
-  if (computerAnswer == 2 && input == "stone") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Loss! Paper beats Stone <br> Are you a sweet? Cos i'm your wrapper <br> Your Score is: " +
-      (playerScore - 1);
-    playerScore = playerScore - 1;
-    playerLosses = playerLosses + 1;
-  }
-  if (computerAnswer == 3 && input == "stone") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Draw! We both threw Stone!<br> Ah well, two rocks don't make a right <br> Your Score is: " +
-      playerScore;
-  }
-  //__________________If input is 'reversed scissors'_____________________
-
-  if (computerAnswer == 1 && input == "reversed scissors") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Draw! We both threw Scissors!<br> Ah! <br> Caterpie can't cut it!<br> Your Score is: " +
-      playerScore;
-  }
-  if (computerAnswer == 2 && input == "reversed scissors") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Loss! Paper beats Scissors in this twisted game..<br> That.. is some thick-a** paper<br> Your Score is: " +
-      (playerScore - 1);
-    playerScore = playerScore - 1;
-    playerLosses = playerLosses + 1;
-  }
-  if (computerAnswer == 3 && input == "reversed scissors") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Win! Scissors beats Stone in this twisted game..<br> What!? <br> Did ghosts of demon-killed anime kids teach you to do that<br> Your Score is: " +
-      (playerScore + 1);
-    playerScore = playerScore + 1;
-    playerWins = playerWins + 1;
-  }
-  //__________________If input is 'reversed paper'_______________________________
-  if (computerAnswer == 1 && input == "reversed paper") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Win! Paper beats Scissors in this twisted game..<br> Your paper wrapped my scissors for Christmas<br> Your Score is: " +
-      (playerScore + 1);
-    playerScore = playerScore + 1;
-    playerWins = playerWins + 1;
-  }
-  if (computerAnswer == 2 && input == "reversed paper") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Draw! We both threw Paper!<br> Both of us used paper, so i guess the game's over. <br> That's a wrap people!<br> Your Score is: " +
-      playerScore;
-  }
-  if (computerAnswer == 3 && input == "reversed paper") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Loss! Stone beats Paper in this twisted game..<br> My Rock Throw got through your paper thin defences<br> Your Score is: " +
-      (playerScore - 1);
-    playerScore = playerScore - 1;
-    playerLosses = playerLosses + 1;
-  }
-  //__________________If input is 'reversed stone'_______________________________
-  if (computerAnswer == 1 && input == "reversed stone") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Loss! Scissors beats Stone in this twisted game..<br> Pikachu used rock cut!<br> Your Score is: " +
-      (playerScore - 1);
-    playerScore = playerScore - 1;
-    playerLosses = playerLosses + 1;
-  }
-  if (computerAnswer == 2 && input == "reversed stone") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Win! Stone beats Paper in this twisted game..<br> Im-Impossibru!<br> Your Score is: " +
-      (playerScore + 1);
-    ("<br> Now add 1");
-    playerScore = playerScore + 1;
-    playerWins = playerWins + 1;
-  }
-  if (computerAnswer == 3 && input == "reversed stone") {
-    myOutputValue =
-      "Player " +
-      playerName +
-      ", Draw! We both threw Stone!<br> Ah well, two rocks don't make a right<br> Your Score is: " +
-      playerScore;
-  }
-  console.log(playerScore);
-  myOutputValue =
-    myOutputValue +
-    "<br>You have won: " +
+  myGloriousHand =
+    "Draw! You have a score of : " +
     playerWins +
-    " times, and " +
-    "<br> You have lost " +
-    playerLosses +
-    " times";
-  //__________________End of Conditions_______________________________
-  return myOutputValue;
+    " wins and " +
+    playerLoss +
+    " losses" +
+    "<br><br> That gives you a win percentage of : " +
+    scoringPercentage() +
+    "% <br><br> 👊 (❛̃ ⏥❛̃) 👊";
+  return myGloriousHand;
+};
+var loseOutcome = function () {
+  playerLoss = playerLoss + 1;
+  playerTries = playerTries + 1;
+  myGloriousHand =
+    "Lose! You have a score of : " +
+    playerWins +
+    " wins and " +
+    playerLoss +
+    " losses" +
+    "<br><br> That gives you a win percentage of : " +
+    scoringPercentage() +
+    "% <br><br> (❛̃ 👅❛̃)";
+  return myGloriousHand;
+};
+var winOutcome = function () {
+  playerWins = playerWins + 1;
+  playerTries = playerTries + 1;
+  myGloriousHand =
+    "Win! You have a score of : " +
+    playerWins +
+    " wins and " +
+    playerLoss +
+    " losses" +
+    "<br><br> That gives you a win percentage of : " +
+    scoringPercentage() +
+    "% <br><br> (❛̃ ᴗ❛̃)✌";
+  return myGloriousHand;
 };
 
-// __________________DICE ROLL FUNCTION________________________________________
-rollTheDice = function () {
-  var randomMathNumber = Math.random() * 3;
-  var diceRoll = Math.ceil(randomMathNumber);
-  console.log(diceRoll);
-  return diceRoll;
+//_______________________>> MAIN FUNCTION <<__________________________
+var main = function (input) {
+  myGloriousHand = " Please follow the instructions";
+  if (nameMode || normalMode || reversedMode == 0) {
+    myGloriousHand =
+      "please enter either normalMode or reversedMode, or nameMode to re-enter your name";
+  }
+  // Naming Mode conditions_______________________________
+  if (nameMode == 1) {
+    var userName = input;
+    myGloriousHand =
+      "Hello " +
+      userName +
+      " <br> <br>Please enter normalMode or reversedMode, or nameMode to re-enter your name";
+    nameMode = 0;
+  }
+
+  if (input == "nameMode" && nameMode == 0) {
+    nameMode = 1;
+    myGloriousHand =
+      "Please input your name. Followed by either normalMode or reversedMode, or nameMode to re-enter username";
+  }
+  // Normal Mode conditions_______________________________
+  if (input == "normalMode") {
+    nameMode = 0;
+    reversedMode = 0;
+    normalMode = 1;
+    myGloriousHand =
+      "In normalMode, please enter either scissors, paper, or stone to play";
+  }
+
+  if (normalMode == 1 && (input == "scissors" || "paper" || "stone")) {
+    var computerAnswer = diceRoll();
+
+    //___Draw Outcome____
+    if (input == "scissors" && computerAnswer == 1) {
+      drawOutcome();
+    }
+    if (input == "paper" && computerAnswer == 2) {
+      drawOutcome();
+    }
+    if (input == "stone" && computerAnswer == 3) {
+      drawOutcome();
+    }
+    //____Win Outcome____
+    if (input == "scissors" && computerAnswer == 2) {
+      winOutcome();
+    }
+    if (input == "paper" && computerAnswer == 3) {
+      winOutcome();
+    }
+    if (input == "stone" && computerAnswer == 1) {
+      winOutcome();
+    }
+    //___Loss Outcome____
+    if (input == "scissors" && computerAnswer == 3) {
+      loseOutcome();
+    }
+    if (input == "paper" && computerAnswer == 1) {
+      loseOutcome();
+    }
+    if (input == "stone" && computerAnswer == 2) {
+      loseOutcome();
+    }
+  }
+
+  // Reversed Mode conditions_______________________________
+  if (input == "reversedMode") {
+    nameMode = 0;
+    reversedMode = 1;
+    normalMode = 0;
+    myGloriousHand =
+      "In reversedMode, please enter either reverse scissors, reverse paper, or reverse stone to play";
+  }
+
+  if (
+    reversedMode == 1 &&
+    (input == "reverse scissors" || "reverse paper" || "reverse stone")
+  ) {
+    var computerAnswer = diceRoll();
+
+    //___Draw Outcome____
+    if (input == "reverse scissors" && computerAnswer == 1) {
+      drawOutcome();
+    }
+    if (input == "reverse paper" && computerAnswer == 2) {
+      drawOutcome();
+    }
+    if (input == "reverse stone" && computerAnswer == 3) {
+      drawOutcome();
+    }
+    //____Win Outcome____
+    if (input == "reverse scissors" && computerAnswer == 3) {
+      winOutcome();
+    }
+    if (input == "reverse paper" && computerAnswer == 1) {
+      winOutcome();
+    }
+    if (input == "reverse stone" && computerAnswer == 2) {
+      winOutcome();
+    }
+    //___Loss Outcome____
+    if (input == "reverse scissors" && computerAnswer == 2) {
+      loseOutcome();
+    }
+    if (input == "reverse paper" && computerAnswer == 3) {
+      loseOutcome();
+    }
+    if (input == "reverse stone" && computerAnswer == 1) {
+      loseOutcome();
+    }
+  }
+  return myGloriousHand;
 };
+//_______________________>> MAIN FUNCTION END <<__________________________

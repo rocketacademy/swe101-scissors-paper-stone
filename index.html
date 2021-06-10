@@ -15,6 +15,10 @@
         background-color: #22475e;
       }
 
+      instructions {
+        font-family: sans-serif;
+        text-align: center;
+      }
       #header {
         text-align: center;
       }
@@ -53,9 +57,13 @@
   </head>
 
   <body>
-    <h1 id="header">Basics: Scissors Paper Stone 🚀</h1>
+    <h1 id="header">Welcome to the Scissors Paper Stone Game</h1>
+
     <div id="container">
-      <p>Type in scissors, paper or stone to test your luck!:</p>
+      <p>
+        Enter your name, afterwhich you may type either normalMode, or
+        reversedMode
+      </p>
       <input id="input-field" />
       <button id="submit-button">Bring it Playa!</button>
       <p>My Glorious Hand:</p>
@@ -82,3 +90,9 @@
     </script>
   </body>
 </html>
+
+<instructions>
+  <p>Enter your name for starters (❛̃ ᴗ❛̃)✌</p>
+  <p>You may then enter normalMode, or reversedMode to play</p>
+  <p>Alternatively, you may enter nameMode to re-enter your username</p>
+</instructions>
