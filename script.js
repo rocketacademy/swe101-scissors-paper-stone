@@ -8,8 +8,14 @@ var winCount_user = 0;
 var winCount_com = 0;
 // Declare variable tracking the number of draws
 var drawCount = 0;
+// Declare 3 variables containing the string of 3 possible options
+var STONE = 'stone';
+var SCISSORS = 'scissors';
+var PAPER = 'paper';
 // Declare an array of the 3 possible game options for the user to choose from
-var gameOptions = ['scissors', 'paper', 'stone'];
+var gameOptions = [STONE, SCISSORS, PAPER];
+
+
 
 
 // Define a function that randomly generates either scissors, paper or stone
@@ -29,8 +35,12 @@ var randomDraw = function () {
   return randomOutput;
 };
 
+
+
 // Define a function that checks if the user input is valid i.e. scissors, paper or stone
-var checkInput = function (input) {
+var checkInput = function (str) {
+  // Convert input string characters to lowercase
+  var input = str.toLowerCase();
   console.log('Running user input validation');
   if (input != gameOptions[0] && input != gameOptions[1] && input != gameOptions[2]) {
     return false;
@@ -38,8 +48,11 @@ var checkInput = function (input) {
   return true;
 }
 
-var main = function (input) {  
-  
+
+
+var main = function (str) {  
+  // Convert input string characters to lowercase
+  var input = str.toLowerCase();
   // Input validation: If the user types something other than SPS
   if (checkInput(input) == false) {
     console.log('==Invalid input: Request to reenter==');
@@ -60,14 +73,14 @@ var main = function (input) {
       myOutputValue = `You chose ${input} and the computer chose ${comOutput}.<br>It is a draw :-)`;
     } 
     // If the user wins 
-    else if ( (input == 'scissors' && comOutput == 'paper') || (input == 'paper' && comOutput == 'stone') || (input == 'stone' && comOutput == 'scissors') ){
+    else if ( (input == SCISSORS && comOutput == PAPER) || (input == PAPER && comOutput == STONE) || (input == STONE && comOutput == SCISSORS) ){
       // Update the number of user wins
       winCount_user += 1;
       console.log('** User winning **');
       myOutputValue = `You chose ${input} and the computer chose ${comOutput}. <br>You win :) `;
     } 
     // If the computer wins
-    else if ((comOutput == 'scissors' && input == 'paper') || (comOutput == 'paper' && input == 'stone') || (comOutput == 'stone' && input == 'scissors')) {
+    else if ((comOutput == SCISSORS && input == PAPER) || (comOutput == PAPER && input == STONE) || (comOutput == STONE && input == SCISSORS)) {
       // Update the number of computer wins
       winCount_com += 1;
       console.log('** Computer winning **');
