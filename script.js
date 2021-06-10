@@ -20,7 +20,7 @@ var gameOptions = [STONE, SCISSORS, PAPER];
 
 // Define a function that randomly generates either scissors, paper or stone
 var randomDraw = function () {
-  console.log('running randomDraw function')
+  console.log('running randomDraw function');
   
   // Generate a random decimal between 0 to 3, inclusive of 0 and excluding 3
   var randomDecimal = Math.random() * 3;
