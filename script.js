@@ -84,7 +84,7 @@ var main = function (input) {
   if (nameMode == 1) {
     var userName = input;
     myGloriousHand =
-      "Hello " +
+      "Hello Player " +
       userName +
       " <br> <br>Please enter normalMode or reversedMode, or nameMode to re-enter your name";
     nameMode = 0;
@@ -93,7 +93,7 @@ var main = function (input) {
   if (input == "nameMode" && nameMode == 0) {
     nameMode = 1;
     myGloriousHand =
-      "Please input your name. Followed by either normalMode or reversedMode, or nameMode to re-enter username";
+      "Please input your name. <br><br>Followed by either normalMode or reversedMode, or nameMode to re-enter username";
   }
   // Normal Mode conditions_______________________________
   if (input == "normalMode") {
@@ -184,6 +184,17 @@ var main = function (input) {
     if (input == "reverse stone" && computerAnswer == 1) {
       loseOutcome();
     }
+  }
+
+  if (input == "reset") {
+    nameMode = 1;
+    normalMode = 0;
+    reversedMode = 0;
+    playerTries = 0;
+    playerWins = 0;
+    playerLoss = 0;
+    myGloriousHand =
+      "Please re-enter your name, followed by the mode of play. Your scores have been reset.";
   }
   return myGloriousHand;
 };
