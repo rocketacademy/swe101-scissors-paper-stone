@@ -1,10 +1,19 @@
-// define function for programme randomly choosing SPS
+// define global variables for user win, user lose (aka computer win)
+// storing user name - else if function
+//  define function for programme randomly choosing SPS
 // no input: if no user input -> empty input message
 // input validation: if user chooses NOT SPS -> text output
 // if user chooses scissors AND programme chooses paper -> user wins
 // if user chooses paper AND programme chooses stone -> user wins
 // if user chooses stone AND programme chooses scissors -> user wins
 // if user AND programme chooses same -> draw
+
+// define global variables for user win, user lose (aka computer win)
+var numberUserWins = 0;
+var numberUserLoses = 0;
+var numberUserDraws = 0;
+var currentGameMode = "waiting for user name";
+var userName = " ";
 
 // define function for programme randomly choosing SPS
 var generateSystemNumber = function () {
@@ -28,94 +37,185 @@ var generateSystemChoice = function () {
 };
 
 var main = function (input) {
+  var myOutputValue = " ";
+  // do this if game mode is waiting for user name
+  if (currentGameMode == "waiting for user name") {
+    userName = input;
+    // once user enters name -> game switches into dice mode
+    currentGameMode = "SPS";
+    myOutputValue =
+      "hello " + userName + ". Please input scissors, paper, or stone.";
+  } else if (currentGameMode == "SPS") {
+    // need to do refactoring then come back to this
+    myOutputValue = SpsGame(userName, input);
+  }
+  return myOutputValue;
+};
+
+var SpsGame = function (userName, userChoice) {
+  var message = " ";
   var systemChoice = generateSystemChoice();
 
-  // condition debugging
+  // condition debugging - fix this last
   console.log("user choice");
-  console.log(input);
+  console.log(userChoice);
   console.log("system choice");
   console.log(systemChoice);
   console.log("user scissors system paper is win");
-  console.log(input == "scissors" && systemChoice == "paper");
+  console.log(userChoice == "scissors" && systemChoice == "paper");
   console.log("user paper system stone is win");
-  console.log(input == "paper" && systemChoice == "stone");
+  console.log(userChoice == "paper" && systemChoice == "stone");
   console.log("user stone system scissors is win");
-  console.log(input == "stone" && systemChoice == "scissors");
+  console.log(userChoice == "stone" && systemChoice == "scissors");
   console.log("user and system chose same");
-  console.log(input == systemChoice);
+  console.log(userChoice == systemChoice);
 
   console.log("user reverse scissors system stone is win");
-  console.log(input == "reverse scissors" && systemChoice == "stone");
+  console.log(userChoice == "reverse scissors" && systemChoice == "stone");
   console.log("user reverse stone system paper is win");
-  console.log(input == "reverse stone" && systemChoice == "paper");
+  console.log(userChoice == "reverse stone" && systemChoice == "paper");
   console.log("user reverse paper system scissors is win");
-  console.log(input == "reverse paper" && systemChoice == "scissors");
+  console.log(userChoice == "reverse paper" && systemChoice == "scissors");
 
   //no input: if no input -> empty input message
-  if (input == "") {
+  if (userChoice == "") {
     return "Invalid entry!";
   }
-  //input invalidation: if it's not banana, chisel or faucet -> invalid input message.
+  //input invalidation: if it's not scissors, paper or stone -> invalid input message.
   if (
-    input != "scissors" &&
-    input != "paper" &&
-    input != "stone" &&
-    input != "reverse scissors" &&
-    input != "reverse paper" &&
-    input != "reverse stone"
+    userChoice != "scissors" &&
+    userChoice != "paper" &&
+    userChoice != "stone" &&
+    userChoice != "reverse scissors" &&
+    userChoice != "reverse paper" &&
+    userChoice != "reverse stone"
   ) {
-    return "Please enter scissors/paper/stone into box.";
+    message = userName + ", please enter scissors/paper/stone into box.";
+    return message;
   }
 
   // if user chooses scissors AND programme chooses paper -> user wins
   // if user chooses paper AND programme chooses stone -> user wins
   // if user chooses stone AND programme chooses scissors -> user wins
   if (
-    (input == "scissors" && systemChoice == "paper") ||
-    (input == "paper" && systemChoice == "stone") ||
-    (input == "stone" && systemChoice == "scissors")
+    (userChoice == "scissors" && systemChoice == "paper") ||
+    (userChoice == "paper" && systemChoice == "stone") ||
+    (userChoice == "stone" && systemChoice == "scissors")
   ) {
+    numberUserWins = numberUserWins + 1;
+    message =
+      userName +
+      ", you win! <br><br> The system chose " +
+      systemChoice +
+      ". <br><br> You have " +
+      numberUserWins +
+      " wins, " +
+      numberUserLoses +
+      " losses, and " +
+      numberUserDraws +
+      " draws. <br><br> Well done, you've been winning " +
+      numberUserWins +
+      " out of " +
+      (numberUserWins + numberUserDraws + numberUserLoses) +
+      " turns.";
     console.log("win!");
-    return "You win! <br><br> The system chose " + systemChoice + ".";
+    return message;
   }
+
   // if user and programme choose same -> draw
-  if (input == systemChoice) {
+  if (userChoice == systemChoice) {
+    numberUserDraws = numberUserDraws + 1;
     console.log("draw!");
-    return "You drew! <br><br> The system chose " + systemChoice + ".";
+    message =
+      userName +
+      ", you drew! <br><br> The system chose " +
+      systemChoice +
+      ". <br><br> You have " +
+      numberUserWins +
+      " wins, " +
+      numberUserLoses +
+      " losses, and " +
+      numberUserDraws +
+      " draws. <br><br> You're alright, you've been winning " +
+      numberUserWins +
+      " out of " +
+      (numberUserWins + numberUserDraws + numberUserLoses) +
+      " turns.";
+    return message;
   }
   // reverse game: win scenario
   // if user chooses reverse scissors AND programme chooses stone -> user wins
   // if user chooses reverse stone AND programme chooses paper -> user wins
   // if user chooses reverse paper AND programme chooses scissors -> user wins
   if (
-    (input == "reverse scissors" && systemChoice == "stone") ||
-    (input == "reverse stone" && systemChoice == "paper") ||
-    (input == "reverse paper" && systemChoice == "scissors")
+    (userChoice == "reverse scissors" && systemChoice == "stone") ||
+    (userChoice == "reverse stone" && systemChoice == "paper") ||
+    (userChoice == "reverse paper" && systemChoice == "scissors")
   ) {
+    numberUserWins = numberUserWins + 1;
     console.log("winning reverse game!");
-    return (
-      "You win at the reverse game! <br><br> The system chose " +
+    message =
+      userName +
+      ", you win at the reverse game! <br><br> The system chose " +
       systemChoice +
-      "."
-    );
+      ". <br><br> You have " +
+      numberUserWins +
+      " wins, " +
+      numberUserLoses +
+      " losses, and " +
+      numberUserDraws +
+      " draws. <br><br> Well done, you've been winning " +
+      numberUserWins +
+      " out of " +
+      (numberUserWins + numberUserDraws + numberUserLoses) +
+      " turns.";
+    return message;
   }
   // reverse game: draw scenario
   // if user chooses reverse scissors AND programme chooses scissors -> user wins
   // if user chooses reverse stone AND programme chooses stone -> user wins
   // if user chooses reverse paper AND programme chooses paper -> user wins
   if (
-    (input == "reverse scissors" && systemChoice == "scissors") ||
-    (input == "reverse stone" && systemChoice == "stone") ||
-    (input == "reverse paper" && systemChoice == "paper")
+    (userChoice == "reverse scissors" && systemChoice == "scissors") ||
+    (userChoice == "reverse stone" && systemChoice == "stone") ||
+    (userChoice == "reverse paper" && systemChoice == "paper")
   ) {
+    numberUserDraws = numberUserDraws + 1;
     console.log("drawing reverse game!");
-    return (
-      "You drew at the reverse game! <br><br> The system chose " +
+    message =
+      userName +
+      ", you drew at the reverse game! <br><br> The system chose " +
       systemChoice +
-      "."
-    );
+      ". <br><br> You have " +
+      numberUserWins +
+      " wins, " +
+      numberUserLoses +
+      " losses, and " +
+      numberUserDraws +
+      " draws. <br><br> You're alright, you've been winning " +
+      numberUserWins +
+      " out of " +
+      (numberUserWins + numberUserDraws + numberUserLoses) +
+      " turns.";
+    return message;
   }
 
   // if it is any other combination -> user loses
-  return "You lose! <br><br> The system chose " + systemChoice + ".";
+  numberUserLoses = numberUserLoses + 1;
+  message =
+    userName +
+    ", you lose! <br><br> The system chose " +
+    systemChoice +
+    ". <br><br> You have " +
+    numberUserWins +
+    " wins, " +
+    numberUserLoses +
+    " losses, and " +
+    numberUserDraws +
+    " draws. <br><br> Try harder, you've been winning " +
+    numberUserWins +
+    " out of " +
+    (numberUserWins + numberUserDraws + numberUserLoses) +
+    " turns.";
+  return message;
 };
