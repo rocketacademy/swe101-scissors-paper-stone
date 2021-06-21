@@ -3,6 +3,7 @@ var gameCount = 0;
 var draw = 0;
 
 var gamemode = "input";
+var username = "";
 
 var getRandomChoice = function () {
   var randomChoice = Math.floor(Math.random() * 3);
@@ -34,13 +35,20 @@ var getWinner = function (playerChoice) {
   } else {
     outputMessage = `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`;
   }
-  outputMessage += `<br><br>You have won ${winCount} out of ${gameCount} games.<br>Try playing again by typing 'scissors', 'rock', or 'paper'. Good luck!`;
+  outputMessage += `<br><br>So far ${username}, you have won ${winCount} out of ${gameCount} games.<br>Try playing again by typing 'scissors', 'rock', or 'paper'. Good luck!`;
   return outputMessage;
 };
 
 var doPaperRockScissors = function (input) {
-  if (validateInput(input)) return getWinner(input);
-  else return "Please input either paper, rock, scissors only. Try again :)";
+  if (gamemode == "input") {
+    username = input;
+    gamemode = "start";
+    return `Hi! ${input}, play Paper,Rock, Scissors game! Good luck and have fun.`;
+  }
+  if (gamemode == "start") {
+    if (validateInput(input)) return getWinner(input);
+    else return "Please input either paper, rock, scissors only. Try again :)";
+  }
 };
 var main = function (input) {
   return doPaperRockScissors(input);
