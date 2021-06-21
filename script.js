@@ -38,12 +38,14 @@ var getWinnerNormalMode = function (playerChoice) {
     if (recentWinner == username) {
       outputMessage += `<br>You won in the last round, so you are the winner! Muk-jji-ppa!`;
       winCount += 1;
+    } else if (recentWinner == "bot") {
+      outputMessage += `<br> Sorry, the bot won in the last round so it is the winner. Muk-jji-ppa!`;
     }
+    outputMessage += `<br><br>So far ${username}, you have won ${winCount} out of ${gameCount} games.<br>Try playing again by typing 'scissors', 'rock', or 'paper'. Good luck!`;
   } else {
     outputMessage = `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`;
     recentWinner = "bot";
   }
-  outputMessage += `<br><br>So far ${username}, you have won ${winCount} out of ${gameCount} games.<br>Try playing again by typing 'scissors', 'rock', or 'paper'. Good luck!`;
   return outputMessage;
 };
 
