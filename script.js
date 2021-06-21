@@ -13,18 +13,18 @@ var getWinner = function (playerChoice) {
   var computerChoice = getRandomChoice();
   var outputMessage = "";
   if (playerChoice == "rock" && computerChoice == "scissors") {
-    outputMessage = `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    outputMessage = `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`;
   } else if (playerChoice == "paper" && computerChoice == "rock") {
-    outputMessage = `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    outputMessage = `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`;
   } else if (playerChoice == "scissors" && computerChoice == "paper") {
-    outputMessage = `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    outputMessage = `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`;
   } else if (playerChoice == computerChoice) {
     outputMessage = `It's a draw! You chose ${playerChoice} and the computer chose ${computerChoice}`;
   } else {
-    outputMessage = `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    outputMessage = `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
   }
   outputMessage +=
-    "<br><br>Try playing again by typing `scissors`,`rock`, or `paper`. Good luck!";
+    "<br><br>Reversed! Haha, try playing again by typing 'scissors', 'rock', or 'paper'. Good luck!";
   return outputMessage;
 };
 var doPaperRockScissors = function (input) {
