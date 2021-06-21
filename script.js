@@ -1,6 +1,7 @@
 var winCount = 0;
 var gameCount = 0;
 var draw = 0;
+var recentWinner = "";
 
 var gamemode = "input";
 var username = "";
@@ -17,45 +18,62 @@ var validateInput = function (input) {
   else return 0;
 };
 var getWinnerNormalMode = function (playerChoice) {
-  gameCount += 1;
   var computerChoice = getRandomChoice();
   var outputMessage = "";
   if (playerChoice == "rock" && computerChoice == "scissors") {
     outputMessage = `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    recentWinner = username;
     winCount += 1;
   } else if (playerChoice == "paper" && computerChoice == "rock") {
     outputMessage = `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    recentWinner = username;
     winCount += 1;
   } else if (playerChoice == "scissors" && computerChoice == "paper") {
     outputMessage = `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    recentWinner = username;
     winCount += 1;
   } else if (playerChoice == computerChoice) {
+    gameCount += 1;
     outputMessage = `It's a draw! You chose ${playerChoice} and the computer chose ${computerChoice}`;
-    winCount += 1;
+    if (recentWinner == username) {
+      outputMessage += `<br>You won in the last round, so you are the winner! Muk-jji-ppa!`;
+      winCount += 1;
+    }
   } else {
     outputMessage = `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    recentWinner = "bot";
   }
   outputMessage += `<br><br>So far ${username}, you have won ${winCount} out of ${gameCount} games.<br>Try playing again by typing 'scissors', 'rock', or 'paper'. Good luck!`;
   return outputMessage;
 };
 
 var getWinnerReverseMode = function (playerChoice) {
-  gameCount += 1;
   var computerChoice = getRandomChoice();
   var outputMessage = "";
   if (playerChoice == "rock" && computerChoice == "scissors") {
     outputMessage = `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    recentWinner = "bot";
+    winCount += 1;
   } else if (playerChoice == "paper" && computerChoice == "rock") {
     outputMessage = `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    recentWinner = "bot";
+    winCount += 1;
   } else if (playerChoice == "scissors" && computerChoice == "paper") {
     outputMessage = `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    recentWinner = "bot";
+    winCount += 1;
   } else if (playerChoice == computerChoice) {
+    gameCount += 1;
     outputMessage = `It's a draw! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    if (recentWinner == username) {
+      outputMessage += `<br>You won in the last round, so you are the winner! Muk-jji-ppa!`;
+      winCount += 1;
+    }
   } else {
     outputMessage = `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
-    winCount += 1;
+    recentWinner = username;
   }
-  outputMessage += `<br><br>Reversed, haha! <br><br>So far ${username}, you have won ${winCount} out of ${gameCount} games.<br>Try playing again by typing 'scissors', 'rock', or 'paper'. Good luck!`;
+  outputMessage += `<br><br>Reversed, haha!<br><br>So far ${username}, you have won ${winCount} out of ${gameCount} games.<br>Try playing again by typing 'scissors', 'rock', or 'paper'. Good luck!`;
   return outputMessage;
 };
 
