@@ -11,17 +11,21 @@ var validateInput = function (input) {
 };
 var getWinner = function (playerChoice) {
   var computerChoice = getRandomChoice();
+  var outputMessage = "";
   if (playerChoice == "rock" && computerChoice == "scissors") {
-    return `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    outputMessage = `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
   } else if (playerChoice == "paper" && computerChoice == "rock") {
-    return `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    outputMessage = `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
   } else if (playerChoice == "scissors" && computerChoice == "paper") {
-    return `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    outputMessage = `You win! You chose ${playerChoice} and the computer chose ${computerChoice}`;
   } else if (playerChoice == computerChoice) {
-    return `It's a draw! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    outputMessage = `It's a draw! You chose ${playerChoice} and the computer chose ${computerChoice}`;
   } else {
-    return `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`;
+    outputMessage = `You lose! You chose ${playerChoice} and the computer chose ${computerChoice}`;
   }
+  outputMessage +=
+    "<br><br>Try playing again by typing `scissors`,`rock`, or `paper`. Good luck!";
+  return outputMessage;
 };
 var doPaperRockScissors = function (input) {
   if (validateInput(input)) return getWinner(input);
