@@ -6,7 +6,7 @@ var main = function (input) {
   console.log("Com-output");
   console.log(comOutput);
   if (userInput == -1) { //Error handler
-    return `Error! Please key in text: "rock"/"paper"/"scissors"
+    return `Error! Please key in text: "stone"/"paper"/"scissors"
     <br> (ps. type 'reversed' at the beginning to trigger reverse-mode)`;
   }
   else { //Scissors paper logic
@@ -24,7 +24,7 @@ var main = function (input) {
     Both the computer and you chose ${symbolMaker(assignOutput(comOutput))}! 
     <br> It's a draw!
     <br>
-    <br> Now you can type "scissors", "paper" or "rock" to play another round!
+    <br> Now you can type "scissors", "paper" or "stone" to play another round!
     <br> (ps. type 'reversed' at the beginning to trigger reverse-mode)`;
   }
   if (result ==1){ //user wins
@@ -34,7 +34,7 @@ var main = function (input) {
     <br>
     <br>You win! Good job.
     <br>
-    <br> Now you can type "scissors", "paper" or "rock" to play another round!
+    <br> Now you can type "scissors", "paper" or "stone" to play another round!
     <br> (ps. type 'reversed' at the beginning to trigger reverse-mode)`;
   }
   if (result ==0){ //user wins
@@ -44,7 +44,7 @@ var main = function (input) {
     <br>
     <br>You lose! Bummer! Try again!
     <br>
-    <br> Now you can type "scissors", "paper" or "rock" to play another round!
+    <br> Now you can type "scissors", "paper" or "stone" to play another round!
     <br> (ps. type 'reversed' at the beginning to trigger reverse-mode)`;
   }
   return myOutputValue;
@@ -58,7 +58,7 @@ var randomGen = function (){
 
 var assignOutput = function (value){  //Converts random generator to outputs
   if (value == 0){
-    return "rock";
+    return "stone";
   }
   if (value == 1){
     return "paper";
@@ -69,7 +69,7 @@ var assignOutput = function (value){  //Converts random generator to outputs
 }
 
 var intInput = function(value){ //Converts user inputs into values
-  if (value == "rock"){
+  if (value == "stone"){
     return 0;
   }
   if (value == "paper"){
@@ -90,14 +90,14 @@ var symbolMaker = function (textValue){  //Converts random generator to outputs
   if (textValue == "paper"){
     return "🗒";
   }
-  if (textValue == "rock"){
+  if (textValue == "stone"){
     return "💎";
   } 
 }
 
 var gameLogic = function(comInput,userInput){
   if (userInput == 2 && comInput == 0){
-    return 0; //if user inputs scissors and computer input rock (cycle case special)
+    return 0; //if user inputs scissors and computer input stone (cycle case special)
   }
   else if (comInput>userInput){
     return 0; //means user lost 
@@ -112,7 +112,7 @@ var gameLogic = function(comInput,userInput){
 
 var revGameLogic = function(comInput,userInput){
   if (userInput == 0 && comInput == 2){
-    return 0; //if user inputs scissors and computer input rock (cycle case special)
+    return 0; //if user inputs scissors and computer input stone (cycle case special)
   }
   else if (comInput<userInput){
     return 0; //means user lost 
