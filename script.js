@@ -1,6 +1,9 @@
-var HAND_SCISSORS = "scissors";
-var HAND_PAPER = "paper";
-var HAND_STONE = "stone";
+var HAND_SCI = "scissors";
+var HAND_PAP = "paper";
+var HAND_STO = "stone";
+var EMJ_SCI = "✂️";
+var EMJ_PAP = "📄";
+var EMJ_STO = "🗿";
 
 // GENERATE RANDOM INTEGER (0-2) FOR COMPUTER
 var randComp = function () {
@@ -11,34 +14,68 @@ var randComp = function () {
 
 // COMPARE PLAYER AND COMPUTER HANDS
 var compareHands = function (player, comp) {
-  var result = "you lose";
+  var result = "You lose! Bummer.";
   if (player - comp == -1 || player - comp == 2) {
-    result = "you win!";
+    result = "You win! Hooray!";
   }
   if (player == comp) {
-    result = "it's a draw!";
+    result = "Jinx! It's a draw!";
   }
   return result;
 };
 
 var main = function (input) {
   // VALIDATE INPUT
-  if (input != HAND_SCISSORS && input != HAND_PAPER && input != HAND_STONE) {
+  if (input != HAND_SCI && input != HAND_PAP && input != HAND_STO) {
     return "Invalid input. Please type 'scissors', 'paper', or 'stone' only.";
   }
-  var compHand = randComp();
-  console.log(compHand);
-  // ASSIGN INPUT TO INTEGER (0 SCI, 1 PAP, 2 STO)
-  var playerHand;
-  if (input == HAND_SCISSORS) {
-    playerHand = 0;
+  var compNum = randComp();
+  // ASSIGN COMPHAND AND COMPEMJ (0 SCI, 1 PAP, 2 STO)
+  var compHand;
+  var compEmj;
+  if (compNum == 0) {
+    compHand = HAND_SCI;
+    compEmj = EMJ_SCI;
   }
-  if (input == HAND_PAPER) {
-    playerHand = 1;
+  if (compNum == 1) {
+    compHand = HAND_PAP;
+    compEmj = EMJ_PAP;
   }
-  if (input == HAND_STONE) {
-    playerHand = 2;
+  if (compNum == 2) {
+    compHand = HAND_STO;
+    compEmj = EMJ_STO;
   }
-  var myOutputValue = compareHands(playerHand, compHand);
+  // ASSIGN PLAYERNUM AND PLAYEREMJ(0 SCI, 1 PAP, 2 STO)
+  var playerNum;
+  var playerEmj;
+  if (input == HAND_SCI) {
+    playerNum = 0;
+    playerEmj = EMJ_SCI;
+  }
+  if (input == HAND_PAP) {
+    playerNum = 1;
+    playerEmj = EMJ_PAP;
+  }
+  if (input == HAND_STO) {
+    playerNum = 2;
+    playerEmj = EMJ_STO;
+  }
+  // FORMAT OUTPUT
+  var myOutputValue =
+    "The computer chose " +
+    compHand +
+    " " +
+    compEmj +
+    ". <br>" +
+    "You chose " +
+    input +
+    " " +
+    playerEmj +
+    ". <br>" +
+    "<br>" +
+    compareHands(playerNum, compNum) +
+    "<br>" +
+    "<br>" +
+    "Now you can type 'scissors', 'paper', or 'stone' to play another round!";
   return myOutputValue;
 };
