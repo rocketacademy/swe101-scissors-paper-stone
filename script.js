@@ -9,8 +9,19 @@ var randComp = function () {
   return randInt;
 };
 
+// COMPARE HANDS
+var compareHands = function (player, comp) {
+  var result = "you lose";
+  if (player - comp == -1 || player - comp == 2) {
+    result = "you win!";
+  }
+  if (player == comp) {
+    result = "it's a draw!";
+  }
+  return result;
+};
+
 var main = function (input) {
-  var myOutputValue = "you lose!";
   var compHand = randComp();
   console.log(compHand);
   // ASSIGN INPUT TO INTEGER (0 SCI, 1 PAP, 2 STO)
@@ -24,13 +35,6 @@ var main = function (input) {
   if (input == HAND_STONE) {
     playerHand = 2;
   }
-  // COMPARE PLAYER AND COMPUTER HANDS (WIN)
-  if (playerHand - compHand == -1 || playerHand - compHand == 2) {
-    myOutputValue = "you win!";
-  }
-  // COMPARE PLAYER AND COMPUTER HANDS (DRAW)
-  if (playerHand == compHand) {
-    myOutputValue = "it's a draw!";
-  }
+  var myOutputValue = compareHands(playerHand, compHand);
   return myOutputValue;
 };
