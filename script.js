@@ -9,7 +9,7 @@ var randComp = function () {
   return randInt;
 };
 
-// COMPARE HANDS
+// COMPARE PLAYER AND COMPUTER HANDS
 var compareHands = function (player, comp) {
   var result = "you lose";
   if (player - comp == -1 || player - comp == 2) {
@@ -22,6 +22,10 @@ var compareHands = function (player, comp) {
 };
 
 var main = function (input) {
+  // VALIDATE INPUT
+  if (input != HAND_SCISSORS && input != HAND_PAPER && input != HAND_STONE) {
+    return "Invalid input. Please type 'scissors', 'paper', or 'stone' only.";
+  }
   var compHand = randComp();
   console.log(compHand);
   // ASSIGN INPUT TO INTEGER (0 SCI, 1 PAP, 2 STO)
